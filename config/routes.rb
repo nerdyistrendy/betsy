@@ -12,12 +12,12 @@ Rails.application.routes.draw do
   patch "order_items/:id/ship", to: "order_items#ship", as: "ship_item"
 
 
-  resources :products do
+  resources :products, except: [:new, :create] do
     resources :reviews, only: [:new, :create]
   end
 
   resources :merchants, only: [:index, :show] do
-    resources :products, only: [:index]
+    resources :products, only: [:index, :new, :create]
     resources :order_items, only: [:index]
   end
 
