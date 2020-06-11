@@ -8,7 +8,7 @@
 
 require 'csv'
 
-MERCHANT_FILE = Rails.root.join('db', 'seed_data', 'merchants.csv')
+MERCHANT_FILE = Rails.root.join('db', 'merchants.csv')
 puts "Loading raw driver data from #{MERCHANT_FILE}"
 
 merchant_failures = []
@@ -29,14 +29,14 @@ end
 puts "Added #{Merchant.count} merchant records"
 puts "#{merchant_failures.length} merchants failed to save"
 
-PRODUCT_FILE = Rails.root.join('db', 'seed_data', 'products.csv')
+PRODUCT_FILE = Rails.root.join('db', 'products.csv')
 puts "Loading raw product data from #{PRODUCT_FILE}"
 
 product_failures = []
 CSV.foreach(PRODUCT_FILE, :headers => true) do |row|
   product = Product.new
   product.name = row['name']
-  product.id = row['id'] 
+  product.id = row['id']
   product.merchant_id = row['merchant_id']
   product.inventory = row['inventory']
   product.price = row['price']
@@ -55,6 +55,6 @@ end
 puts "Added #{Product.count} product records"
 puts "#{product_failures.length} products failed to save"
 
-ActiveRecord::Base.connection.tables.each do |t|                   
+ActiveRecord::Base.connection.tables.each do |t|
   ActiveRecord::Base.connection.reset_pk_sequence!(t)
-end
+end 
