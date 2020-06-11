@@ -1,0 +1,14 @@
+<main>
+  <h1>All Products</h1>
+  <% @products.each do |product| %>
+    <section class="product-cards">
+      <div class="card">
+        <%= image_tag "#{product.img_url}" %>
+        <div>
+          <h4><b><%= product.name %></b></h4>
+          <p><%=  "$#{'%.2f' % product.price}" %></p>
+        </div>
+      </div>
+    </section>
+  <%end%>
+</main>
