@@ -17,6 +17,7 @@ Rails.application.routes.draw do
   resources :merchants, only: [:index, :show] do
     resources :products, only: [:index]
     resources :order_items, only: [:index]
+    resources :orders, only: [:index, :show]
   end
 
   resources :orders, only: [:show, :new, :create]
