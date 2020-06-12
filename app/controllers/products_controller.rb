@@ -29,6 +29,7 @@ class ProductsController < ApplicationController
       @product = Product.new(product_params)
       @product.active = true
       @product.merchant_id = params[:merchant_id]
+
       if @product.save
         flash[:success] = "Successfully added product: #{@product.name}"
         redirect_to product_path(@product.id)
@@ -48,7 +49,7 @@ class ProductsController < ApplicationController
   private
 
   def product_params
-    return params.require(:product).permit(:name, :inventory, :price, :description, :img_url, categories: [])
+    return params.require(:product).permit(:name, :inventory, :price, :description, :img_url, category_ids: [])
   end
 
   def get_product

@@ -3,9 +3,7 @@ require "test_helper"
 describe ProductsController do
   before do
     @product = products(:pickles)
-    @product.save
     @merchant = merchants(:blacksmith)
-    @merchant.save
     # @merchant = Merchant.create(username: "anacortesblacksmith", email: "cloud@abco.com")
     @product_hash = {
       product: {
@@ -13,7 +11,8 @@ describe ProductsController do
         description: "One jar of homegrown pickles.",
         img_url: "yourmom.com/image.jpeg",
         inventory: 40,
-        price: 2
+        price: 2,
+        categories: [categories(:food), categories(:lifestyle)]
       }
     }
   end
@@ -65,6 +64,8 @@ describe ProductsController do
       expect(Product.last.price).must_equal @product_hash[:product][:price]
       expect(Product.last.merchant).wont_be_nil
       expect(Product.last.merchant.username).must_equal @merchant.username
+      expect(Product.last.categories).wont_be_nil
+      expect(Product.last.categories).must_include @product_hash[:product][:categories].first
     end
 
     it "will not create a product with invalid params" do
