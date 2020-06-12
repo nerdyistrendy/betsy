@@ -12,7 +12,7 @@ describe ProductsController do
         img_url: "yourmom.com/image.jpeg",
         inventory: 40,
         price: 2,
-        categories: [categories(:food).id.to_i, categories(:lifestyle).id.to_i]
+        category_ids: [categories(:food).id, categories(:lifestyle).id]
       }
     }
   end
@@ -64,9 +64,9 @@ describe ProductsController do
       expect(Product.last.price).must_equal @product_hash[:product][:price]
       expect(Product.last.merchant).wont_be_nil
       expect(Product.last.merchant.username).must_equal @merchant.username
-      # expect(Product.last.categories).wont_be_nil
-      # expect(Product.last.categories).wont_be_empty
-      # expect(Product.last.categories).must_include @product_hash[:product][:categories].first
+      expect(Product.last.categories).wont_be_nil
+      expect(Product.last.categories).wont_be_empty
+      expect(Product.last.categories).must_include @product_hash[:product][:categories].first
 
     end
 

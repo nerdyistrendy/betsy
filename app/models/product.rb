@@ -9,4 +9,11 @@ class Product < ApplicationRecord
   validates :inventory, presence: true, numericality: { only_integer: true }
   validates :price, presence: true, numericality: true
   validates :img_url, presence: true
+  validates :merchant_id, presence: true
+
+  def unique_category?(category)
+    raise ArgumentError, "Not a valid category" if !category.is_a?(Category)
+
+    return !self.categories.include?(category)
+  end
 end
