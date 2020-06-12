@@ -1,8 +1,5 @@
 class MerchantsController < ApplicationController
   def create
-    # auth_hash = request.env["omniauth.auth"]
-    # raise
-    # redirect_to products_path
     auth_hash = request.env["omniauth.auth"]
     merchant = Merchant.find_by(email: auth_hash["info"]["email"])
     if merchant         # Merchant was found in the database
@@ -21,6 +18,12 @@ class MerchantsController < ApplicationController
     
     # If we get here, we have a valid user instance
     session[:user_id] = merchant.id
+    redirect_to products_path
+  end
+
+  def logout
+    session[:user_id] = nil
+    flash[:success] = "Successfully logged out"
     redirect_to products_path
   end
 end
