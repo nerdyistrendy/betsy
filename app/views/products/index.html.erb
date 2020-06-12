@@ -5,7 +5,7 @@
       <div class="card">
         <%= image_tag "#{product.img_url}" %>
         <div>
-          <h4><b><%= product.name %></b></h4>
+          <h4><b><%= link_to product.name, product_path(product.id) %></b></h4>
           <p><%=  "$#{'%.2f' % product.price}" %></p>
         </div>
       </div>

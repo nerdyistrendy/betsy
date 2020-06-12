@@ -1,0 +1,48 @@
+<% if @product.errors.any? %>
+  <ul class="errors">
+    <% @product.errors.each do |column, message| %>
+      <li>
+        <strong><%= column.capitalize %></strong> <%= message %>
+      </li>
+    <% end %>
+  </ul>
+<% end %>
+
+<main>
+  <section>
+    <div>
+      <%= image_tag "#{@product.img_url}" %>
+    </div>
+    <div>
+      <h4><b>Seller: <%= link_to @product.merchant.username, merchant_path(@product.merchant.id) %></b></h4>
+      <p><%= @product.description %></p>
+      <p><b><%=  "$#{'%.2f' % @product.price}" %></b></p>
+      <% if @product.inventory > 0 %>
+        <p>In Stock</p>
+      <% else %>
+        <p>Out of Stock</p>
+      <%end%>
+    </div>
+  </section>
+
+  <section>
+    <%= form_with model: @product do |f| %>
+      <div class ="form-group">
+        <%= f.label :Category %>
+        <%= f.select :category, [1,2,3,4,5], class:"form-control"  %>
+      </div>
+      <div class ="form-group">
+        <%= f.submit "Add to cart", class:"btn btn-primary"%> <%# need to fix this button to link to the cart%>
+      </div>  
+   <% end %>
+  </section> 
+  
+</main>
+
+
+  
+
+
+
+
+  
