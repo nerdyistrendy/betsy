@@ -23,6 +23,11 @@
     <%= f.label :img_url, "Image URL" %>
     <%= f.text_field(:img_url, class: "form-control") %>
   </div>
+
+  <div data-spy="scroll" class="form-group list-group">
+    <%= f.label :categories, "Category" %>
+    <%= f.select(:categories, options_for_select(@categories.map {|c| [c.name, c.id] }), multiple: true, class: "form-control list-group-item") %>
+  </div>
   
   <%= f.submit "Create Product", class: "button btn btn-primary form-group" %>
 <% end %>

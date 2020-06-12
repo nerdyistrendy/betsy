@@ -12,7 +12,7 @@ class ProductsController < ApplicationController
   def new
     if params[:merchant_id]
     # This is the nested route, /merchant/:merchant_id/products/new
-      @merchant = params[:merchant_id]
+      @categories = Category.all.order("name DESC")
       @product = Product.new(merchant_id: params[:merchant_id])
       @product.img_url = "default.jpg"
       @product.price = "0.00"
