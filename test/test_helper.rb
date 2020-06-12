@@ -18,4 +18,33 @@ class ActiveSupport::TestCase
   fixtures :all
 
   # Add more helper methods to be used by all tests here...
+  def setup
+    OmniAuth.config.test_mode = true
+  end
+
+  def mock_auth_hash(merchant)
+    return {
+      provider: "github",
+      info: {
+        email: merchant.email,
+        nickname: merchant.username,
+      },
+    }
+  end
+
+  def perform_login(merchant = nil)
+    merchant ||= Merchant.first
+    OmniAuth.config.mock_auth[:github] = OmniAuth::AuthHash.new(mock_auth_hash(merchant))
+
+    # Mock calling the OAuth callback function
+    get oauth_callback_path(:github)
+
+    merchant = Merchant.find_by(email: merchant.email)
+    # Check that merchant must be saved in db and saved in session after logged in
+    expect(merchant).wont_be_nil
+    expect(session[:user_id]).must_equal merchant.id
+    
+    return merchant
+  end
 end
+ 
