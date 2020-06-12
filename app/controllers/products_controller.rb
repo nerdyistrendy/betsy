@@ -34,11 +34,11 @@ class ProductsController < ApplicationController
       @product = Product.new(product_params)
       @product.active = true
       @product.merchant_id = params[:merchant_id]
-      if @product.categories
-        @product.categories.map do |c|
-          @product.categories << Category.find_by(id: c)
-        end
-      end
+      # if @product.categories
+      #   @product.categories.map do |c|
+      #     @product.categories << Category.find_by(id: c)
+      #   end
+      # end
       
       if @product.save
         flash[:success] = "Successfully added product: #{@product.name}"
