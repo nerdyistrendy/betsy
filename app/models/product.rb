@@ -9,6 +9,5 @@ class Product < ApplicationRecord
   validates :inventory, presence: true, numericality: { only_integer: true }
   validates :price, presence: true, numericality: true
   validates :img_url, presence: true
-  validates :merchant_id, presence: true
-  validates_associated :category_ids
+  validates_associated :categories
 end

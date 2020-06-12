@@ -35,7 +35,7 @@ class ProductsController < ApplicationController
       @product.active = true
       @product.merchant_id = params[:merchant_id]
 
-      if @product.save
+      if @product.save!
         flash[:success] = "Successfully added product: #{@product.name}"
         redirect_to product_path(@product.id)
         return
