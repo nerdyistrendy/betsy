@@ -14,11 +14,12 @@ class ProductsController < ApplicationController
   end
 
   def new
+    default_img = "https://lh3.googleusercontent.com/pw/ACtC-3eMhEM2kaTc-RlRyVudYKP08KOdRO6QbvXTc_PkmzKzXTIkCqRDIa06GMT1FaJr-lDgIcjmnR5hEEFOCYf4YUDKfozbnOhaOw02IpXMOTr2LW4L2S2PXJfedaWYHq6uTewLUuufgMD0VBs_xdtE7FUy=w1350-h900-no?authuser=0"
     if params[:merchant_id]
     # This is the nested route, /merchant/:merchant_id/products/new
       @categories = Category.all.order("name DESC")
       @product = Product.new(merchant_id: params[:merchant_id])
-      @product.img_url = "default.jpg"
+      @product.img_url = default_img
       @product.price = "0.00"
       @product.inventory = 0
     else
@@ -59,6 +60,7 @@ class ProductsController < ApplicationController
 
   def product_params
     return params.require(:product).permit(:name, :inventory, :price, :description, :img_url, :merchant_id, category_ids: [])
+  end
 
   def get_product
     return @product = Product.find_by(id: params[:id])
