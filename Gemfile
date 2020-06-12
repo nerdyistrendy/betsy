@@ -76,3 +76,12 @@ group :test do
   gem 'minitest-rails'
   gem 'minitest-reporters'
 end
+
+# To store env data for OmniAuth
+group :development do
+  gem 'dotenv-rails'
+end
+
+# Using OmniAuth for OAuth
+gem "omniauth"
+gem "omniauth-github"
