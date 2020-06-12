@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <title>Betsy</title>
+    <title>Cartmageddon</title>
     <%= csrf_meta_tags %>
     <%= csp_meta_tag %>
 
@@ -21,22 +21,39 @@
           <li class="nav-item active">
             <a class="nav-link" href="#">Home <span class="sr-only">(current)</span></a>
           </li>
-          <li class="nav-item">
-            <%= link_to "Log In", github_login_path, class: "nav-link" %>
-          </li>
-          <li class="nav-item">
-            <%= link_to "Log Out", logout_path, class: "nav-link" %>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link disabled" href="#">Disabled</a>
-          </li>
+
+          <% if @login_merchant %>
+            <li class="nav-item">
+              <%= link_to "Log Out", logout_path, class: "nav-link" %>
+            </li>
+            <li class="nav-item">
+              <%= link_to "Logged in as #{@login_merchant.username}", merchant_path(@login_merchant), class: "nav-link" %>
+            </li>
+          <% else %>
+            <li class="nav-item">
+              <%= link_to "Log In", github_login_path, class: "nav-link" %>
+            </li>
+          <% end %>
         </ul>
+
         <form class="form-inline my-2 my-lg-0">
           <input class="form-control mr-sm-2" type="text" placeholder="Search" aria-label="Search">
           <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
         </form>
       </div>
     </nav>
+
+    <% if !flash.empty? %>
+      <section class="alert__container">
+        <% flash.each do |name, message| %>
+          <div class="alert alert-<%= name %>">
+          <span>  <%= message %> </span>
+          </div>
+        <% end %>
+      </section>
+    <% end %>
+
     <%= yield %>
+
   </body>
 </html>
