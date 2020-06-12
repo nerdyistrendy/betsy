@@ -2,8 +2,8 @@ require "test_helper"
 
 describe ProductsController do
   before do
-    @product = products(:pickles)
-    @merchant = merchants(:blacksmith)
+    @merchant_test = merchants(:blacksmith)
+    @food_test = categories(:food)
 
     @product_hash = {
       product: {
@@ -37,7 +37,7 @@ describe ProductsController do
   
   describe "new" do
     it "can get the new_merchant_product_path" do
-      get new_merchant_product_path(@merchant.id)
+      get new_merchant_product_path(@merchant_test.id)
 
       must_respond_with :success
     end
@@ -51,7 +51,7 @@ describe ProductsController do
   describe "create" do
     it "can create a product" do
       expect {
-        post merchant_products_path(@merchant.id), params: @product_hash
+        post merchant_products_path(@merchant_test.id), params: @product_hash
       }.must_differ 'Product.count', 1
   
       must_respond_with  :redirect
@@ -63,10 +63,11 @@ describe ProductsController do
       expect(Product.last.inventory).must_equal @product_hash[:product][:inventory]
       expect(Product.last.price).must_equal @product_hash[:product][:price]
       expect(Product.last.merchant).wont_be_nil
-      expect(Product.last.merchant.username).must_equal @merchant.username
+      expect(Product.last.merchant.username).must_equal @merchant_test.username
+
       expect(Product.last.categories).wont_be_nil
       expect(Product.last.categories).wont_be_empty
-      expect(Product.last.categories).must_include @product_hash[:product][:categories].first
+      expect(Product.last.categories).must_include @food_test
 
     end
 
@@ -74,7 +75,7 @@ describe ProductsController do
       @product_hash[:product][:name] = nil
 
       expect {
-        post merchant_products_path(@merchant.id), params: @product_hash
+        post merchant_products_path(@merchant_test.id), params: @product_hash
       }.must_differ "Product.count", 0
 
       must_respond_with :bad_request

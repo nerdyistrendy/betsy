@@ -34,14 +34,7 @@ class ProductsController < ApplicationController
       @product = Product.new(product_params)
       @product.active = true
       @product.merchant_id = params[:merchant_id]
-      if @product.categories
-        unique_categories = []
-        @product.categories.each do |c|
-          unique_categories << c if @product.unique_category?(c)
-        end
-        @product.categories = unique_categories
-      end
-      
+
       if @product.save
         flash[:success] = "Successfully added product: #{@product.name}"
         redirect_to product_path(@product.id)
