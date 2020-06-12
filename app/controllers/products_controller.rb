@@ -12,8 +12,11 @@ class ProductsController < ApplicationController
   def new
     if params[:merchant_id]
     # This is the nested route, /merchant/:merchant_id/products/new
+      @merchant = params[:merchant_id]
       @product = Product.new(merchant_id: params[:merchant_id])
-    # TODO: @product.img_url = "default URL"
+      @product.img_url = "default.jpg"
+      @product.price = "0.00"
+      @product.inventory = 0
     else
     # non-merchants cannot create products
       flash[:error] = "You must login to do that"
