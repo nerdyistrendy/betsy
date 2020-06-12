@@ -1,6 +1,10 @@
 class ProductsController < ApplicationController
   before_action :get_product, except: [:index, :new, :create]
 
+  def index
+    @products = Product.all
+  end
+
   def show
     if @product.nil?
       flash[:error] = "Unvalid Product ID"
@@ -54,8 +58,7 @@ class ProductsController < ApplicationController
   private
 
   def product_params
-    return params.require(:product).permit(:name, :inventory, :price, :description, :img_url, category_ids: [])
-  end
+    return params.require(:product).permit(:name, :inventory, :price, :description, :img_url, :merchant_id, category_ids: [])
 
   def get_product
     return @product = Product.find_by(id: params[:id])
