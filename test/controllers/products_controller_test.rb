@@ -49,7 +49,9 @@ describe ProductsController do
   end
 
   describe "create" do
-    it "can create a product" do
+    it "can create a product with logged in user" do
+      
+      
       expect {
         post merchant_products_path(@merchant_test.id), params: @product_hash
       }.must_differ 'Product.count', 1
