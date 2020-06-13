@@ -3,7 +3,7 @@ require "test_helper"
 describe ProductsController do
   before do
     @merchant_test = merchants(:blacksmith)
-    @food_test = categories(:food)
+    @category_test = categories(:food)
     @product_test = products(:pickles)
 
     @product_hash = {
@@ -16,6 +16,40 @@ describe ProductsController do
         category_ids: [categories(:food).id, categories(:lifestyle).id]
       }
     }
+  end
+
+  describe "index" do
+    it "can get the products path" do
+      get products_path
+
+      must_respond_with :success
+    end
+
+    it "can get the nested merchant products path of a valid merchant" do
+      get merchant_products_path(@merchant_test.id)
+      
+      must_respond_with :success
+    end
+
+    it "will redirect to merchants index for an invalid merchant products path" do
+      get merchant_products_path(-5)
+      
+      must_respond_with :redirect
+      must_redirect_to merchants_path
+    end
+
+    it "can get the nested category products path" do
+      get category_products_path(@category_test.id)
+      
+      must_respond_with :success
+    end
+
+    it "will redirect to categories index for an invalid category products path" do
+      get category_products_path(-5)
+      
+      must_respond_with :redirect
+      must_redirect_to categories_path
+    end
   end
 
   describe "show" do
@@ -73,7 +107,7 @@ describe ProductsController do
 
       expect(Product.last.categories).wont_be_nil
       expect(Product.last.categories).wont_be_empty
-      expect(Product.last.categories).must_include @food_test
+      expect(Product.last.categories).must_include @category_test
     end
 
     it "can create a product without categories with logged in user" do
