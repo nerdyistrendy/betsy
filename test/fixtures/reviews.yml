@@ -1,0 +1,29 @@
+pickle_review:
+  text: Man, I love these pickles!
+  rating: 5
+  reviewer: Excitable Foodie
+  product: pickles
+
+pickle_review:
+  text: These cucumbers kinda tasted weird??? But I kinda liked it
+  rating: 4
+  reviewer: Confused But Strangely Delighted
+  product: pickles
+
+pickle_review:
+  text: Perfect to carry on a scavanging trip.
+  rating: 5
+  reviewer: Scavanging Survivor
+  product: pickles
+
+pickle_review:
+  text: Jar was busted when it arrived
+  rating: 1
+  reviewer: Kevin
+  product: pickles
+
+tent_review:
+  text: Does what it needs to, keeps me warm and dry
+  rating: 4
+  reviewer: Happy Camper
+  product: tent

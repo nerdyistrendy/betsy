@@ -1,0 +1,41 @@
+pickle_lover_pickles:
+  merchant: blacksmith
+  product: pickles
+  order: pickle_order
+  quantity: 1
+  status: unshipped
+
+raspy_picklefiend_pickles:
+  merchant: blacksmith
+  product: pickles
+  order: tent_pickle_order
+  quantity: 2
+  status: unshipped
+
+raspy_picklefiend_pickles:
+  merchant: weavery
+  product: tent
+  order: tent_pickle_order
+  quantity: 1
+  status: unshipped
+
+stabby_smith_knife:
+  merchant: weavery
+  product: knife
+  order: knife_order
+  quantity: 1
+  status: shipped
+
+foodie_smith_pickles:
+  merchant: weavery
+  product: knife
+  order: knife_pickle_order
+  quantity: 3
+  status: unshipped
+
+foodie_smith_knife:
+  merchant: blacksmith
+  product: pickles
+  order: knife_pickle_order
+  quantity: 1
+  status: unshipped
