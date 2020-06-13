@@ -7,7 +7,7 @@ class ProductsController < ApplicationController
   def index
     if params[:merchant_id]
       if @merchant
-        @products = @merchant.products
+        @products = @merchant.active_products
       else
         flash[:error] = "Invalid Merchant"
         redirect_to merchants_path
@@ -15,14 +15,14 @@ class ProductsController < ApplicationController
       end
     elsif params[:category_id]
       if @category
-        @products = @category.products.uniq
+        @products = @category.active_products.uniq
       else
         flash[:error] = "Invalid Category"
         redirect_to categories_path
         return
       end
     else
-      @products = Product.all
+      @products = Product.all.where(active: true)
     end
   end
 
