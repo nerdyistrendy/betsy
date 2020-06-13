@@ -6,6 +6,7 @@
       <%= image_tag "#{@product.img_url}" %>
     </div>
     <div>
+      <h3><b><%= @product.name %></b></h3>
       <h4><b>Seller: <%= link_to @product.merchant.username, merchant_path(@product.merchant.id) %></b></h4>
       <p><%= @product.description %></p>
       <p><b><%=  "$#{'%.2f' % @product.price}" %></b></p>

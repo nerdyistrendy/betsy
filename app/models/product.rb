@@ -11,4 +11,22 @@ class Product < ApplicationRecord
   validates :img_url, presence: true
   validates_associated :categories
 
+  def self.cart_total_items(session)
+    total = 0
+    item_count = session[:cart].values
+    item_count.each do |num|
+      total += num.to_i
+    end
+
+    return total
+  end
+
+  def self.subtotal(session)
+    subtotal = 0
+    session[:cart].each do |product_id, quant|
+      @product = Product.find_by(id: product_id)
+      subtotal += @product.price * quant.to_i
+    end
+    return subtotal
+  end
 end
