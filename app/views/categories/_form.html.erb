@@ -1,12 +1,26 @@
-<section>
+<%if @category.errors.any?%>
+<section class="alert__container">
+  <div class="alert alert-warning">
+    <span>A problem occurred: Could not create <%= @category.name %> </span>
+      <ul>
+          <%@category.errors.each do |column, message|%>
+            <li> <%=column%>: <%=message%> </li>
+          <%end%>
+      </ul>
+  </div>
+</section>
+<%end%>
+
+<main>
   <%= form_with model: @category do |f| %>
+
     <div class="form-group">
       <%= f.label :name %>
       <%= f.text_field :name, class: "form-control" %>
     </div>
-
+    
     <div class="form-group">
-      <%= f.submit class: "btn btn-primary" %>
+      <%= f.submit "#{action_name} Category", class: "btn btn-primary" %>
     </div>
   <% end %>
-</section>
+</main>
