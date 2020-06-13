@@ -16,3 +16,12 @@ tent:
   description: One temporary shelter made of premium foraged space blankets. Bone poles included.
   img_url: https://lh3.googleusercontent.com/pw/ACtC-3eMhEM2kaTc-RlRyVudYKP08KOdRO6QbvXTc_PkmzKzXTIkCqRDIa06GMT1FaJr-lDgIcjmnR5hEEFOCYf4YUDKfozbnOhaOw02IpXMOTr2LW4L2S2PXJfedaWYHq6uTewLUuufgMD0VBs_xdtE7FUy=w1350-h900-no?authuser=0
   active: true
+
+knife:
+  merchant: weavery
+  name: 12" Bowie Knife
+  inventory: 30
+  price: 50.00
+  description: From cutting protein to underbrush, our 12"" bowie knife was finely honed and fired for all your needs.
+  img_url: https://lh3.googleusercontent.com/pw/ACtC-3eMhEM2kaTc-RlRyVudYKP08KOdRO6QbvXTc_PkmzKzXTIkCqRDIa06GMT1FaJr-lDgIcjmnR5hEEFOCYf4YUDKfozbnOhaOw02IpXMOTr2LW4L2S2PXJfedaWYHq6uTewLUuufgMD0VBs_xdtE7FUy=w1350-h900-no?authuser=0
+  active: true

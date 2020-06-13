@@ -1,0 +1,44 @@
+pickle_order:
+  name: Pickle Lover
+  email: pickles4lyf@e.mail
+  mailing_address: 1234 Pickles Blvd
+  cc_name: Joe Smith
+  cc_cvv: 123
+  cc_number: 1234123412341234
+  cc_exp: <%= Date.new(2022, 3, 1) %>
+  zipcode: 98765
+  status: pending
+
+tent_pickle_order:
+  name: Raspy Picklefiend
+  email: tents4lyf@e.mail
+  mailing_address: 321 Tents St
+  cc_name: Raspy Picklefiend
+  cc_cvv: 321
+  cc_number: 432143214321
+  cc_exp: <%= Date.new(2024, 6, 1) %>
+  zipcode: 87654
+  status: paid
+
+knife_order:
+  name: Stabby Smith
+  email: stabby@e.mail
+  mailing_address: 234 Stab Crt
+  cc_name: Joseph Smith
+  cc_cvv: 234
+  cc_number: 2345234523452345
+  cc_exp: <%= Date.new(2025, 12, 1) %>
+  zipcode: 76543
+  status: complete
+
+knife_pickle_order:
+  name: Foodie Smith
+  email: i_stab_pickles@e.mail
+  mailing_address: 65 Foodlove Ave
+  cc_name: Foodie Smith
+  cc_cvv: 345
+  cc_number: 3456345634563456
+  cc_exp: <%= Date.new(2021, 11, 1) %>
+  zipcode: 98765
+  status: pending
+  
