@@ -17,7 +17,7 @@
 <%= link_to "Create new product", new_merchant_product_path(@merchant, @products) %>
 
 <% if @login_merchant == session[:user_id] %>
-    <%= link_to "Order Fulfillment Dashboard", merchant_order_path(@merchant, @orders) %>
+    <%= link_to "Order Fulfillment Dashboard", merchant_order_item_path(@merchant, @orders) %>
 <% end %>
 
 <h4>Products</h4>

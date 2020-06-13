@@ -1,0 +1,27 @@
+<h2>Order Fulfillment Dashboard</h2>
+
+<h4>Order Items to be Fulfilled</h4>
+  <table>
+    <thead>
+      <tr>
+        <th>Order ID</th>
+        <th>Product ID</th>
+        <th>Quantity</th>
+        <th>Price</th>
+        <th>Status</th>
+      </tr>
+    </thead>
+
+    <tbody>
+    <% order_item_collection = OrderItem.where(merchant_id: params[:merchant_id]) %>
+    <% order_item_collection.each do |order_item| %>
+      <tr>
+        <td><%= order_item.order_id %></td>
+        <td><%= order_item.product_id %></td>
+        <td><%= order_item.quantity %></td>
+        <td><%= order_item.price %></td>
+        <td><%= order_item.status %></td>
+      </tr>
+    <% end %>
+    </tbody>
+  </table>

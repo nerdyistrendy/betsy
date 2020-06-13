@@ -1,8 +1,6 @@
 class OrderItemsController < ApplicationController
 
-  TODO: Finish this method 
   def index
-    @merchant_orders = Order.where(merchant_id: params[:merchant_id])
+    @merchant_order_items = OrderItem.where(merchant_id: params[:merchant_id])
   end 
-
 end
