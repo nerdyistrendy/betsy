@@ -12,15 +12,56 @@ describe Product do
       expect(@pickle_test.valid?).must_equal true
     end
 
-    it "is invalid when missing a req'd field is missing" do
+    it "is invalid when invalid or missing name" do
       invalid_pickles = @pickle_test
       invalid_pickles.name = nil  
 
       invalid_tent = @tent_test
-      invalid_tent.inventory = "a string!"
+      invalid_tent.name = ""
 
       expect(invalid_pickles.valid?).must_equal false
       expect(invalid_tent.valid?).must_equal false
+    end
+
+    it "is invalid when missing description" do
+      invalid_pickles = @pickle_test
+      invalid_pickles.description = nil  
+
+      expect(invalid_pickles.valid?).must_equal false
+    end
+
+    it "is invalid when missing img_url" do
+      invalid_pickles = @pickle_test
+      invalid_pickles.img_url = nil  
+
+      expect(invalid_pickles.valid?).must_equal false
+    end
+
+    it "is invalid when invalid or missing inventory" do
+      invalid_pickles = @pickle_test
+      invalid_pickles.inventory = nil  
+
+      invalid_tent = @tent_test
+      invalid_tent.inventory = "five"
+
+      expect(invalid_pickles.valid?).must_equal false
+      expect(invalid_tent.valid?).must_equal false
+    end
+
+    it "is invalid when invalid or missing price" do
+      invalid_pickles = @pickle_test
+      invalid_pickles.price = nil  
+
+      invalid_tent = @tent_test
+      invalid_tent.price = "$5.00"
+
+      expect(invalid_pickles.valid?).must_equal false
+      expect(invalid_tent.valid?).must_equal false
+    end
+
+    it "is valid with or without categories" do
+      expect(@pickle_test.valid?).must_equal true
+      expect(@tent_test.valid?).must_equal true
     end
   end
 
@@ -64,5 +105,23 @@ describe Product do
   end
 
   describe 'subtotal' do
+  end
+  
+  describe "active_products" do
+    it "will retrieve all products where active is true" do
+      products_arr = @blacksmith_test.active_products
+
+      expect(products_arr).must_include @pickle_test
+      products_arr.each do |p|
+        expect(p.active).must_equal true
+      end
+    end
+
+    it "will ignore inactive products" do
+      inactive_pickle_test = products(:inactive_pickles)
+      products_arr = @blacksmith_test.active_products
+
+      expect(products_arr).wont_include inactive_pickle_test
+    end
   end
 end

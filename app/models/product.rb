@@ -29,4 +29,9 @@ class Product < ApplicationRecord
     end
     return subtotal
   end
+
+  def self.active_products
+    return Product.all.where(active: true)
+  end
+  
 end

@@ -1,5 +1,5 @@
 food:
   name: Food
-  products: Crisp Pickles
+  products: pickles, inactive_pickles
 lifestyle:
   name: Lifestyle
