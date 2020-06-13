@@ -10,4 +10,5 @@ class Merchant < ApplicationRecord
     # The user is not saved here. Validate and save in controller.
     return merchant
   end
+
 end

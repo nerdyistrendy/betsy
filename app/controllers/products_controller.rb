@@ -5,18 +5,18 @@ class ProductsController < ApplicationController
   def index
     if params[:merchant_id]
       merchant = Merchant.find_by(id: params[:merchant_id])
-      @products = merchant.products
+      @products = merchant.products.where(active: true)
     elsif params[:category_id]
       category = Category.find_by(id: params[:category_id])
-      @products = category.products.uniq
+      @products = category.products.where(active: true).uniq
     else
-      @products = Product.all
+      @products = Product.where(active: true)
     end
   end
 
   def show
     if @product.nil?
-      flash[:error] = "Unvalid Product ID"
+      flash[:error] = "Invalid Product ID"
       redirect_to products_path, status: :not_found
       return
     end
