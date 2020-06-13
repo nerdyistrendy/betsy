@@ -16,9 +16,8 @@
 <%= link_to "Create new category", new_category_path %>
 <%= link_to "Create new product", new_product_path %>
 
-<%# TODO: Add logic in the model for authorized? method %>
-<% if @merchant.authorized?
-    return link_to "Order Fulfillment Dashboard", merchant_order_path(@merchant, @orders) %>
+<%# TODO: Sync up with Cathy's session authorization method %>
+<%# <% return link_to "Order Fulfillment Dashboard", merchant_order_path(@merchant, @orders) if @merchant.authorized? %> 
 
 <h4>Products</h4>
   <table>
