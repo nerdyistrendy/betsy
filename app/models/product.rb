@@ -10,4 +10,5 @@ class Product < ApplicationRecord
   validates :price, presence: true, numericality: true
   validates :img_url, presence: true
   validates_associated :categories
+  
 end

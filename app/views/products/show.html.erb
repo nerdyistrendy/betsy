@@ -26,8 +26,9 @@
   </section>
 
   <section>
-    <%= form_with model: @product do |f| %>
+    <%= form_with url: "/products/cart", method: "patch" do |f| %>
       <div class ="form-group">
+        <%= hidden_field_tag :product_id, @product.id %>
         <%= f.label :Quantity %>
         <%= f.select :quantity, [1,2,3,4,5], class:"form-control"  %>
       </div>

@@ -1,7 +1,7 @@
 class ProductsController < ApplicationController
   # skip_before_action :require_login, only: [:index, :show]
-  before_action :get_product, except: [:index, :new, :create]
-
+  before_action :get_product, except: [:index, :new, :create, :cart]
+  
   def index
     if params[:merchant_id]
       merchant = Merchant.find_by(id: params[:merchant_id])
@@ -60,6 +60,23 @@ class ProductsController < ApplicationController
     # end
   end
 
+  def cart
+    @session = session
+    @session[:cart] ||= {}
+    @product = Product.find_by(id: params[:product_id])
+    
+    if @product.inventory > 0
+      @session[:cart]["#{@product.id}"] = params[:quantity]
+      flash.now[:success] = "Product successfully added to your cart"
+      render :show
+      return
+    else
+      flash.now[:error] = "Sorry, this product is currently out of stock!"
+      render :show
+      return
+    end
+  end
+
   private
 
   def product_params
@@ -69,4 +86,6 @@ class ProductsController < ApplicationController
   def get_product
     return @product = Product.find_by(id: params[:id])
   end
+
+  
 end
