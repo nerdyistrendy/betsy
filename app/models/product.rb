@@ -10,4 +10,8 @@ class Product < ApplicationRecord
   validates :price, presence: true, numericality: true
   validates :img_url, presence: true
   validates_associated :categories
+
+  def self.active_products
+    return Product.all.where(active: true)
+  end
 end

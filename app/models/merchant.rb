@@ -10,4 +10,8 @@ class Merchant < ApplicationRecord
     # The user is not saved here. Validate and save in controller.
     return merchant
   end
+
+  def active_products
+    return self.products.where(active: true)
+  end
 end
