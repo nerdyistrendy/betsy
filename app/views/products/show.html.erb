@@ -1,12 +1,4 @@
-<% if @product.errors.any? %>
-  <ul class="errors">
-    <% @product.errors.each do |column, message| %>
-      <li>
-        <strong><%= column.capitalize %></strong> <%= message %>
-      </li>
-    <% end %>
-  </ul>
-<% end %>
+
 
 <main>
   <section>
@@ -25,18 +17,7 @@
     </div>
   </section>
 
-  <section>
-    <%= form_with url: "/products/cart", method: "patch" do |f| %>
-      <div class ="form-group">
-        <%= hidden_field_tag :product_id, @product.id %>
-        <%= f.label :Quantity %>
-        <%= f.select :quantity, [1,2,3,4,5], class:"form-control"  %>
-      </div>
-      <div class ="form-group">
-        <%= f.submit "Add to cart", class:"btn btn-primary"%> <%# need to fix this button to link to the cart%>
-      </div>  
-   <% end %>
-  </section> 
+  <%= render partial: "quantform", locals: { action_name: "Add to cart" } %>
   
 </main>
 
