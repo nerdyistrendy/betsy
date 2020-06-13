@@ -1,4 +1,6 @@
 class CategoriesController < ApplicationController
+  before_action :require_login, only: [:new, :create]
+
   def new
     @category = Category.new
   end
@@ -7,8 +9,8 @@ class CategoriesController < ApplicationController
     @category = Category.new(category_params)
 
     if @category.save
-      flash[:success] = "Successfully created #{@category.name} ID# #{@category.id}"
-      redirect_back(fallback_location: products_path)
+      flash[:success] = "Successfully created Category ID# #{@category.id} #{@category.name} "
+      redirect_back(fallback_location: root_path)
       return
     else
       render :new, status: :bad_request
