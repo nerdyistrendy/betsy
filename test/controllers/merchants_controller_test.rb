@@ -27,11 +27,20 @@ require "test_helper"
 
 
 
+describe MerchantsController do
   describe "show" do 
     it "successfully renders the show page for a merchant's dashboard" do
-      get merchant_path()
 
-  # it "does a thing" do
-  #   value(1+1).must_equal 2
-  # end
+      get "/merchants/2"
+
+      must_respond_with :success
+    end
+
+    it "successfully returns a 404 error for merchants not present in the database" do
+
+      get "/merchants/necrotoes"
+
+      must_respond_with :not_found
+    end 
+  end
 end
