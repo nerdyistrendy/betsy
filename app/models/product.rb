@@ -10,9 +10,4 @@ class Product < ApplicationRecord
   validates :price, presence: true, numericality: true
   validates :img_url, presence: true
   validates_associated :categories
-
-  def toggle_active
-    current_state = self.active
-    return self.active = !current_state
-  end
 end

@@ -25,3 +25,13 @@ knife:
   description: From cutting protein to underbrush, our 12"" bowie knife was finely honed and fired for all your needs.
   img_url: https://lh3.googleusercontent.com/pw/ACtC-3eMhEM2kaTc-RlRyVudYKP08KOdRO6QbvXTc_PkmzKzXTIkCqRDIa06GMT1FaJr-lDgIcjmnR5hEEFOCYf4YUDKfozbnOhaOw02IpXMOTr2LW4L2S2PXJfedaWYHq6uTewLUuufgMD0VBs_xdtE7FUy=w1350-h900-no?authuser=0
   active: true
+
+inactive_pickles:
+  merchant: blacksmith
+  name: Crisp Pickles
+  inventory: 0
+  price: 2
+  description: One jar of homegrown pickles.
+  img_url: https://lh3.googleusercontent.com/pw/ACtC-3eMhEM2kaTc-RlRyVudYKP08KOdRO6QbvXTc_PkmzKzXTIkCqRDIa06GMT1FaJr-lDgIcjmnR5hEEFOCYf4YUDKfozbnOhaOw02IpXMOTr2LW4L2S2PXJfedaWYHq6uTewLUuufgMD0VBs_xdtE7FUy=w1350-h900-no?authuser=0
+  active: false
+  categories: Food
