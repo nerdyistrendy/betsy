@@ -22,7 +22,7 @@ class ProductsController < ApplicationController
         return
       end
     else
-      @products = Product.all.where(active: true)
+      @products = Product.active_products
     end
   end
 

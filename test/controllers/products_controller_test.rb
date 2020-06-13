@@ -130,68 +130,8 @@ describe ProductsController do
       expect(Product.last.categories).must_be_empty
     end
     
-    it "will not create a product with a missing name" do
+    it "will respond with bad request and not add a product if given invalid params" do
       @product_hash[:product][:name] = nil
-
-      expect {
-        post merchant_products_path(@merchant_test.id), params: @product_hash
-      }.must_differ "Product.count", 0
-
-      must_respond_with :bad_request
-    end
-
-    it "will not create a product with a missing description" do
-      @product_hash[:product][:description] = nil
-
-      expect {
-        post merchant_products_path(@merchant_test.id), params: @product_hash
-      }.must_differ "Product.count", 0
-
-      must_respond_with :bad_request
-    end
-
-    it "will not create a product with a missing img_url" do
-      @product_hash[:product][:img_url] = nil
-
-      expect {
-        post merchant_products_path(@merchant_test.id), params: @product_hash
-      }.must_differ "Product.count", 0
-
-      must_respond_with :bad_request
-    end
-
-    it "will not create a product with an invalid inventory" do
-      @product_hash[:product][:inventory] = "fifty"
-
-      expect {
-        post merchant_products_path(@merchant_test.id), params: @product_hash
-      }.must_differ "Product.count", 0
-
-      must_respond_with :bad_request
-    end
-
-    it "will not create a product with a missing inventory" do
-      @product_hash[:product][:inventory] = nil
-
-      expect {
-        post merchant_products_path(@merchant_test.id), params: @product_hash
-      }.must_differ "Product.count", 0
-
-      must_respond_with :bad_request
-    end
-
-    it "will not create a product with an invalid price" do
-      @product_hash[:product][:price] = "$25.00"
-
-      expect {
-        post merchant_products_path(@merchant_test.id), params: @product_hash
-      }.must_differ "Product.count", 0
-
-      must_respond_with :bad_request
-    end
-
-    it "will not create a product with a missing price" do
-      @product_hash[:product][:price] = nil
 
       expect {
         post merchant_products_path(@merchant_test.id), params: @product_hash
