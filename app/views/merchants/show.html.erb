@@ -14,10 +14,11 @@
 <%# TODO: Verify that these routes are correct. %>
 <h4>Actions</h4>
 <%= link_to "Create new category", new_category_path %>
-<%= link_to "Create new product", new_product_path %>
+<%= link_to "Create new product", new_merchant_product_path(@merchant, @products) %>
 
-<%# TODO: Sync up with Cathy's session authorization method %>
-<%# <% return link_to "Order Fulfillment Dashboard", merchant_order_path(@merchant, @orders) if @merchant.authorized? %> 
+<% if @login_merchant == session[:user_id] %>
+    <%= link_to "Order Fulfillment Dashboard", merchant_order_path(@merchant, @orders) %>
+<% end %>
 
 <h4>Products</h4>
   <table>
