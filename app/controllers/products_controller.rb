@@ -62,10 +62,15 @@ class ProductsController < ApplicationController
   end
 
   def toggle_active
-    @product.toggle_active
-    if @product.update
-      flash[:success] = "#{}"
-      redirect_back fallback_location: merchant_path(@merchant.id)
+    current_state = @product.active
+
+    if @product.update!(active: !current_state)
+      flash[:success] = "Product was successfully updated"
+      redirect_back fallback_location: products_path(@product.id)
+      return
+    else
+      flash[:error] = "Unable to update product"
+      redirect_back fallback_location: root_path, status: :bad_request
       return
     end
   end
