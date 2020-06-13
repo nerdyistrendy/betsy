@@ -59,4 +59,10 @@ describe Product do
     #   end
     end
   end
+
+  describe 'cart_total_items' do
+  end
+
+  describe 'subtotal' do
+  end
 end

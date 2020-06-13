@@ -85,7 +85,7 @@ class ProductsController < ApplicationController
     @product = Product.find_by(id: params[:product_id])
     @quantity = params[:quantity]
     if @product.inventory > 0 && @quantity.to_i <= @product.inventory
-      session[:cart]["#{@product.id}"] = params[:quantity]
+      session[:cart]["#{@product.id}"] = @quantity
       redirect_to order_cart_path
       return
     else

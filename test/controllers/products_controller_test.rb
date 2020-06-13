@@ -83,4 +83,13 @@ describe ProductsController do
       must_respond_with :bad_request
     end
   end
+
+  describe 'cart' do
+  end
+
+  describe 'updatequant' do
+  end
+
+  describe 'remove_from_cart' do
+  end
 end
