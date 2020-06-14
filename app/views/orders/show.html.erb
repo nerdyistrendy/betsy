@@ -1,14 +1,69 @@
 <main>
-  <h2>ORDER <%= @order.id %> </h2>
-  <% @items_from_merchant.each do |item| %>
-    <% product = Product.find_by(id: item.product_id) %>
-    <section class="product-cards">
-      <div class="card">
-        <div>
-          <h4><b><%= link_to product.name, product_path(product.id) %></b></h4>
-          <p><%=  "$#{'%.2f' % product.price}" %></p>
-        </div>
+  <section class="container">
+    <h3>ORDER #<%= @order.id %> </h3>
+    <div class="row">
+      <div class="col-sm-6">
+        Name: <%= @order.name %>
       </div>
-    </section>
-  <%end%>
+      <div class="col-sm-6">
+        Email: <%= @order.email %>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="col-sm-6">
+        Mailing Address: <%= @order.mailing_address %>
+      </div>
+      <div class="col-sm-6">
+        Zipcode: <%= @order.zipcode %>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="col-sm-6">
+        Credit Card: ************<%= @order.cc_number.to_s[-4..-1] %>
+      </div>
+      <div class="col-sm-6">
+        Card Expiration Date: <%= @order.cc_exp %>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="col-sm-6">
+        Purchase Date: <%= @order.created_at %>
+      </div>
+      <div class="col-sm-6">
+        Status: <%= @order.status %>
+      </div>
+    </div>
+  </section>
+
+  <br>
+
+  <% if @items_from_merchant.size > 0 %>
+  <section class="table-wrapper-scroll-y my-custom-scrollbar container">
+    <table class="table table-bordered table-striped mb-0">
+      <tr>
+        <th scope="col"> Product </th>
+        <th scope="col"> Quantity </th>
+        <th scope="col"> Price </th>
+        <th scope="col"> Subtotal </th>
+        <th scope="col"> Status </th>
+        <th scope="col"> Cancel OrderItem </th>
+      </tr>
+ 
+      <% @items_from_merchant.each do |item| %>
+        <% product = Product.find_by(id: item.product_id) %>
+        <tr>
+          <th scope="row"> <%= link_to product.name, product_path(product.id) %> </th>
+          <td> <%= item.quantity %> </td>
+          <td> <%= product.price %> </td>
+          <td> <%= "TO DO" %> </td>
+          <td> <%= item.status %> </td>
+          <td> <%= link_to "Cancel Item", cancel_item_path(item) %> </td>
+        </tr>
+      <% end %>
+    </table>
+  </section>
+  <% end %>
 </main>
