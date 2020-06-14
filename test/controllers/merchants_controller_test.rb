@@ -1,10 +1,15 @@
 require "test_helper"
 
 describe MerchantsController do
+
+  before do
+    @merchant_test = merchants(:houstonhatchhouse) 
+  end
+
   describe "show" do 
     it "successfully renders the show page for a merchant's dashboard" do
 
-      get "/merchants/2"
+      get merchant_path(@merchant_test.id)
 
       must_respond_with :success
     end
@@ -15,6 +20,8 @@ describe MerchantsController do
 
       must_respond_with :not_found
     end 
+  end 
+
   describe "login merchants#create" do
     it "can log in a new merchant through OAuth and increase Merchant count" do
       new_merchant = Merchant.new(username: "goblin", email: "goblin@goblins.net")
