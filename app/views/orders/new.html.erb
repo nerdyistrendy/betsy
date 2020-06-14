@@ -41,11 +41,8 @@
         <%= f.text_field :cc_cvv, class: "form-control", required: true %>
       </div>
       <div class ="form-group">
-        <%= f.label :Credit_Card_Expiration_Date %>
-        <%= select_date Date.today, prefix: :start_date, required: true %>
-      </div>
-      <div class ="form-group">
-        <%= hidden_field_tag(:status, "pending") %>
+        <%= f.label "Credit Card Expiration Date YYYY-MM-DD" %>
+        <%= f.text_field :cc_exp, required: true %>
       </div>
       <div class ="form-group">
         <%= f.submit "Complete Order", class:"btn btn-primary"%>
