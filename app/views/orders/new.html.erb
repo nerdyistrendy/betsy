@@ -37,12 +37,12 @@
         <%= f.text_field :cc_number, class: "form-control", required: true %>
       </div>
       <div class ="form-group">
-        <%= f.label :CVV %>
+        <%= f.label :CVV%>
         <%= f.text_field :cc_cvv, class: "form-control", required: true %>
       </div>
       <div class ="form-group">
         <%= f.label :Credit_Card_Expiration_Date %>
-        <%= f.text_field :cc_exp, class: "form-control", required: true %>
+        <%= select_date Date.today, prefix: :start_date, required: true %>
       </div>
       <div class ="form-group">
         <%= hidden_field_tag(:status, "pending") %>
