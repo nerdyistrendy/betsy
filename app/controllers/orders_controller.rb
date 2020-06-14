@@ -4,4 +4,11 @@ class OrdersController < ApplicationController
     @session = session
   end
 
+  def new
+    @order = Order.new
+  end
+
+  def create
+  end
+
 end
