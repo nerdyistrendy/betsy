@@ -1,0 +1,50 @@
+
+<main>
+  <h1>Your Cart</h1>
+  <div>
+    <%= link_to "Continue shopping", root_path, class: 'btn btn-primary' %>
+  </div>
+
+  <section>
+    <% if @session[:cart] != {} %>
+      <%@session[:cart].each do |product| %>
+        <div>
+          <% @product = Product.find_by(id: product[0]) %>
+          <p><b><%= @product.name %></b></p>
+          <p>Price: <%= "$#{'%.2f' % @product.price}" %></b></p>
+          <p><b>Quantity: <%= product[1]%></b></p>
+
+          <%= form_with url: "/cart/update/#{product[0]}", method: "patch" do |f| %>
+            <div class ="form-group">
+              <%= hidden_field_tag :product_id, @product.id %>
+              <%= f.label :Quantity %>
+              <%= f.select :quantity, [1,2,3,4,5], class:"form-control"  %>
+            </div>
+            <div class ="form-group">
+              <%= f.submit "Update", class:"btn btn-primary"%> <%# need to fix this button to link to the cart%>
+            </div>  
+          <% end %>
+
+          <%= link_to "Delete",  product_remove_cart_path(product[0]), method: 'patch', class: 'btn btn-primary' %>
+        </div>
+        <br>
+      <% end %>
+
+      <aside>
+        <% subtotal = Product.subtotal(session) %>
+        <% total_items = Product.cart_total_items(session) %>
+        <p>Total: <%= "$#{'%.2f' % (subtotal)}" %></p>
+        <p>Shipping: Free</p>
+        <p>Tax: <%= "$#{'%.2f' % (subtotal*0.1)}" %></p>
+        <p><b>Subtotal (<%= total_items %> <%=total_items > 1 ? "items" : "item" %>): <%= "$#{'%.2f' % (subtotal*1.1)}" %> </b></p>
+        <%= link_to "Proceed to Checkout", new_order_path, class: 'btn btn-primary' %>
+      </aside>
+    <%else%>
+      <h2><b>Your cart is empty!</b></h2>
+    <% end %>
+  </section>
+
+  
+  
+</main>
+
