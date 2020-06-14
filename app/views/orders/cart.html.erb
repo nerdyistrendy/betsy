@@ -32,9 +32,11 @@
 
       <aside>
         <% subtotal = Product.subtotal(session) %>
+        <% total_items = Product.cart_total_items(session) %>
+        <p>Total: <%= "$#{'%.2f' % (subtotal)}" %></p>
         <p>Shipping: Free</p>
         <p>Tax: <%= "$#{'%.2f' % (subtotal*0.1)}" %></p>
-        <p><b>Subtotal (<%= Product.cart_total_items(session) %> items): <%= "$#{'%.2f' % (subtotal*1.1)}" %> </b></p>
+        <p><b>Subtotal (<%= total_items %> <%=total_items > 1 ? "items" : "item" %>): <%= "$#{'%.2f' % (subtotal*1.1)}" %> </b></p>
         <%= link_to "Proceed to Checkout", new_order_path, class: 'btn btn-primary' %>
       </aside>
     <%else%>

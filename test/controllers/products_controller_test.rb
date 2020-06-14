@@ -142,6 +142,15 @@ describe ProductsController do
   end
 
   describe 'cart' do
+    it "can add a product to the seassion[:cart] hash" do
+      @product = products(:pickles)
+      @quantity = 2 #idk how to send quantity in a test because i am getting it from params in the form
+      patch product_cart_path(@product.id)
+
+      expect(session[:cart].class).must_equal Hash
+      expect(session[:cart].count).must_equal 1
+      expect(session[:cart]["#{@product.id}"]).must_equal @quantity
+    end
   end
 
   describe 'updatequant' do
@@ -149,7 +158,7 @@ describe ProductsController do
 
   describe 'remove_from_cart' do
   end
-  
+
   describe "toggle_active" do
     # it "can only be called by the merchant who owns said product" do
 

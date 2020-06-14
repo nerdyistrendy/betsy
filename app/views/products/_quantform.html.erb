@@ -9,14 +9,13 @@
 <% end %>
 
 <section>
-    <%= form_with url: "/products/cart", method: "patch" do |f| %>
+    <%= form_with url: product_cart_path(@product.id), method: "patch" do |f| %>
       <div class ="form-group">
-        <%= hidden_field_tag :product_id, @product.id %>
         <%= f.label :Quantity %>
         <%= f.select :quantity, [1,2,3,4,5], class:"form-control"  %>
       </div>
       <div class ="form-group">
-        <%= f.submit "#{action_name}", class:"btn btn-primary"%> <%# need to fix this button to link to the cart%>
+        <%= f.submit "#{action_name}", class:"btn btn-primary"%> 
       </div>  
    <% end %>
 </section> 
