@@ -1,0 +1,14 @@
+<main>
+  <h2>ORDER <%= @order.id %> </h2>
+  <% @items_from_merchant.each do |item| %>
+    <% product = Product.find_by(id: item.product_id) %>
+    <section class="product-cards">
+      <div class="card">
+        <div>
+          <h4><b><%= link_to product.name, product_path(product.id) %></b></h4>
+          <p><%=  "$#{'%.2f' % product.price}" %></p>
+        </div>
+      </div>
+    </section>
+  <%end%>
+</main>
