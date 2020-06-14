@@ -102,11 +102,15 @@ describe Product do
   end
 
   describe 'cart_total_items' do
+    it 'can count all items in the cart' do
+    end
   end
 
   describe 'subtotal' do
+    it 'can calculate a subtotal for items in the cart' do
+    end
   end
-  
+
   describe "active_products" do
     it "will retrieve all products where active is true" do
       products_arr = @blacksmith_test.active_products
