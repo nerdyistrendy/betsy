@@ -75,6 +75,7 @@ end
 group :test do
   gem 'minitest-rails'
   gem 'minitest-reporters'
+  gem 'simple-cov', require: false
 end
 
 # To store env data for OmniAuth
