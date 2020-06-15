@@ -72,6 +72,44 @@ class ProductsController < ApplicationController
     # end
   end
 
+  def edit
+    @product = Product.find_by(id: params[:id])
+
+    if @product.merchant_id != session[:user_id]
+      flash[:error] = "You are not authorized to edit that product."
+      redirect_to merchant_products_path(@product.id)
+    elsif @product == nil
+      flash[:error] = "Cannot edit a non-existent product."
+      redirect_to merchant_products_path(@product.id)
+    end 
+  end 
+
+  def update
+    @product = Product.find_by(id: params[:id])
+
+    if @product.update(@product.id)
+      flash[:success] = "Product successfully updated."
+    else
+      flash[:error] = "Product could not be updated."
+    end
+
+    redirect_to merchant_products_path(@product.id)
+  end 
+
+  def destroy
+    @product = Product.find_by(id: params[:id])
+
+    @product.destroy
+    if @product.destroy(@product.id)
+      flash[:success] = "Product successfully deleted."
+    else
+      flash[:error] = "Product could not be deleted."
+    end 
+  
+    redirect_to merchant_products_path(@merchant.name)
+  end
+
+
   def toggle_active
     current_state = @product.active
 

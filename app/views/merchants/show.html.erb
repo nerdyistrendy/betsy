@@ -11,7 +11,6 @@
   </li>
 </ul>
 
-<%# TODO: Verify that these routes are correct. %>
 <h4>Actions</h4>
 <%= link_to "Create new category", new_category_path %>
 <%= link_to "Create new product", new_merchant_product_path(@merchant, @products) %>
@@ -27,6 +26,7 @@
         <th>Name</th>
         <th>Inventory</th>
         <th>Price</th>
+        <th>Active</th>
         <th>Action</th>
       </tr>
     </thead>
@@ -39,6 +39,7 @@
         <td><%= product.inventory %></td>
         <td><%= product.price %></td>
         <td><%= product.active %></td>
+        <td><%= link_to "Edit", edit_product_path(@merchant, product.id)%>
       </tr>
     <% end %>
     </tbody>

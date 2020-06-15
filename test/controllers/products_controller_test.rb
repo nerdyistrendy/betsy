@@ -169,4 +169,48 @@ describe ProductsController do
       expect(inactive_test.active).must_equal !before_state
     end
   end
+
+  describe "edit" do
+
+    it "will return edit product page to a logged-in, authorized user" do
+      #TODO: Return to write test
+    end 
+
+
+    it "will redirect unauthorized users to a list of the previously viewed merchant's products" do
+
+      #TODO: Add in relevant variables here 
+
+      get edit_product_path(@product.id)
+
+      must_redirect_to merchant_products_path(@product.id)
+      expect(flash[:error]).must_equal "You are not authorized to edit that product."
+    end 
+
+    it "will return a 404 for an invalid product id" do
+      #TODO: Return to write test
+    end
+  end 
+
+  describe "update" do 
+
+    it "will successfully update a product and redirect" do
+      #TODO: Return to write test
+    end 
+
+    it "will redirect unauthorized users to a list of the previously viewed merchant's products" do
+      #TODO: Return to write test
+    end
+
+    it "will return a 404 for an invalid product id" do
+      #TODO: Return to write test
+    end
+
+
+
+
+
+
+
+
 end
