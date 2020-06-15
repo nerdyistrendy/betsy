@@ -144,8 +144,8 @@ describe ProductsController do
   describe 'cart' do
     it "can add a product to the seassion[:cart] hash" do
       @product = products(:pickles)
-      @quantity = 2 #idk how to send quantity in a test because i am getting it from params in the form
-      patch product_cart_path(@product.id)
+      @quantity = "2" 
+      patch product_cart_path(@product.id), params: {"quantity": @quantity}
 
       expect(session[:cart].class).must_equal Hash
       expect(session[:cart].count).must_equal 1
