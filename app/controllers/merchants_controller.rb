@@ -24,7 +24,7 @@ class MerchantsController < ApplicationController
         flash[:success] = "Successfully created new user #{merchant.username} with ID #{merchant.id}"
       else
         flash[:failure] = merchant.errors.messages
-        redirect_to root_path
+        redirect_to merchants_path
       end
     end
     

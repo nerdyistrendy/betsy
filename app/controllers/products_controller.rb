@@ -86,7 +86,7 @@ class ProductsController < ApplicationController
   def update
     @product = Product.find_by(id: params[:id])
 
-    if @product.update(@product.id)
+    if @product.update(product_params)
       flash[:success] = "Product successfully updated."
     else
       flash[:error] = "Product could not be updated."
@@ -97,15 +97,15 @@ class ProductsController < ApplicationController
 
   def destroy
     @product = Product.find_by(id: params[:id])
+    @merchant = Merchant.find_by(id: @product.merchant_id)
 
-    @product.destroy
-    if @product.destroy(@product.id)
+    if @product.destroy
       flash[:success] = "Product successfully deleted."
     else
       flash[:error] = "Product could not be deleted."
     end 
   
-    redirect_to merchant_products_path(@merchant.name)
+    redirect_to merchant_products_path(@merchant.id)
   end
 
   def cart

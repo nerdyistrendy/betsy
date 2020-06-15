@@ -1,4 +1,4 @@
-quantity,status,product _id,merchant_id,order_id,id
+quantity,status,product_id,merchant_id,order_id,id
 2,TRUE,10,7,1,1
 1,TRUE,9,9,2,2
 5,TRUE,8,4,3,3

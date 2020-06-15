@@ -67,6 +67,11 @@ CSV.foreach(ORDER_ITEM_FILE, :headers => true) do |row|
   order_item.product_id = row['product_id']
   order_item.order_id = row['order_id']
   order_item.id = row['id']
+  puts "trying to save order items: #{order_item.inspect}"
+  if !Order.find_by(id: order_item.order_id)
+    new_order = Order.new
+    new_order.save
+  end
   successful = order_item.save!
   if !successful
     order_item_failures << order_item
