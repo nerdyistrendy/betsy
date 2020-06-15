@@ -20,6 +20,9 @@ class OrdersController < ApplicationController
 
   # might need to break into 1 model method and 1 controller filter.....
   def order_include_merchant
+   
+    # @items_from_merchant = @order.order_items.where(merchant_id: @login_merchant.id)
+
     @items_from_merchant = []
 
     if @order
