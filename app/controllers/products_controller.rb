@@ -1,6 +1,5 @@
 class ProductsController < ApplicationController
-  # skip_before_action :require_login, only: [:index, :show]
-  before_action :get_product, except: [:index, :new, :create]
+  before_action :get_product, except: [:index, :new, :create, :cart]
   before_action :get_merchant, only: [:index, :toggle_active, :create]
   before_action :get_category, only: [:index]
 
@@ -109,6 +108,52 @@ class ProductsController < ApplicationController
     redirect_to merchant_products_path(@merchant.name)
   end
 
+  def cart
+    @product = Product.find_by(id: params[:product_id])
+    @quantity = params[:quantity]
+    if @product.inventory > 0 && @quantity.to_i <= @product.inventory
+      session[:cart]["#{@product.id}"] = @quantity
+      flash.now[:success] = "Product successfully added to your cart"
+      render :show
+      return
+    else
+      if @product.inventory == 0
+        flash.now[:error] = "Sorry, this product is currently out of stock!"
+        render :show
+        return
+      elsif @quantity.to_i >= @product.inventory
+        flash.now[:error] = "Quantity requested is larger that product inventory"
+        render :show
+        return
+      end
+    end
+  end
+
+  def update_quant
+    @product = Product.find_by(id: params[:product_id])
+    @quantity = params[:quantity]
+    if @product.inventory > 0 && @quantity.to_i <= @product.inventory
+      session[:cart]["#{@product.id}"] = @quantity
+      redirect_to order_cart_path
+      return
+    else
+      if @product.inventory == 0
+        flash.now[:error] = "Sorry, this product is currently out of stock!"
+        redirect_to order_cart_path
+        return
+      elsif @quantity.to_i >= @product.inventory
+        flash.now[:error] = "Quantity requested is larger that product inventory"
+        redirect_to order_cart_path
+        return
+      end
+    end
+  end
+
+  def remove_from_cart
+    session[:cart].delete(params[:id])
+    redirect_to order_cart_path
+    return
+  end
 
   def toggle_active
     current_state = @product.active
