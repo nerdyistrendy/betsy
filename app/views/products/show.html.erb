@@ -1,12 +1,4 @@
-<% if @product.errors.any? %>
-  <ul class="errors">
-    <% @product.errors.each do |column, message| %>
-      <li>
-        <strong><%= column.capitalize %></strong> <%= message %>
-      </li>
-    <% end %>
-  </ul>
-<% end %>
+
 
 <main>
   <section>
@@ -14,6 +6,7 @@
       <%= image_tag "#{@product.img_url}" %>
     </div>
     <div>
+      <h3><b><%= @product.name %></b></h3>
       <h4><b>Seller: <%= link_to @product.merchant.username, merchant_path(@product.merchant.id) %></b></h4>
       <p><%= @product.description %></p>
       <p><b><%=  "$#{'%.2f' % @product.price}" %></b></p>
@@ -29,17 +22,7 @@
     </div>
   </section>
 
-  <section>
-    <%= form_with model: @product do |f| %>
-      <div class ="form-group">
-        <%= f.label :Quantity %>
-        <%= f.select :quantity, [1,2,3,4,5], class:"form-control"  %>
-      </div>
-      <div class ="form-group">
-        <%= f.submit "Add to cart", class:"btn btn-primary"%> <%# need to fix this button to link to the cart%>
-      </div>  
-   <% end %>
-  </section> 
+  <%= render partial: "quantform", locals: { action_name: "Add to cart" } %>
   
 </main>
 

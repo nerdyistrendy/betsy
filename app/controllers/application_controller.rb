@@ -1,6 +1,6 @@
 class ApplicationController < ActionController::Base
 
-  before_action :current_merchant
+  before_action :start_session, :current_merchant
 
   private
 
@@ -15,5 +15,9 @@ class ApplicationController < ActionController::Base
       flash[:warning] = "You must be logged in to view this section"
       redirect_to root_path
     end
+  end
+
+  def start_session
+    session[:cart] ||= {}
   end
 end

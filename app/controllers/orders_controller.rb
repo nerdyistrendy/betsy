@@ -3,6 +3,10 @@ class OrdersController < ApplicationController
   before_action :get_order, only: [:show]
   before_action :order_include_merchant, only: [:show]
   
+  def cart
+    @session = session
+  end
+
   def show
     # require_login controller filter
     # order_include_merchant controller filter: checking if the merchant is authorized to view this page
