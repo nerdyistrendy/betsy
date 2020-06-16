@@ -4,14 +4,14 @@ describe ReviewsController do
   before do
     @blacksmith_test = merchants(:blacksmith)
     @pickles_test = products(:pickles)
+    @tent_test = products(:tent)
     @excitable_review_test = reviews(:excitable_pickle_review)
 
     @review_hash = {
       review: {
         text: "Man, I love these pickles!",
         rating: 5,
-        reviewer: "Excitable Foodie",
-        product: @pickles_test
+        reviewer: "Excitable Foodie"
       }
     }
   end
@@ -40,7 +40,7 @@ describe ReviewsController do
         must_redirect_to product_path(@pickles_test.id)
       end
 
-      it "can create a product with categories with logged in user" do
+      it "can create a review by an unauthenticated user" do
         expect {
           post product_reviews_path(@pickles_test.id), params: @review_hash
         }.must_differ 'Review.count', 1
@@ -56,15 +56,48 @@ describe ReviewsController do
   end
 
   describe "Logged In Merchant" do
-    describe "new" do
-      it "can get the nested path" do
-        # get products_path
+    before do
+      perform_login(@blacksmith_test)
+    end
 
-        # must_respond_with :success
+    describe "new" do
+      it "can get review form for other merchants products" do
+        get new_product_review_path(@tent_test.id)
+
+        must_respond_with :success
+      end
+
+      it "will redirect to product page for a merchant's own product" do
+        get new_product_review_path(@pickles_test.id)
+
+        must_respond_with :redirect
+        must_redirect_to product_path(@pickles_test.id)
       end
     end
 
     describe "create" do
+      it "can create a review by a merchant for another merchant's products" do
+        expect {
+          post product_reviews_path(@tent_test.id), params: @review_hash
+        }.must_differ 'Review.count', 1
+  
+        must_respond_with :redirect
+        must_redirect_to product_path(@tent_test.id)
+
+        expect(Review.last.reviewer).must_equal @review_hash[:review][:reviewer]
+        expect(Review.last.text).must_equal @review_hash[:review][:text]
+        expect(Review.last.rating).must_equal @review_hash[:review][:rating]
+
+        expect(Review.last.product).wont_be_nil
+        expect(Review.last.product.name).must_equal @tent_test.name
+      end
+
+      it "will redirect to product page for a merchant's own product" do
+        post product_reviews_path(@pickles_test.id), params: @review_hash
+
+        must_respond_with :redirect
+        must_redirect_to product_path(@pickles_test.id)
+      end
     end
   end
 end

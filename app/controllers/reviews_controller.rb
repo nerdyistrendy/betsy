@@ -2,30 +2,42 @@ class ReviewsController < ApplicationController
   before_action :get_product
 
   def new
-    if !@product.nil?
-      @review = Review.new
+    if @product
+      if @login_merchant && (@product.merchant_id == @login_merchant.id)
+        flash[:error] = "You can't review your own product"
+        redirect_to product_path(@product.id)
+        return
+      else
+        @review = Review.new
+        @review.rating = 5
+      end
     else
       flash[:error] = "Invalid Product"
       redirect_to root_path
     end
+    return
   end
 
   def create
-    if @login_merchant
-    else
+    if @product
       @review = Review.new(review_params)
       @review.product_id = @product.id
 
-      if @review.save
+      if @login_merchant && (@product.merchant_id == @login_merchant.id)
+        flash[:error] = "You cannot review your own product"
+      elsif @review.save!
         flash[:success] = "Successfully added review"
-        redirect_to product_path(@product.id)
-        return
       else
         flash.now[:error] = "Unable to add review"
         render :new, status: :bad_request
         return
       end
+      redirect_to product_path(@product.id)
+    else
+      flash[:error] = "Invalid Product"
+      redirect_to root_path
     end
+    return
   end
 
   private
