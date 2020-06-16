@@ -102,12 +102,27 @@ describe Product do
   end
 
   describe 'cart_total_items' do
+    before do
+      @session ||= {}
+      @session[:cart] ||= {}
+      @session[:cart]["#{products(:pickles).id}"] = 2
+      @session[:cart]["#{products(:tent).id}"] = 1
+    end
     it 'can count all items in the cart' do
+      expect(Product.cart_total_items(@session)).must_equal 3
     end
   end
 
   describe 'subtotal' do
+    before do
+      @session ||= {}
+      @session[:cart] ||= {}
+      @session[:cart]["#{products(:pickles).id}"] = 2
+      @session[:cart]["#{products(:tent).id}"] = 1
+    end
+
     it 'can calculate a subtotal for items in the cart' do
+      expect(Product.subtotal(@session)).must_equal 49
     end
   end
 
