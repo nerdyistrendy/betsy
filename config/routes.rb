@@ -8,8 +8,6 @@ Rails.application.routes.draw do
   
   get "orders/lookup", to: "orders#lookup", as: "order_lookup"
   get "orders/cart", to: "orders#cart", as: "order_cart"
-  patch "remove/:id", to: "products#remove_from_cart", as: "product_remove_cart"
-  patch "cart/update/:id", to: "products#update_quant", as: "update_quant"
   delete "orders/:id/cancel", to: "orders#cancel", as: "cancel_order"
   delete "order_items/:id/cancel", to: "order_items#cancel", as: "cancel_item"
   patch "products/:id/active", to: "products#toggle_active", as: "toggle_active"
@@ -18,6 +16,8 @@ Rails.application.routes.draw do
   resources :products, except: [:new] do
     resources :reviews, only: [:new, :create]
     patch "/cart", to: "products#cart", as: "cart"
+    patch "cart/update", to: "products#update_quant", as: "update_quant"
+    patch "/remove", to: "products#remove_from_cart", as: "remove_cart"
   end
 
   resources :merchants, only: [:index, :show] do
