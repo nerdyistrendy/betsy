@@ -37,4 +37,12 @@ class Merchant < ApplicationRecord
       return "No money made yet!"
     end
   end
+
+  def count_orders(status = "all")
+    if status == "all"
+      return count = self.order_items.count
+    else
+      return count = self.order_items.where("status = ?", status).count
+    end
+  end
 end
