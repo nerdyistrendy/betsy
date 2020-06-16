@@ -1,7 +1,14 @@
 require "test_helper"
 
 describe Review do
-  # it "does a thing" do
-  #   value(1+1).must_equal 2
-  # end
+  before do
+    @excitable_review_test = reviews(:excitable_pickle_review)
+    @pickle_test = products(:pickles)
+    @blacksmith_test = merchants(:blacksmith)
+    @confused_review_test = products(:confused_pickle_review:)
+  end
+
+  describe "validations" do
+
+  end
 end

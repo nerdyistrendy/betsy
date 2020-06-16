@@ -1,7 +1,16 @@
 require "test_helper"
 
 describe ReviewsController do
-  # it "does a thing" do
-  #   value(1+1).must_equal 2
-  # end
+  before do
+
+  end
+  
+  describe "Logged In Merchant" do
+
+
+  end
+
+  describe "Guest User" do
+
+  end
 end
