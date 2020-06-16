@@ -14,4 +14,27 @@ class Merchant < ApplicationRecord
   def active_products
     return self.products.where(active: true)
   end
+
+  # model method in merchant that calculates  total revenue
+  # model method in merchant that calculates  total revenue by status
+  # model method in merchant that calculates  total number of orders by status
+  def total_revenue(status = "all")
+    revenue = 0.00
+
+    if status == "all"
+      self.order_items.each do |item|
+        revenue += item.subtotal      #instance method in order_items
+      end
+    else
+      self.order_items.where("status = ?", status).find_each do |item|
+        revenue += item.subtotal
+      end
+    end
+
+    if revenue > 0
+      return revenue
+    else
+      return "No money made yet!"
+    end
+  end
 end
