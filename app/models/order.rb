@@ -7,4 +7,14 @@ class Order < ApplicationRecord
   validates :cc_cvv, length: {is: 3}
   validates :zipcode, length: {is: 5}
 
+  def order_total
+    total = 0
+    self.order_items.each do |order_item|
+      price = order_item.product.price
+      total += price
+    end
+
+    return (total * 1.1)
+  end
+
 end

@@ -30,15 +30,22 @@ class OrdersController < ApplicationController
     if @order.valid? && @order.order_items.empty? == false
       @order.status = "paid"
       @order.save
-      redirect_to order_cart_path
+      redirect_to order_confirmation_path(@order.id)
+      return
     else
-      flash.now[:error] = "A problem while checking out. Please try again!" #{@work.category}"
+      flash.now[:error] = "A problem while checking out. Please try again!" 
       render :new, status: :bad_request
       return
     end
   end
 
   def confirmation
+    @order = Order.find_by(id: params[:order_id])
+    if @order.valid? == false
+      flash.now[:error] = "There was a problem retrieving your order. Please try again!" 
+      render :new, status: :bad_request
+      return
+    end
   end
 
   private
