@@ -9,6 +9,7 @@ describe OrderItemsController do
 
   describe "index" do
     it "returns the index of order items for a given merchant" do
+      perform_login(@merchant_test)
       get merchant_order_items_path(@merchant_test.id)
 
       must_respond_with :success
