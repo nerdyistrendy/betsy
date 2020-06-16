@@ -1,12 +1,25 @@
+flaresbyhope:
+  username: flaresbyhope
+  email: yourbeacon@hotmail.com
+  id: 2
+
+houstonhatchhouse:
+  username: houstonhatchhouse
+  email: vonnie@hatchhouse.com
+  id: 7
+
 blacksmith:
   username: anacortesblacksmith
   email: cloud@abco.com
+
 weavery:
   username: weaverysupplies
   email: hugo@weaverysupplies.com
+
 hopeful:
   username: hopeful
   email: hopeful@hopes.org
+
 peaceful:
   username: peaceful
   email: peace@peaceout.net
