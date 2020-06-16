@@ -114,5 +114,40 @@ describe OrderItemsController do
         expect(flash[:warning]).must_equal "Invalid Order Item"
       end
     end
+
+    describe "cancel" do
+      before do
+        perform_login(@weavery)
+      end
+
+      it "can successfully cancel a pending order_item" do
+        @orderitem.update!(status: "pending")
+        delete cancel_item_path(@orderitem)
+        must_respond_with :redirect
+        expect(flash[:success]).must_equal "Successfully Cancelled"
+      end
+
+      it "is unable to cancel a shipped item" do
+        shipped_item = order_items(:stabby_smith_knife)
+        delete cancel_item_path(shipped_item)
+        must_respond_with :redirect
+        expect(flash[:warning]).must_equal "Unable to cancel a shipped item"
+      end
+
+      it "is unable to cancel a cancelled item" do
+        @orderitem.update!(status: "cancelled")
+        delete cancel_item_path(@orderitem)
+        must_respond_with :redirect
+        expect(flash[:warning]).must_equal "This order item was previously cancelled"
+      end
+
+      it "is unable to ship another merchant's product" do
+        other_merchant_order = order_items(:pickle_lover_pickles)
+        other_merchant_order.update!(status: "pending")
+        delete cancel_item_path(other_merchant_order)
+        must_respond_with :redirect
+        expect(flash[:warning]).must_equal "Invalid Order Item"
+      end
+    end
   end
 end
