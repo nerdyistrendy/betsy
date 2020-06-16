@@ -41,9 +41,9 @@ class OrdersController < ApplicationController
 
   def confirmation
     @order = Order.find_by(id: params[:order_id])
-    if @order.valid? == false
+    if @order.nil?
       flash.now[:error] = "There was a problem retrieving your order. Please try again!" 
-      render :new, status: :bad_request
+      redirect_to root_path, status: :bad_request
       return
     end
   end

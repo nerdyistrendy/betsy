@@ -37,6 +37,7 @@ describe OrdersController do
     it 'can create a valid order and associated order_items' do
       expect{post(orders_path params: @order)}.must_differ 'Order.count && OrderItem.count', 1
       order = Order.last
+  
       expect(order).must_be_instance_of Order
       expect(order.valid?).must_equal true
       expect(order.order_items.count).must_equal 1
@@ -81,15 +82,42 @@ describe OrdersController do
     end
 
     it 'does not create an order or order_items if order params are invalid' do
-      @order[:order][:zipcode] = nil
-      expect{post(orders_path params: @order)}.wont_differ 'Order.count && OrderItem.count'
+      expect{post(orders_path params: {order: {name: nil}})}.wont_differ 'Order.count && OrderItem.count'
       must_respond_with :bad_request
+
     end
 
   end
 
   describe 'confirmation' do
+    before do
+      @product = products(:pickles)
+      @quantity = 2 
+      patch product_cart_path(@product.id), params:{"quantity": @quantity}
+      @order = { 
+        order: { 
+          name: 'Pickle Lover',
+          email: 'pickles4lyf@e.mail',
+          mailing_address: '1234 Pickles Blvd',
+          cc_name: 'Joe Smith',
+          cc_cvv: 123,
+          cc_number: 1234123412341234,
+          cc_exp: Date.new(2022, 3, 1).to_s,
+          zipcode: 98765
+        }
+      }
+      post(orders_path params: @order)
+      @found_order = Order.last
+    end
+    it 'can get a confirmation page' do
+      get order_confirmation_path(@found_order.id)
+      must_respond_with :ok
+    end
 
+    it 'responds with bad request of page not found' do
+      get order_confirmation_path(1232133)
+      must_respond_with :bad_request
+    end
   end
 
 
