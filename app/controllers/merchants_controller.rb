@@ -1,7 +1,11 @@
 class MerchantsController < ApplicationController
+  def index
+  end
 
   def show
     @merchant = Merchant.find_by(id: params[:id])
+    puts @login_merchant
+    puts session[:user_id]
     if @merchant == nil
       flash[:error] = "Merchant does not exist in our database." 
       head :not_found

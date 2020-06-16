@@ -15,7 +15,8 @@
 <%= link_to "Create new category", new_category_path %>
 <%= link_to "Create new product", new_merchant_product_path(@merchant, @products) %>
 
-<% if @login_merchant == session[:user_id] %>
+<% if @login_merchant.id == session[:user_id] %>
+    <% puts #{@login_merchant} %>
     <%= link_to "Order Fulfillment Dashboard", merchant_order_items_path(@merchant, @orders) %>
 <% end %>
 
@@ -39,7 +40,7 @@
         <td><%= product.inventory %></td>
         <td><%= product.price %></td>
         <td><%= product.active %></td>
-        <td><%= link_to "Edit", edit_product_path(@merchant, product.id)%>
+        <td><%= link_to "Edit", edit_product_path(product)%>
       </tr>
     <% end %>
     </tbody>

@@ -74,11 +74,11 @@ class ProductsController < ApplicationController
   def edit
     @product = Product.find_by(id: params[:id])
 
-    if @product.merchant_id != session[:user_id]
-      flash[:error] = "You are not authorized to edit that product."
-      redirect_to merchant_products_path(@product.id)
-    elsif @product == nil
+    if @product == nil
       flash[:error] = "Cannot edit a non-existent product."
+      redirect_to merchant_products_path(@product.id)
+    elsif @product.merchant_id != session[:user_id]
+      flash[:error] = "You are not authorized to edit that product."
       redirect_to merchant_products_path(@product.id)
     end 
   end 
@@ -92,7 +92,7 @@ class ProductsController < ApplicationController
       flash[:error] = "Product could not be updated."
     end
 
-    redirect_to merchant_products_path(@product.id)
+    redirect_to merchant_path(session[:user_id])
   end 
 
   def destroy
