@@ -1,6 +1,8 @@
 class Merchant < ApplicationRecord 
   has_many :order_items
   has_many :products
+  has_many :orders, through: :order_items 
+
 
   def self.build_from_github(auth_hash)
     merchant = Merchant.new

@@ -1,4 +1,19 @@
 class MerchantsController < ApplicationController
+  def index
+  end
+
+  def show
+    @merchant = Merchant.find_by(id: params[:id])
+
+    if @merchant == nil
+      flash[:error] = "Merchant does not exist in our database." 
+      head :not_found
+      return
+    end 
+
+    @orders = @merchant.orders 
+  end 
+  
   def create
     auth_hash = request.env["omniauth.auth"]
     merchant = Merchant.find_by(email: auth_hash["info"]["email"])
@@ -12,7 +27,7 @@ class MerchantsController < ApplicationController
         flash[:success] = "Successfully created new user #{merchant.username} with ID #{merchant.id}"
       else
         flash[:failure] = merchant.errors.messages
-        redirect_to root_path
+        redirect_to merchants_path
       end
     end
     
