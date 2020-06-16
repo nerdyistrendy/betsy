@@ -14,17 +14,15 @@ class OrdersController < ApplicationController
     @cart = session[:cart]
     ActiveRecord::Base.transaction do
       @order.save
-      @order.status = "paid"
       @cart.each do |item|
         @product = Product.find_by(id: item[0].to_i)
         @order_item = OrderItem.new(product_id: @product.id, 
           order_id: @order.id, quantity: item[1].to_i, 
-          status: @order.status,
+          status: "pending",
           merchant_id: @product.merchant.id
         )
         @order_item.save
-        @product.inventory -= @order_item.quantity
-        @product.save
+        @product.decrease_inventory(@order_item.quantity)
         session[:cart].delete("#{item[0]}")
       end
     end
