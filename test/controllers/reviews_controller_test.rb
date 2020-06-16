@@ -33,15 +33,34 @@ describe ReviewsController do
     end
 
     describe "create" do
+      it "will redirect to product page when created" do
+        post product_reviews_path(@pickles_test.id), params: @review_hash
+      
+        must_respond_with :redirect
+        must_redirect_to product_path(@pickles_test.id)
+      end
+
+      it "can create a product with categories with logged in user" do
+        expect {
+          post product_reviews_path(@pickles_test.id), params: @review_hash
+        }.must_differ 'Review.count', 1
+  
+        expect(Review.last.reviewer).must_equal @review_hash[:review][:reviewer]
+        expect(Review.last.text).must_equal @review_hash[:review][:text]
+        expect(Review.last.rating).must_equal @review_hash[:review][:rating]
+
+        expect(Review.last.product).wont_be_nil
+        expect(Review.last.product.name).must_equal @pickles_test.name
+      end
     end
   end
 
   describe "Logged In Merchant" do
     describe "new" do
       it "can get the nested path" do
-        get products_path
+        # get products_path
 
-        must_respond_with :success
+        # must_respond_with :success
       end
     end
 
