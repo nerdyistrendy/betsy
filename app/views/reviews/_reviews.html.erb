@@ -13,7 +13,7 @@
               <small class="text-muted">Reviewed on: <%= time_tag r.updated_at, r.updated_at.strftime("%B %d, %Y") %></small>
             </div>
             <p class="mb-1"><%= r.text %></p>
-            <small class="text-muted"><%= r.reviewer %></small>
+            <small class="text-muted float-right"><%= r.reviewer %></small>
           </div>
         <% end %>
       <% end %>
