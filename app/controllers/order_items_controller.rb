@@ -13,11 +13,14 @@ class OrderItemsController < ApplicationController
     @status = params["status"]
     if @status == "pending"
       @merchant_order_items = OrderItem.where(merchant_id: params[:merchant_id], status: "pending")
+      return
     elsif @status == "shipped"
       @merchant_order_items = OrderItem.where(merchant_id: params[:merchant_id], status: "shipped")
+      return
     else
       @status = "all"
       @merchant_order_items = OrderItem.where(merchant_id: params[:merchant_id])
+      return
     end
 
     # I think we can still render this view that shows 0 order items?
