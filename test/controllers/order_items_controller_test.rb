@@ -92,6 +92,17 @@ describe OrderItemsController do
         expect(flash[:success]).must_equal "Successfully Shipped"
       end
 
+      it "can successfully ship a pending order_item" do
+        single_item = order_items(:stabby_smith_knife)
+        single_item.update!(status: "pending")
+
+        patch ship_item_path(single_item)
+        must_respond_with :redirect
+        expect(flash[:success]).must_equal "Successfully Shipped"
+        order = Order.find_by(id: single_item.order_id)
+        expect(order.status).must_equal "complete"
+      end
+
       it "is unable to ship a shipped item" do
         shipped_item = order_items(:stabby_smith_knife)
         patch ship_item_path(shipped_item)

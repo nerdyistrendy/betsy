@@ -44,6 +44,8 @@ class OrderItemsController < ApplicationController
         return
       else
         @orderitem.update(status: "shipped")
+        order = Order.find_by(id: @orderitem.order_id)
+        order.mark_order_complete
         flash[:success] = "Successfully Shipped"
         redirect_back(fallback_location: root_path)
         return
@@ -69,6 +71,8 @@ class OrderItemsController < ApplicationController
       else
         @orderitem.update(status: "cancelled")
         flash[:success] = "Successfully Cancelled"
+        order = Order.find_by(id: @orderitem.order_id)
+        order.mark_order_complete
         redirect_back(fallback_location: root_path)
         return
       end
