@@ -72,13 +72,19 @@ describe ProductsController do
   
     describe "new" do
       it "will redirect to the root if merchant isn't logged in" do
-      #TODO
+        get new_merchant_product_path(@merchant_test.id)
+
+        must_respond_with :redirect
+        must_redirect_to root_path
       end
     end
 
     describe "create" do
       it "will redirect to root for unauthenticated user" do
-        #TODO
+        post merchant_products_path(@merchant_test.id), params: @product_hash
+
+        must_respond_with :redirect
+        must_redirect_to root_path
       end
     end
 
