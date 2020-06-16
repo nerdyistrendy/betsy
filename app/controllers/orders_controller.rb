@@ -66,6 +66,7 @@ class OrdersController < ApplicationController
     if @order.nil?
       flash.now[:error] = "There was a problem retrieving your order. Please try again!" 
       redirect_to root_path, status: :bad_request
+    end
   end
     
   private
