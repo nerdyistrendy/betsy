@@ -53,7 +53,7 @@ class ProductsController < ApplicationController
 
     if @product.save
       flash[:success] = "Successfully added product: #{@product.name}"
-      redirect_to product_path(@product.id)
+      redirect_to merchant_path(@login_merchant.id)
       return
     else
       flash.now[:error] = "Unable to add product"
@@ -96,7 +96,7 @@ class ProductsController < ApplicationController
       flash[:error] = "Product could not be deleted."
     end 
   
-    redirect_to merchant_products_path(@merchant.id)
+    redirect_to merchant_path(@merchant.id)
   end
 
   def cart
@@ -152,15 +152,16 @@ class ProductsController < ApplicationController
       if @login_merchant.id == @product.merchant_id
         @product.update!(active: !current_state)
         flash[:success] = "Product was successfully updated"
+        redirect_to merchant_path(@login_merchant.id)
+        return
       else
         flash[:error] = "You cannot retire another merchant's product"
       end
-      redirect_to product_path(@product.id)
     else
       flash[:error] = "Invalid Product"
-      redirect_to root_path
-      return
     end
+    redirect_to root_path
+    return
   end
 
   private

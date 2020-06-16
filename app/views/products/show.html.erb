@@ -13,13 +13,7 @@
         <p>In Stock</p>
       <% else %>
         <p>Out of Stock</p>
-      <%end%>
-      <% current_state = (@product.active ? "Retire Product" : "Reactivate Product") %>
-      <% if @login_merchant == @product.merchant %>
-        <%= button_to current_state, toggle_active_path(@product.id), class: "btn btn-warning", data: { confirm: "Are you sure you'd like to #{current_state.downcase}?"}, method: :patch %>
-
-        <%= button_to "delete", product_path(@product.id), class: "btn btn-danger", data: { confirm: "Are you sure you'd like to delete this product?"}, method: :delete %>
-      <% end%>
+      <% end %>
     </div>
   </section>
 
