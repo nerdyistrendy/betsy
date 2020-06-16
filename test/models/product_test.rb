@@ -126,6 +126,15 @@ describe Product do
     end
   end
 
+  describe 'decrease inventory' do
+    it 'can decrease product inventory' do
+      product = products(:pickles)
+      expect(product.inventory).must_equal 40
+      product.decrease_inventory(3)
+      expect(product.inventory).must_equal 37
+    end
+  end
+
   describe "active_products" do
     it "will retrieve all products where active is true" do
       products_arr = @blacksmith_test.active_products
