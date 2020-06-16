@@ -34,6 +34,7 @@ class ProductsController < ApplicationController
     end
     @status = (@product.active ? "Retire Product" : "Reactivate Product")
     @reviews = @product.reviews
+    @average_rating = @product.average_rating
   end
 
   def new

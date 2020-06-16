@@ -16,7 +16,7 @@
       <% else %>
         <p>Out of Stock</p>
       <%end%>
-      <% if @login_merchant %>
+      <% if @login_merchant == @product.merchant %>
         <%= button_to @status, toggle_active_path(@product.id), class: "btn btn-danger", data: { confirm: "Are you sure you'd like to #{@status.downcase}?"}, method: :patch %>
       <% end %>
 
