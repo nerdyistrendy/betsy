@@ -1,0 +1,56 @@
+<% if @order.errors.any? %>
+  <ul class="errors">
+    <% @order.errors.each do |column, message| %>
+      <li>
+        <strong><%= column.capitalize %></strong> <%= message %>
+      </li>
+    <% end %>
+  </ul>
+<% end %>
+
+<main>
+  <h2>Enter Shipping and Credit Card Information</h2>
+  <section>
+    <%= form_with model: @order, url: orders_path, method: "post" do |f| %>
+      <div class ="form-group">
+        <%= f.label :Name %>
+        <%= f.text_field :name, class:"form-control", required: true  %>
+      </div>
+      <div class ="form-group">
+        <%= f.label :Email %>
+        <%= f.text_field :email, class: "form-control", required: true%>
+      </div>
+      <div class ="form-group">
+        <%= f.label :Mailing_Address %>
+        <%= f.text_field :mailing_address, class: "form-control", required: true %>
+      </div>
+      <div class ="form-group">
+        <%= f.label :Zipcode %>
+        <%= f.text_field :zipcode, class: "form-control", required: true %>
+      </div>
+      <div class ="form-group">
+        <%= f.label :Name_on_Credit_Card %>
+        <%= f.text_field :cc_name, class: "form-control", required: true %>
+      </div>
+      <div class ="form-group">
+        <%= f.label :Credit_Card_Number %>
+        <%= f.text_field :cc_number, class: "form-control", required: true %>
+      </div>
+      <div class ="form-group">
+        <%= f.label :CVV%>
+        <%= f.text_field :cc_cvv, class: "form-control", required: true %>
+      </div>
+      <div class ="form-group">
+        <%= f.label "Credit Card Expiration Date YYYY-MM-DD" %>
+        <%= f.text_field :cc_exp, required: true %>
+      </div>
+      <div class ="form-group">
+        <%= f.submit "Complete Order", class:"btn btn-primary"%>
+      </div>  
+   <% end %>
+  </section> 
+</main>
+
+
+
+  

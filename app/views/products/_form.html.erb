@@ -10,8 +10,7 @@
   </section>
 <%end%>
 
-
-<%= form_with model: @product, class: "form-group" do |f| %>
+<%= form_with model: @product, url: merchant_products_path, class: "form-group" do |f| %>
   <div class="form-group">
     <%= f.label :name %>
     <%= f.text_field(:name, class: "form-control") %>
@@ -38,12 +37,13 @@
   </div>
 
   <% if @categories %>
-    <div class="form-group list-group">
+    <div class="form-group">
       <%= f.label :categories, "Category" %>
-      <%= collection_check_boxes(:product, :category_ids, 
-         Category.all, :id, :name) %>
+      <%= f.select :category, Category.all.map {|c| c.name}, {}, class: "form-control", multiple: true %>
     </div>
   <% end %>
 
-  <%= f.submit "edit", class: "button btn btn-primary form-group" %>
+  
+
+  <%= f.submit action_name, class: "button btn btn-primary form-group" %>
 <% end %>
