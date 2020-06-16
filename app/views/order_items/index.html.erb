@@ -4,32 +4,32 @@
   <section class="container text-center">
     <div class="card-deck">
       <div class="card">
-        <div class="card-header">
+        <div class="card-header font-weight-bolder">
           TOTAL ORDERS: <%= @login_merchant.count_orders %>
         </div>
         <div class="card-body">
           <p class="card-text"> Total Revenue: $<%= @login_merchant.total_revenue %> </p>
-          <p class="card-text"> <%= link_to 'View All Orders', merchant_order_items_path(@login_merchant) %> </p>
+          <p class="card-text"> <%= link_to 'View All Orders', merchant_order_items_path(@login_merchant), class: "btn btn-outline-secondary" %> </p>
         </div>
       </div>
 
       <div class="card">
-        <div class="card-header">
+        <div class="card-header font-weight-bolder">
           PENDING ORDERS: <%= @login_merchant.count_orders("pending") %>
         </div>
         <div class="card-body">
-          <p class="card-text"> Revenue - Pending Orders: $<%= @login_merchant.total_revenue("pending") %> </p>
-          <p class="card-text"> <%= link_to 'View Pending Orders', merchant_order_items_path(@login_merchant, :status => "pending") %> </p>
+          <p class="card-text"> Revenue--Pending Orders: $<%= @login_merchant.total_revenue("pending") %> </p>
+          <p class="card-text"> <%= link_to 'View Pending Orders', merchant_order_items_path(@login_merchant, :status => "pending"), class: "btn btn-outline-secondary" %> </p>
         </div>
       </div>
 
       <div class="card">
-        <div class="card-header">
+        <div class="card-header font-weight-bolder">
           SHIPPED ORDERS: <%= @login_merchant.count_orders("shipped") %>
         </div>
         <div class="card-body">
           <p class="card-text"> Revenue--Shipped Orders: $<%= @login_merchant.total_revenue("shipped") %> </p>
-         <p class="card-text"> <%= link_to 'View Shipped Orders', merchant_order_items_path(@login_merchant, :status => "shipped") %> </p>
+         <p class="card-text"> <%= link_to 'View Shipped Orders', merchant_order_items_path(@login_merchant, :status => "shipped"), class: "btn btn-outline-secondary" %> </p>
         </div>
       </div>
 
@@ -74,44 +74,3 @@
     </table>
   </section>
 </main>
-
-
-
-
-  <br>
-
-  <section class="container text-center">
-    <div class="card-deck">
-
-      <div class="card">
-        <div class="card-header">
-          TOTAL ORDERS: <%= @login_merchant.count_orders %>
-        </div>
-        <div class="card-body">
-          <p class="card-text"> Pending Orders: <%= @login_merchant.count_orders("pending") %> </p>
-          <p class="card-text"> Shipped Orders: <%= @login_merchant.count_orders("shipped") %> </p>
-        </div>
-      </div>
-
-      <div class="card">
-        <div class="card-header">
-          TOTAL REVENUE: $<%= @login_merchant.total_revenue %>
-        </div>
-        <div class="card-body">
-          <p class="card-text"> Pending Orders: $<%= @login_merchant.total_revenue("pending") %> </p>
-          <p class="card-text"> Shipped Orders: $<%= @login_merchant.total_revenue("shipped") %> </p>
-        </div>
-      </div>
-
-      <div class="card">
-        <div class="card-header">
-          VIEW ALL ORDERS
-        </div>
-        <div class="card-body">
-          <p class="card-text"> View Pending Orders </p>
-          <p class="card-text"> View Shipped Orders </p>
-        </div>
-      </div>
-
-    </div>
-  </section>
