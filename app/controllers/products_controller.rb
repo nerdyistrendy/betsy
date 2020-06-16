@@ -33,6 +33,7 @@ class ProductsController < ApplicationController
       return
     end
     @status = (@product.active ? "Retire Product" : "Reactivate Product")
+    @reviews = @product.reviews
   end
 
   def new

@@ -27,7 +27,7 @@
 
   <%= render partial: "quantform", locals: { action_name: "Add to cart" } %>
   
-  <%= render partial: "reviews/reviews" %>
+  <%= render partial: "reviews/reviews", locals: { reviews: @reviews }  %>
 </main>
 
 
