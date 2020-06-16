@@ -90,24 +90,6 @@ describe ProductsController do
       end
     end
 
-    describe 'cart' do
-      # it "can add a product to the session[:cart] hash" do
-      #   @product = products(:pickles)
-      #   @quantity = 2 #idk how to send quantity in a test because i am getting it from params in the form
-      #   patch product_cart_path(@product.id)
-
-      #   expect(session[:cart].class).must_equal Hash
-      #   expect(session[:cart].count).must_equal 1
-      #   expect(session[:cart]["#{@product.id}"]).must_equal @quantity
-      # end
-    end
-
-    describe 'updatequant' do
-    end
-
-    describe 'remove_from_cart' do
-    end
-
     describe "toggle_active" do
       it "will redirect to root if used by unauthenticated user" do
         patch toggle_active_path(@pickles_test.id)
@@ -126,7 +108,6 @@ describe ProductsController do
       end
     end
   end
-
   
   describe "Logged In Merchants" do
     before do
@@ -140,6 +121,104 @@ describe ProductsController do
         must_respond_with :success
       end
     end
+
+  end
+
+  describe 'cart' do
+    before do
+      @product = products(:pickles)
+      @quantity = 2 
+    end
+    it "can add a product to the seassion[:cart] hash" do
+      patch product_cart_path(@product.id), params:{"quantity": @quantity}
+
+      expect(session[:cart].class).must_equal Hash
+      expect(session[:cart].count).must_equal 1
+      expect(session[:cart]["#{@product.id}"]).must_equal @quantity
+    end
+
+    it "will not let you add product to the cart if product has no inventory" do
+      @product.inventory = 0
+      @product.save
+      patch product_cart_path(@product.id), params:{"quantity": @quantity}
+  
+      
+      must_respond_with :bad_request
+      expect(session[:cart].count).must_equal 0
+    end
+
+    it "will not let you add product to the cart if quantity > inventory" do
+      @product.inventory = 1
+      @product.save
+      patch product_cart_path(@product.id), params:{"quantity": @quantity}
+  
+      
+      must_respond_with :bad_request
+      expect(session[:cart].count).must_equal 0
+    end
+  end
+
+  describe 'updatequant' do
+    before do
+      @product = products(:pickles)
+      @quantity = 2 
+      patch product_cart_path(@product.id), params:{"quantity": @quantity}
+    end
+    it "can update product quantity sesssion[:cart] hash" do
+      patch product_update_quant_path(@product.id), params:{"quantity": 4}
+
+      expect(session[:cart].class).must_equal Hash
+      expect(session[:cart].count).must_equal 1
+      expect(session[:cart]["#{@product.id}"]).must_equal 4
+    end
+
+    it "will not let you update quantity to the cart if product has no inventory" do
+      @product.inventory = 0
+      @product.save
+      patch product_update_quant_path(@product.id), params:{"quantity": 4}
+  
+      must_redirect_to order_cart_path
+      expect(session[:cart].count).must_equal 1
+      expect(session[:cart]["#{@product.id}"]).must_equal @quantity
+    end
+
+    it "will not let you add product to the cart if quantity > inventory" do
+      @product.inventory = 1
+      @product.save
+      patch product_update_quant_path(@product.id), params:{"quantity": 4}
+  
+      must_redirect_to order_cart_path
+      expect(session[:cart].count).must_equal 1
+      expect(session[:cart]["#{@product.id}"]).must_equal @quantity
+    end
+  end
+
+  describe 'remove_from_cart' do
+    before do
+      @product = products(:pickles)
+      @quantity = 2 
+      patch product_cart_path(@product.id), params:{"quantity": @quantity}
+
+      @product2 = products(:tent)
+      @quantity2 = 1 
+      patch product_cart_path(@product2.id), params:{"quantity": @quantity2}
+    end
+    it "can remove product from session[:cart] hash" do
+      expect(session[:cart].class).must_equal Hash
+      expect(session[:cart].count).must_equal 2
+      expect(session[:cart]["#{@product.id}"]).must_equal @quantity
+      expect(session[:cart]["#{@product2.id}"]).must_equal @quantity2
+
+      patch product_remove_cart_path(@product.id)
+      expect(session[:cart].count).must_equal 1
+      expect(session[:cart]["#{@product.id}"]).must_be_nil
+      expect(session[:cart]["#{@product2.id}"]).must_equal @quantity2
+    end
+
+  end
+
+  describe "toggle_active" do
+    # it "can only be called by the merchant who owns said product" do
     
     describe "create" do
       it "will redirect to the product show page after creating a product" do

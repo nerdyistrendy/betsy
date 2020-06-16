@@ -33,6 +33,11 @@ class Product < ApplicationRecord
   def self.active_products
     return Product.all.where(active: true)
   end
+
+  def decrease_inventory(quantity)
+    self.inventory -= quantity
+    self.save
+  end
   
   def average_rating
     return 0 if self.reviews.empty?
