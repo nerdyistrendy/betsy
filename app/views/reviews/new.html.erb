@@ -1,0 +1,37 @@
+<% if @review.errors.any? %>
+<section class="alert__container">
+  <div class="alert alert-warning">
+    <span>A problem occurred: Unable to create review </span>
+      <ul>
+        <% @review.errors.each do |column, message| %>
+          <li> <%= column %>: <%= message %> </li>
+        <% end %>
+      </ul>
+  </div>
+</section>
+<% end %>
+
+<section>
+  <%= image_tag @product.img_url %>
+  <h4>Leave a review for: <%= @product.name %><h4>
+  <%= form_with model: @review, url: product_reviews_path, class: "form-group" do |f| %>
+    <div class="form-group">
+      <%= f.label :reviewer, "Nickname" %>
+      <%= f.text_field :reviewer, class: "form-control" %>
+    </div>
+    
+    <div class="form-group">
+      <%= f.label :rating %>
+      <%= f.select :rating, [1, 2, 3, 4, 5], {}, class: "form-control" %>
+    </div>
+
+    <div class="form-group">
+      <%= f.label :text %>
+      <%= f.text_area :text, class: "form-control" %>
+    </div>
+
+    <div class="form-group">
+      <%= f.submit "Submit Review", class: "btn btn-primary" %>
+    </div>
+  <% end %>
+</section>

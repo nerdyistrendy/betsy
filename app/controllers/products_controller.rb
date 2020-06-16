@@ -32,6 +32,8 @@ class ProductsController < ApplicationController
       redirect_to products_path, status: :not_found
       return
     end
+    @reviews = @product.reviews
+    @average_rating = @product.average_rating
   end
 
   def new
@@ -145,15 +147,18 @@ class ProductsController < ApplicationController
   end
 
   def toggle_active
-    current_state = @product.active
-
-    if @product.update!(active: !current_state)
-      flash[:success] = "Product was successfully updated"
-      redirect_back fallback_location: products_path(@product.id)
-      return
+    if @product
+      current_state = @product.active
+      if @login_merchant.id == @product.merchant_id
+        @product.update!(active: !current_state)
+        flash[:success] = "Product was successfully updated"
+      else
+        flash[:error] = "You cannot retire another merchant's product"
+      end
+      redirect_to product_path(@product.id)
     else
-      flash[:error] = "Unable to update product"
-      redirect_back fallback_location: root_path, status: :bad_request
+      flash[:error] = "Invalid Product"
+      redirect_to root_path
       return
     end
   end
