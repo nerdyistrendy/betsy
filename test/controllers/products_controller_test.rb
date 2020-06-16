@@ -2,7 +2,7 @@ require "test_helper"
 
 describe ProductsController do
   before do
-    @merchant_test = Merchant.first
+    @merchant_test = merchants(:blacksmith)
     @category_test = categories(:food)
     @product_test = products(:pickles)
 
@@ -110,7 +110,7 @@ describe ProductsController do
   
   describe "Logged In Merchants" do
     before do
-      perform_login
+      perform_login(@merchant_test)
     end
     
     describe "new" do
