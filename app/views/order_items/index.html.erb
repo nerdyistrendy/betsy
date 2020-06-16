@@ -52,6 +52,7 @@
           <th>Purchase Date</th>
           <th>Status</th>
           <th>Ship</th>
+          <th>Cancel Item</th>
         </tr>
       </thead>
 
@@ -67,7 +68,8 @@
           <td> <%= number_to_currency(order_item.subtotal) %> </td>
           <td> <%= order_item.created_at.strftime("%m/%d/%y") %> </td>
           <td> <%= order_item.status %> </td>
-          <td> <%= link_to "SHIP", ship_item_path(order_item), class: "btn btn-outline-secondary" %> </td>
+          <td> <%= link_to "SHIP", ship_item_path(order_item), method: :patch, class: "btn btn-outline-secondary" %> </td>
+          <td> <%= link_to "CANCEL", cancel_item_path(order_item), method: :delete, data: {confirm: "Are you sure?"}, class: "btn btn-outline-danger" %> </td>
         </tr>
       <% end %>
       </tbody>
