@@ -1,6 +1,7 @@
 class OrderItemsController < ApplicationController
 
-  before_action :require_login, only: [:index]
+  before_action :require_login, only: [:index, :ship, :cancel]
+  before_action :get_orderitem
 
   def index
     if params[:merchant_id].to_i != @login_merchant.id
@@ -29,9 +30,62 @@ class OrderItemsController < ApplicationController
     #   head :not_found
     # end
   end 
+
   
+  def ship
+    if @orderitem && @orderitem.merchant_id == @login_merchant.id
+      if @orderitem.status == "shipped"
+        flash[:warning] = "This order item was previously shipped"
+        redirect_back(fallback_location: root_path)
+        return
+      elsif @orderitem.status == "cancelled"
+        flash[:warning] = "Unable to ship a cancelled item"
+        redirect_back(fallback_location: root_path)
+        return
+      else
+        @orderitem.update(status: "shipped")
+        flash[:success] = "Successfully Shipped"
+        redirect_back(fallback_location: root_path)
+        return
+      end
+    else
+      flash[:warning] = "Invalid Order Item"
+      redirect_back(fallback_location: root_path)
+      return
+    end
+  end
+
+
+  def cancel
+    if @orderitem && @orderitem.merchant_id == @login_merchant.id
+      if @orderitem.status == "shipped"
+        flash[:warning] = "Unable to cancel a shipped item"
+        redirect_back(fallback_location: root_path)
+        return
+      elsif @orderitem.status == "cancelled"
+        flash[:warning] = "This order item was previously cancelled"
+        redirect_back(fallback_location: root_path)
+        return
+      else
+        @orderitem.update(status: "cancelled")
+        flash[:success] = "Successfully Cancelled"
+        redirect_back(fallback_location: root_path)
+        return
+      end
+    else
+      flash[:warning] = "Invalid Order Item"
+      redirect_back(fallback_location: root_path)
+      return
+    end
+  end
 
   #Another bit of code relies on this, so feel free to alter it, but please don't delete it. 
   def show
+  end
+
+  private
+
+  def get_orderitem
+    return @orderitem = OrderItem.find_by(id: params[:id])
   end
 end

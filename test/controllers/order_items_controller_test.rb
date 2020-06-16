@@ -4,6 +4,7 @@ describe OrderItemsController do
   before do
     @merchant_test = merchants(:houstonhatchhouse)
     @weavery = merchants(:weavery)
+    @orderitem = order_items(:foodie_smith_pickles)
   end
 
   describe "Guest Users" do
@@ -27,14 +28,31 @@ describe OrderItemsController do
         expect(flash[:warning]).must_equal "You must be logged in to view this section"
       end
     end
+
+    describe "ship" do
+      it "cannot access the order_items#ship and will be redirected" do
+        patch ship_item_path(@orderitem)
+        must_respond_with :redirect
+        expect(flash[:warning]).must_equal "You must be logged in to view this section"
+      end
+    end
+
+    describe "cancel" do
+      it "cannot access the order_items#ship and will be redirected" do
+        delete cancel_item_path(@orderitem)
+        must_respond_with :redirect
+        expect(flash[:warning]).must_equal "You must be logged in to view this section"
+      end
+    end
+
   end
 
   describe "Logged in Merchants" do
-    before do
-      perform_login(@merchant_test)
-    end
-
     describe "index" do
+      before do
+        perform_login(@merchant_test)
+      end
+
       it "returns the index of order items for a given merchant" do
         get merchant_order_items_path(@merchant_test.id)
         must_respond_with :success
@@ -59,6 +77,41 @@ describe OrderItemsController do
         get merchant_order_items_path(@invalid_order_item_id)
         must_respond_with :redirect
         expect(flash[:warning]).must_equal "You are not authorized to view this section"
+      end
+    end
+
+    describe "ship" do
+      before do
+        perform_login(@weavery)
+      end
+
+      it "can successfully ship a pending order_item" do
+        @orderitem.update!(status: "pending")
+        patch ship_item_path(@orderitem)
+        must_respond_with :redirect
+        expect(flash[:success]).must_equal "Successfully Shipped"
+      end
+
+      it "is unable to ship a shipped item" do
+        shipped_item = order_items(:stabby_smith_knife)
+        patch ship_item_path(shipped_item)
+        must_respond_with :redirect
+        expect(flash[:warning]).must_equal "This order item was previously shipped"
+      end
+
+      it "is unable to ship a cancelled item" do
+        @orderitem.update!(status: "cancelled")
+        patch ship_item_path(@orderitem)
+        must_respond_with :redirect
+        expect(flash[:warning]).must_equal "Unable to ship a cancelled item"
+      end
+
+      it "is unable to ship another merchant's product" do
+        other_merchant_order = order_items(:pickle_lover_pickles)
+        other_merchant_order.update!(status: "pending")
+        patch ship_item_path(other_merchant_order)
+        must_respond_with :redirect
+        expect(flash[:warning]).must_equal "Invalid Order Item"
       end
     end
   end
