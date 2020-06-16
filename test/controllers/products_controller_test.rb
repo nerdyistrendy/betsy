@@ -214,9 +214,7 @@ describe ProductsController do
   
         patch toggle_active_path(@pickles_test.id)
         @pickles_test.reload
-  
-        must_respond_with :redirect
-        must_redirect_to product_path(@pickles_test.id)
+
         expect(@pickles_test.active).must_equal !before_state
       end
   
@@ -225,9 +223,7 @@ describe ProductsController do
   
         patch toggle_active_path(@inactive_pickles_test.id)
         @inactive_pickles_test.reload
-  
-        must_respond_with :redirect
-        must_redirect_to product_path(@inactive_pickles_test.id)
+
         expect(@inactive_pickles_test.active).must_equal !before_state
       end
 
@@ -255,5 +251,3 @@ describe ProductsController do
     end
   end
 end
-
-
