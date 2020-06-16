@@ -1,4 +1,5 @@
 class ProductsController < ApplicationController
+  before_action :require_login, only: [:new, :create, :toggle_active]
   before_action :get_product, except: [:index, :new, :create, :cart]
   before_action :get_merchant, only: [:index, :toggle_active, :create]
   before_action :get_category, only: [:index]
@@ -35,40 +36,28 @@ class ProductsController < ApplicationController
 
   def new
     default_img = "https://lh3.googleusercontent.com/pw/ACtC-3eMhEM2kaTc-RlRyVudYKP08KOdRO6QbvXTc_PkmzKzXTIkCqRDIa06GMT1FaJr-lDgIcjmnR5hEEFOCYf4YUDKfozbnOhaOw02IpXMOTr2LW4L2S2PXJfedaWYHq6uTewLUuufgMD0VBs_xdtE7FUy=w1350-h900-no?authuser=0"
-    # if params[:merchant_id]
-    # This is the nested route, /merchant/:merchant_id/products/new
-      @categories = Category.all.order("name DESC")
-      @product = Product.new
-      @product.img_url = default_img
-      @product.price = "0.00"
-      @product.inventory = 0
-    # else
-    # # non-merchants cannot create products
-    #   flash[:error] = "You must login to do that"
-    #   redirect_to products_path
-    # end
+
+    @categories = Category.all.order("name DESC")
+    @product = Product.new
+    @product.img_url = default_img
+    @product.price = 0.00
+    @product.inventory = 0
   end
 
   def create
-    # if session[:user_id]
-      @product = Product.new(product_params)
-      @product.active = true
-      @product.merchant_id = @merchant.id
+    @product = Product.new(product_params)
+    @product.active = true
+    @product.merchant_id = @login_merchant.id
 
-      if @product.save
-        flash[:success] = "Successfully added product: #{@product.name}"
-        redirect_to product_path(@product.id)
-        return
-      else
-        flash.now[:error] = "Unable to add product"
-        render :new, status: :bad_request
-        return
-      end
-    # else
-    #   flash.now[:error] = "You must be logged in to do that"
-    #   render :new, status: :bad_request
-    #   return
-    # end
+    if @product.save
+      flash[:success] = "Successfully added product: #{@product.name}"
+      redirect_to product_path(@product.id)
+      return
+    else
+      flash.now[:error] = "Unable to add product"
+      render :new, status: :bad_request
+      return
+    end
   end
 
   def edit
