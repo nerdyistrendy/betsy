@@ -69,6 +69,49 @@ describe ProductsController do
         must_respond_with :not_found
       end
     end
+
+    describe "edit" do 
+      it "will retrieve the edit page for an authorized user" do
+        get edit_product_path(@product_test.id)
+
+        must_respond_with :redirect
+        must_redirect_to merchant_products_path(@product_test.id)
+      end 
+
+      it "will redirect to merchant's products path for an unauthorized user" do
+        get edit_product_path(@product_test.id)
+
+        must_respond_with :redirect
+        must_redirect_to merchant_products_path(@product_test.id)
+        expect(flash[:error]).wont_be_nil
+      end 
+
+      it "cannot edit an invalid product" do 
+        get edit_product_path(@product_test)
+
+        must_respond_with :redirect 
+        must_redirect_to merchant_products_path(@product_test)
+        expect(flash[:error]).wont_be_nil
+      end 
+
+    end 
+
+    describe "update" do 
+      it "" do
+      end 
+
+      it "" do 
+      end 
+    end 
+
+    describe "destroy" do 
+      it "" do
+      end 
+
+      it "" do 
+      end 
+    end 
+
   
     describe "new" do
       it "will redirect to the root if merchant isn't logged in" do
