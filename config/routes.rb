@@ -25,7 +25,9 @@ Rails.application.routes.draw do
     resources :order_items, only: [:index]
   end
 
-  resources :orders, only: [:show, :new, :create]
+  resources :orders, only: [:show, :new, :create] do
+    get "/confirmation", to: "orders#confirmation", as: "confirmation"
+  end
 
   resources :order_items, only: [:edit, :update, :destroy]
 

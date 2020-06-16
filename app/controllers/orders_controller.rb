@@ -40,6 +40,9 @@ class OrdersController < ApplicationController
     end
   end
 
+  def confirmation
+  end
+
   private
 
   def order_params
