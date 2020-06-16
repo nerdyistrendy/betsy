@@ -83,10 +83,10 @@ describe ProductsController do
     end
 
     describe 'cart' do
-      it "can add a product to the session[:cart] hash" do
+      it "can add a product to the seassion[:cart] hash" do
         @product = products(:pickles)
-        @quantity = 2 #idk how to send quantity in a test because i am getting it from params in the form
-        patch product_cart_path(@product.id)
+        @quantity = "2" 
+        patch product_cart_path(@product.id), params: {"quantity": @quantity}
 
         expect(session[:cart].class).must_equal Hash
         expect(session[:cart].count).must_equal 1
@@ -182,22 +182,22 @@ describe ProductsController do
     describe "toggle_active" do
       it "will change an active product to inactive" do
         before_state = @product_test.active
-  
+
         patch toggle_active_path(@product_test.id)
         @product_test.reload
-  
+
         must_respond_with :redirect
         must_redirect_to products_path(@product_test.id)
         expect(@product_test.active).must_equal !before_state
       end
-  
+
       it "will change an inactive product to active" do
         inactive_test = products(:inactive_pickles)
         before_state = inactive_test.active
-  
+
         patch toggle_active_path(inactive_test.id)
         inactive_test.reload
-  
+
         must_respond_with :redirect
         must_redirect_to products_path(inactive_test.id)
         expect(inactive_test.active).must_equal !before_state
