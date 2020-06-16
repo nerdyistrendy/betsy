@@ -200,6 +200,15 @@ describe ProductsController do
     end
 
     describe "toggle_active" do
+      it "can be called by the merchant who owns said product" do
+        merchant_product = @blacksmith_test.products.first
+
+        patch toggle_active_path(merchant_product.id)
+  
+        must_respond_with :redirect
+        must_redirect_to product_path(merchant_product.id)
+      end
+
       it "will change an active product to inactive" do
         before_state = @pickles_test.active
   
@@ -222,22 +231,17 @@ describe ProductsController do
         expect(@inactive_pickles_test.active).must_equal !before_state
       end
 
-      it "can only be called by the merchant who owns said product" do
-        before_state = @inactive_pickles_test.active
-  
-        patch toggle_active_path(@inactive_pickles_test.id)
-        @inactive_pickles_test.reload
-  
-        must_respond_with :redirect
-        must_redirect_to product_path(@inactive_pickles_test.id)
-        expect(@inactive_pickles_test.active).must_equal !before_state
-      end
-
       it "will redirect to product show view if merchant doesn't own said product" do
         patch toggle_active_path(@inactive_tent_test.id)
   
         must_respond_with :redirect
         must_redirect_to product_path(@inactive_tent_test.id)
+      end
+
+      it "will redirect to root path if product is invalid" do
+        patch toggle_active_path(-5)
+  
+        must_redirect_to root_path
       end
 
       it "will not toggle active if logged in merchant doesn't own said product" do

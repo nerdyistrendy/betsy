@@ -145,18 +145,20 @@ class ProductsController < ApplicationController
   end
 
   def toggle_active
-    current_state = @product.active
-    if @login_merchant.id == @product.merchant_id
-      if @product.update!(active: !current_state)
+    if @product
+      current_state = @product.active
+      if @login_merchant.id == @product.merchant_id
+        @product.update!(active: !current_state)
         flash[:success] = "Product was successfully updated"
       else
-        flash[:error] = "Unable to update product"
+        flash[:error] = "You cannot retire another merchant's product"
       end
+      redirect_to product_path(@product.id)
     else
-      flash[:error] = "You cannot retire another merchant's product"
+      flash[:error] = "Invalid Product"
+      redirect_to root_path
+      return
     end
-    redirect_to product_path(@product.id)
-    return
   end
 
   private
