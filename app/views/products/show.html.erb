@@ -21,6 +21,9 @@
         <% status = (@product.active ? "Retire Product" : "Reactivate Product") %>
         <%= button_to status, toggle_active_path(@product.id), class: "btn btn-danger", data: { confirm: "Are you sure you'd like to #{status.downcase}?"}, method: :patch %>
       <% end %>
+
+      <%= button_to "delete", product_path(@product.id), class: "btn btn-danger", data: { confirm: "Are you sure you'd like to delete this product?"}, method: :delete %>
+
     </div>
   </section>
 
