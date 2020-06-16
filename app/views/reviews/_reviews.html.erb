@@ -1,3 +1,23 @@
-<section class="reviews-table">
-  <table></table>
-</section>
+<main>
+  <section class="reviews-table">
+    <h4></h4>
+    <table class="table">
+    <tr>
+      <th>Nickname</th>
+      <th>Review</th>
+      <th>Rating</th>
+    </tr>
+    <% if !pizzas.nil? && pizzas.length > 0 %>
+      <% pizzas.each do |p| %>
+        <tr>
+          <td><%= link_to p.name, pizza_path(p.id), class: "title-text table-text" %></td>
+          <td><%= p.sauce %></td>
+          <td><%= p.cheese %></td>
+          <td><%= p.toppings %></td>
+          <td><%= Vote.find_by(pizza_id: p.id, user_id: user.id).created_at %></td>
+        </tr>
+      <% end %>
+    <% end %>
+  </table>
+  </section>
+</main>
