@@ -11,7 +11,7 @@
         <div>
           <% @product = Product.find_by(id: product[0]) %>
           <p><b><%= @product.name %></b></p>
-          <p>Price: <%= "$#{'%.2f' % @product.price}" %></b></p>
+          <p>Price: <%= number_to_currency(@product.price) %></b></p>
           <p><b>Quantity: <%= product[1]%></b></p>
 
           <%= form_with url: "/cart/update/#{product[0]}", method: "patch" do |f| %>

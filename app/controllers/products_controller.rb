@@ -40,7 +40,7 @@ class ProductsController < ApplicationController
     @categories = Category.all.order("name DESC")
     @product = Product.new
     @product.img_url = default_img
-    @product.price = "0.00"
+    @product.price = 0.00
     @product.inventory = 0
   end
 
