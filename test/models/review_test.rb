@@ -50,11 +50,14 @@ describe Review do
   describe "relations" do
     describe "products" do
       it "can have a single product" do
-
+        expect(@excitable_review_test.valid?).must_equal true
       end
 
       it "is invalid when it doesn't belong to a product" do
+        invalid_excitable_review = @excitable_review_test
+        invalid_excitable_review.product = nil
 
+        expect(@excitable_review_test.valid?).must_equal false
       end
     end
   end
