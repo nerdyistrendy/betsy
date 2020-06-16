@@ -142,11 +142,11 @@ describe ProductsController do
     end
     
     describe "create" do
-      it "will redirect to the product show page after creating a product" do
+      it "will redirect to merchant dashboard after creating a product" do
         post merchant_products_path(@blacksmith_test.id), params: @product_hash
     
         must_respond_with :redirect
-        must_redirect_to product_path(Product.last.id)
+        must_redirect_to merchant_path(@blacksmith_test.id)
       end
   
       it "can create a product with categories with logged in user" do
@@ -200,13 +200,13 @@ describe ProductsController do
     end
 
     describe "toggle_active" do
-      it "can be called by the merchant who owns said product" do
+      it "will redirect to the merchant dashboard" do
         merchant_product = @blacksmith_test.products.first
 
         patch toggle_active_path(merchant_product.id)
   
         must_respond_with :redirect
-        must_redirect_to product_path(merchant_product.id)
+        must_redirect_to merchant_path(@blacksmith_test.id)
       end
 
       it "will change an active product to inactive" do
@@ -227,11 +227,11 @@ describe ProductsController do
         expect(@inactive_pickles_test.active).must_equal !before_state
       end
 
-      it "will redirect to product show view if merchant doesn't own said product" do
+      it "will redirect to root path if merchant doesn't own said product" do
         patch toggle_active_path(@inactive_tent_test.id)
   
         must_respond_with :redirect
-        must_redirect_to product_path(@inactive_tent_test.id)
+        must_redirect_to root_path
       end
 
       it "will redirect to root path if product is invalid" do
