@@ -60,6 +60,43 @@ class ProductsController < ApplicationController
     end
   end
 
+  def edit
+    @product = Product.find_by(id: params[:id])
+
+    if @product == nil
+      flash[:error] = "Cannot edit a non-existent product."
+      redirect_to merchant_products_path(@product.id)
+    elsif @product.merchant_id != session[:user_id]
+      flash[:error] = "You are not authorized to edit that product."
+      redirect_to merchant_products_path(@product.id)
+    end 
+  end 
+
+  def update
+    @product = Product.find_by(id: params[:id])
+
+    if @product.update(product_params)
+      flash[:success] = "Product successfully updated."
+    else
+      flash[:error] = "Product could not be updated."
+    end
+
+    redirect_to merchant_path(session[:user_id])
+  end 
+
+  def destroy
+    @product = Product.find_by(id: params[:id])
+    @merchant = Merchant.find_by(id: @product.merchant_id)
+
+    if @product.destroy
+      flash[:success] = "Product successfully deleted."
+    else
+      flash[:error] = "Product could not be deleted."
+    end 
+  
+    redirect_to merchant_products_path(@merchant.id)
+  end
+
   def cart
     @product = Product.find_by(id: params[:product_id])
     @quantity = params[:quantity]
