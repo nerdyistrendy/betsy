@@ -32,7 +32,6 @@ class ProductsController < ApplicationController
       redirect_to products_path, status: :not_found
       return
     end
-    @status = (@product.active ? "Retire Product" : "Reactivate Product")
     @reviews = @product.reviews
     @average_rating = @product.average_rating
   end
