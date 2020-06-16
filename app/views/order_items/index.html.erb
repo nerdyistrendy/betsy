@@ -8,7 +8,7 @@
           TOTAL ORDERS: <%= @login_merchant.count_orders %>
         </div>
         <div class="card-body">
-          <p class="card-text"> Total Revenue: $<%= @login_merchant.total_revenue %> </p>
+          <p class="card-text"> Total Revenue: <%= number_to_currency(@login_merchant.total_revenue) %> </p>
           <p class="card-text"> <%= link_to 'View All Orders', merchant_order_items_path(@login_merchant), class: "btn btn-outline-secondary" %> </p>
         </div>
       </div>
@@ -18,7 +18,7 @@
           PENDING ORDERS: <%= @login_merchant.count_orders("pending") %>
         </div>
         <div class="card-body">
-          <p class="card-text"> Revenue--Pending Orders: $<%= @login_merchant.total_revenue("pending") %> </p>
+          <p class="card-text"> Revenue--Pending Orders: <%= number_to_currency(@login_merchant.total_revenue("pending")) %> </p>
           <p class="card-text"> <%= link_to 'View Pending Orders', merchant_order_items_path(@login_merchant, :status => "pending"), class: "btn btn-outline-secondary" %> </p>
         </div>
       </div>
@@ -28,7 +28,7 @@
           SHIPPED ORDERS: <%= @login_merchant.count_orders("shipped") %>
         </div>
         <div class="card-body">
-          <p class="card-text"> Revenue--Shipped Orders: $<%= @login_merchant.total_revenue("shipped") %> </p>
+          <p class="card-text"> Revenue--Shipped Orders: <%= number_to_currency(@login_merchant.total_revenue("shipped")) %> </p>
          <p class="card-text"> <%= link_to 'View Shipped Orders', merchant_order_items_path(@login_merchant, :status => "shipped"), class: "btn btn-outline-secondary" %> </p>
         </div>
       </div>
@@ -62,9 +62,9 @@
         <tr>
           <td> <%= link_to order_item.order_id, order_path(order_item.order_id) %> </td>
           <td> <%= link_to product.name, product_path(product) %> </td>
-          <td> $<%= product.price %> </td>
+          <td> <%= number_to_currency(product.price) %> </td>
           <td> <%= order_item.quantity %> </td>
-          <td> $<%= order_item.subtotal %> </td>
+          <td> <%= number_to_currency(order_item.subtotal) %> </td>
           <td> <%= order_item.created_at.strftime("%m/%d/%y") %> </td>
           <td> <%= order_item.status %> </td>
           <td> <%= link_to "SHIP", ship_item_path(order_item), class: "btn btn-outline-secondary" %> </td>
