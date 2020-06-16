@@ -39,4 +39,13 @@ class Product < ApplicationRecord
     self.save
   end
   
+  def average_rating
+    return 0 if self.reviews.empty?
+
+    average = 0.0
+    self.reviews.each do |r|
+      average += r.rating
+    end
+    return (average/self.reviews.count)
+  end
 end

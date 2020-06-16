@@ -1,0 +1,47 @@
+<h2>Merchant: <%= @merchant.username %> </h2>
+
+<h4>Profile</h4>
+<ul>
+  <li>
+    <strong>ID:</strong> <%= @merchant.id %>
+  </li>
+
+  <li>
+    <strong>Email:</strong> <%= @merchant.email %>
+  </li>
+</ul>
+
+<h4>Actions</h4>
+
+<%= link_to "Create new category", new_category_path %>
+<%= link_to "Create new product", new_merchant_product_path(@merchant, @products) %>
+
+<% if @login_merchant && @login_merchant.id == session[:user_id] %>
+    <%= link_to "Order Fulfillment Dashboard", merchant_order_items_path(@merchant, @orders) %>
+<% end %>
+
+<h4>Products</h4>
+  <table>
+    <thead>
+      <tr>
+        <th>Name</th>
+        <th>Inventory</th>
+        <th>Price</th>
+        <th>Active</th>
+        <th>Action</th>
+      </tr>
+    </thead>
+
+    <tbody>
+    <% product_collection = @merchant.products %>
+    <% product_collection.each do |product| %>
+      <tr>
+        <td><%= link_to "#{product.name}", merchant_products_path(@merchant, product.id) %></td>
+        <td><%= product.inventory %></td>
+        <td><%= number_to_currency(product.price) %></td>
+        <td><%= product.active %></td>
+        <td><%= link_to "Edit", edit_product_path(product)%>
+      </tr>
+    <% end %>
+    </tbody>
+  </table>

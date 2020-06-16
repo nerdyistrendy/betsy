@@ -6,7 +6,7 @@
         <%= image_tag "#{product.img_url}" %>
         <div>
           <h4><b><%= link_to product.name, product_path(product.id) %></b></h4>
-          <p><%=  "$#{'%.2f' % product.price}" %></p>
+          <p><%= number_to_currency(product.price) %></p>
         </div>
       </div>
     </section>

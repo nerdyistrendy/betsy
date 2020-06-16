@@ -5,6 +5,7 @@ describe Product do
     @pickle_test = products(:pickles)
     @blacksmith_test = merchants(:blacksmith)
     @tent_test = products(:tent)
+    @knife_test = products(:knife)
   end
 
   describe "validations" do
@@ -87,17 +88,6 @@ describe Product do
         expect(@pickle_test.categories).wont_be_empty
         expect(@pickle_test.categories).must_include categories(:lifestyle)
       end
-
-    #   it "will not add a duplicate category" do
-        
-    #     @tent_test.categories << categories(:food)
-    #     before_count = @tent_test.categories.count
-    #     expect(before_count).must_equal 1
-
-    #     @tent_test.categories << categories(:food)
-
-    #     expect(@tent_test.categories.count).must_equal before_count
-    #   end
     end
   end
 
@@ -150,6 +140,28 @@ describe Product do
       products_arr = @blacksmith_test.active_products
 
       expect(products_arr).wont_include inactive_pickle_test
+    end
+  end
+
+  describe "average_rating" do
+    it "can calculate average of reviews ratings" do
+      reviews = @pickle_test.reviews
+      ratings = reviews.map { |r| r.rating.to_f }
+      average = ratings.sum/reviews.count
+
+      expect(@pickle_test.reviews).wont_be_empty
+      expect(@pickle_test.average_rating).must_equal average
+    end
+
+    it "will return a float" do
+      average = @pickle_test.average_rating
+
+      expect(average).must_be_instance_of Float
+    end
+
+    it "will return 0 if product doesn't have reviews" do
+      expect(@knife_test.reviews).must_be_empty
+      expect(@knife_test.average_rating).must_equal 0
     end
   end
 end

@@ -1,5 +1,7 @@
 class ProductsController < ApplicationController
-  before_action :get_product, except: [:index, :new, :create]
+
+  before_action :require_login, only: [:new, :create, :toggle_active]
+  before_action :get_product, except: [:index, :new, :create, :cart]
   before_action :get_merchant, only: [:index, :toggle_active, :create]
   before_action :get_category, only: [:index]
 
@@ -31,44 +33,71 @@ class ProductsController < ApplicationController
       redirect_to products_path, status: :not_found
       return
     end
+    @reviews = @product.reviews
+    @average_rating = @product.average_rating
   end
 
   def new
     default_img = "https://lh3.googleusercontent.com/pw/ACtC-3eMhEM2kaTc-RlRyVudYKP08KOdRO6QbvXTc_PkmzKzXTIkCqRDIa06GMT1FaJr-lDgIcjmnR5hEEFOCYf4YUDKfozbnOhaOw02IpXMOTr2LW4L2S2PXJfedaWYHq6uTewLUuufgMD0VBs_xdtE7FUy=w1350-h900-no?authuser=0"
-    # if params[:merchant_id]
-    # This is the nested route, /merchant/:merchant_id/products/new
-      @categories = Category.all.order("name DESC")
-      @product = Product.new
-      @product.img_url = default_img
-      @product.price = "0.00"
-      @product.inventory = 0
-    # else
-    # # non-merchants cannot create products
-    #   flash[:error] = "You must login to do that"
-    #   redirect_to products_path
-    # end
+
+    @categories = Category.all.order("name DESC")
+    @product = Product.new
+    @product.img_url = default_img
+    @product.price = 0.00
+    @product.inventory = 0
   end
 
   def create
-    # if session[:user_id]
-      @product = Product.new(product_params)
-      @product.active = true
-      @product.merchant_id = @merchant.id
+    @product = Product.new(product_params)
+    @product.active = true
+    @product.merchant_id = @login_merchant.id
 
-      if @product.save
-        flash[:success] = "Successfully added product: #{@product.name}"
-        redirect_to product_path(@product.id)
-        return
-      else
-        flash.now[:error] = "Unable to add product"
-        render :new, status: :bad_request
-        return
-      end
-    # else
-    #   flash.now[:error] = "You must be logged in to do that"
-    #   render :new, status: :bad_request
-    #   return
-    # end
+    if @product.save
+      flash[:success] = "Successfully added product: #{@product.name}"
+      redirect_to product_path(@product.id)
+      return
+    else
+      flash.now[:error] = "Unable to add product"
+      render :new, status: :bad_request
+      return
+    end
+  end
+
+  def edit
+    @product = Product.find_by(id: params[:id])
+
+    if @product == nil
+      flash[:error] = "Cannot edit a non-existent product."
+      redirect_to merchant_products_path(@product.id)
+    elsif @product.merchant_id != session[:user_id]
+      flash[:error] = "You are not authorized to edit that product."
+      redirect_to merchant_products_path(@product.id)
+    end 
+  end 
+
+  def update
+    @product = Product.find_by(id: params[:id])
+
+    if @product.update(product_params)
+      flash[:success] = "Product successfully updated."
+    else
+      flash[:error] = "Product could not be updated."
+    end
+
+    redirect_to merchant_path(session[:user_id])
+  end 
+
+  def destroy
+    @product = Product.find_by(id: params[:id])
+    @merchant = Merchant.find_by(id: @product.merchant_id)
+
+    if @product.destroy
+      flash[:success] = "Product successfully deleted."
+    else
+      flash[:error] = "Product could not be deleted."
+    end 
+  
+    redirect_to merchant_products_path(@merchant.id)
   end
 
   def cart
@@ -121,15 +150,18 @@ class ProductsController < ApplicationController
   end
 
   def toggle_active
-    current_state = @product.active
-
-    if @product.update!(active: !current_state)
-      flash[:success] = "Product was successfully updated"
-      redirect_back fallback_location: products_path(@product.id)
-      return
+    if @product
+      current_state = @product.active
+      if @login_merchant.id == @product.merchant_id
+        @product.update!(active: !current_state)
+        flash[:success] = "Product was successfully updated"
+      else
+        flash[:error] = "You cannot retire another merchant's product"
+      end
+      redirect_to product_path(@product.id)
     else
-      flash[:error] = "Unable to update product"
-      redirect_back fallback_location: root_path, status: :bad_request
+      flash[:error] = "Invalid Product"
+      redirect_to root_path
       return
     end
   end
@@ -151,4 +183,5 @@ class ProductsController < ApplicationController
   def get_category
     return @category = Category.find_by(id: params[:category_id])
   end
+  
 end

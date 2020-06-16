@@ -1,0 +1,70 @@
+<main>
+
+  <section class="container text-center">
+    <h3>ORDER #<%= @order.id %> </h3>
+
+    <table class="table table-sm">
+      <tbody>
+        <tr>
+          <th scope="row">Name</th>
+          <td> <%= @order.name %> </td>
+        </tr>
+        <tr>
+          <th scope="row">Email</th>
+          <td> <%= @order.email %> </td>
+        </tr>
+        <tr>
+          <th scope="row">Mailing Address</th>
+          <td> <%= @order.mailing_address %> </td>
+        </tr>
+        <tr>
+          <th scope="row">Zipcode</th>
+          <td> <%= @order.zipcode %> </td>
+        </tr>
+        <tr>
+          <th scope="row">Credit Card Info</th>
+          <td> ************<%= @order.cc_number.to_s[-4..-1] %></td>
+        </tr>
+        <tr>
+          <th scope="row">Credit Card Expiration</th>
+          <td> <%= @order.cc_exp.strftime("%m / %y") %></td>
+        </tr>
+        <tr>
+          <th scope="row">Purchase Date</th>
+          <td> <%= @order.created_at %> </td>
+        </tr>
+        <tr>
+          <th scope="row">Order Status</th>
+          <td> <%= @order.status %> </td>
+        </tr>
+      </tbody>
+    </table>
+  </section>
+
+  <br>
+
+  <% if @items_from_merchant.size > 0 %>
+  <section class="table-wrapper-scroll-y my-custom-scrollbar container">
+    <table class="table table-bordered table-striped mb-0 text-center">
+      <tr>
+        <th scope="col"> Product </th>
+        <th scope="col"> Quantity </th>
+        <th scope="col"> Price </th>
+        <th scope="col"> Shipping Status </th>
+        <th scope="col"> Cancel OrderItem </th>
+      </tr>
+ 
+      <% @items_from_merchant.each do |item| %>
+        <% product = Product.find_by(id: item.product_id) %>
+        <tr>
+          <th scope="row"> <%= link_to product.name, product_path(product.id) %> </th>
+          <td> <%= item.quantity %> </td>
+          <td> <%= number_to_currency(product.price) %> </td>
+          <td> <%= link_to "#{item.status}", ship_item_path(item), class: "btn btn-outline-secondary" %> </td>
+          <td> <%= link_to "Cancel Item", cancel_item_path(item), class: "btn btn-outline-danger" %> </td>
+        </tr>
+      <% end %>
+    </table>
+  </section>
+  <% end %>
+</main>
