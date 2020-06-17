@@ -55,34 +55,34 @@ end
 puts "Added #{Product.count} product records"
 puts "#{product_failures.length} products failed to save"
 
-ORDER_ITEM_FILE = Rails.root.join('db', 'orderitems.csv')
-puts "Loading raw order item data from #{ORDER_ITEM_FILE}"
+# ORDER_ITEM_FILE = Rails.root.join('db', 'orderitems.csv')
+# puts "Loading raw order item data from #{ORDER_ITEM_FILE}"
 
-order_item_failures = []
-CSV.foreach(ORDER_ITEM_FILE, :headers => true) do |row|
-  order_item = OrderItem.new
-  order_item.quantity = row['quantity']
-  order_item.status = row['status']
-  order_item.merchant_id = row['merchant_id']
-  order_item.product_id = row['product_id']
-  order_item.order_id = row['order_id']
-  order_item.id = row['id']
-  puts "trying to save order items: #{order_item.inspect}"
-  if !Order.find_by(id: order_item.order_id)
-    new_order = Order.new
-    new_order.save
-  end
-  successful = order_item.save!
-  if !successful
-    order_item_failures << order_item
-    puts "Failed to save order items: #{order_item.inspect}"
-  else
-    puts "Created order items: #{order_item.inspect}"
-  end
-end
+# order_item_failures = []
+# CSV.foreach(ORDER_ITEM_FILE, :headers => true) do |row|
+#   order_item = OrderItem.new
+#   order_item.quantity = row['quantity']
+#   order_item.status = row['status']
+#   order_item.merchant_id = row['merchant_id']
+#   order_item.product_id = row['product_id']
+#   order_item.order_id = row['order_id']
+#   order_item.id = row['id']
+#   puts "trying to save order items: #{order_item.inspect}"
+#   if !Order.find_by(id: order_item.order_id)
+#     new_order = Order.new
+#     new_order.save
+#   end
+#   successful = order_item.save!
+#   if !successful
+#     order_item_failures << order_item
+#     puts "Failed to save order items: #{order_item.inspect}"
+#   else
+#     puts "Created order items: #{order_item.inspect}"
+#   end
+# end
 
-puts "Added #{OrderItem.count} order item records"
-puts "#{order_item_failures.length} order items failed to save"
+# puts "Added #{OrderItem.count} order item records"
+# puts "#{order_item_failures.length} order items failed to save"
 
 
 ActiveRecord::Base.connection.tables.each do |t|
