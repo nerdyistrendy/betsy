@@ -10,7 +10,7 @@
   </section>
 <%end%>
 
-<%= form_with model: @product, url: merchant_products_path, class: "form-group" do |f| %>
+<%= form_with model: @product, url: path, class: "form-group" do |f| %>
   <div class="form-group">
     <%= f.label :name %>
     <%= f.text_field(:name, class: "form-control") %>

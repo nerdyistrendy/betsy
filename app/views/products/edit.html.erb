@@ -1,3 +1,3 @@
 <main>
-  <%= render partial: "form", locals: { action_name: "Submit Changes" } %>
+  <%= render partial: "form", locals: { action_name: "Submit Changes", path: edit_product_path(@product.id) } %>
 </main>

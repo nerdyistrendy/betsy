@@ -21,7 +21,7 @@ Rails.application.routes.draw do
   end
 
   resources :merchants, only: [:index, :show] do
-    resources :products, only: [:index, :new, :create, :edit, :destroy]
+    resources :products, except: [:show, :edit]
     resources :order_items, only: [:index]
     resources :orders, only: [:index, :show]
   end
