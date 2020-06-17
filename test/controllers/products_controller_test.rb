@@ -16,7 +16,17 @@ describe ProductsController do
         category_ids: [categories(:food).id, categories(:lifestyle).id]
       }
     }
+    @update_hash = {
+      product: {
+      name: "Crisp Pickles",
+      description: "One jar of homegrown, brined pickles.",
+      img_url: "yourmom.com/image.jpeg",
+      inventory: 50,
+      price: 6,
+      }
+    }
   end
+
   describe "Guest Users" do
     describe "index" do
       it "can get the products path" do
@@ -97,20 +107,55 @@ describe ProductsController do
     end 
 
     describe "update" do 
-      it "" do
-      end 
+      it "can update a product" do  
+        perform_login(@merchant_test)      
 
-      it "" do 
+        patch product_path(@product_test), params:@update_hash
+        @product_test = Product.find_by(id: @product_test.id)
+        
+        @product_test.description.must_equal "One jar of homegrown, brined pickles."
+        @product_test.price.must_equal 6
+        @product_test.inventory.must_equal 50
+      end
+    end 
+
+    describe "update" do
+      it "does not update a product for an unauthorized user" do 
+        @product_test = products(:pickles)
+
+        patch product_path(@product_test.id), params:@update_hash
+        @product_test = Product.find_by(id: @product_test.id)
+        
+        @product_test.description.must_equal "One jar of homegrown pickles."
+        @product_test.price.must_equal 2
+        @product_test.inventory.must_equal 40
       end 
     end 
 
     describe "destroy" do 
-      it "" do
-      end 
+      it "successfully deletes and redirects to merchant's products path" do
+        expect {
+          delete product_path(@product_test.id)
+        }.must_differ "Product.count", -1
 
-      it "" do 
+        expect(flash[:success]).must_equal "Product successfully deleted."
+
+        must_respond_with :redirect
+        must_redirect_to merchant_products_path(@merchant_test)
+      end
+
+      it "Flashes error for an item that could not be deleted" do 
+        expect {
+          delete product_path(@product_test.id - 1)
+        }.wont_differ "Product.count"
+
+        expect(flash[:error]).must_equal "Product could not be deleted."
+
+        must_respond_with :redirect
+        must_redirect_to merchants_path
       end 
-    end 
+    end
+  
 
   
     describe "new" do
@@ -126,7 +171,7 @@ describe ProductsController do
     end
 
     describe 'cart' do
-      it "can add a product to the seassion[:cart] hash" do
+      it "can add a product to the session[:cart] hash" do
         @product = products(:pickles)
         @quantity = "2" 
         patch product_cart_path(@product.id), params: {"quantity": @quantity}
