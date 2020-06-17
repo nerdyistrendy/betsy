@@ -1,27 +1,32 @@
 <main>
-  <section>
-    <div>
-      <%= image_tag "#{@product.img_url}" %>
+  <section class="d-flex text-center pt-4">
+    <div class="row">
+      <div class="container col">
+        <%= image_tag "#{@product.img_url}", class: "img-thumbnail shadow-sm w-50" %>
+      </div>
+      <div class="container col text-right">
+        <h3><b><%= @product.name %></b></h3>
+        <h4><b>Seller: <%= link_to @product.merchant.username, merchant_path(@product.merchant.id) %></b></h4>
+        <p><%= @product.description %></p>
+
+        <p><b><%= number_to_currency(@product.price) %></b></p>
+  
+        <% if @product.inventory > 0 %>
+          <p>In Stock</p>
+        <% else %>
+          <p>Out of Stock</p>
+        <% end %>
+        <%= render partial: "quantform", locals: { action_name: "Add to cart" } %>
+      </div>
     </div>
-    <div>
-      <h3><b><%= @product.name %></b></h3>
-      <h4><b>Seller: <%= link_to @product.merchant.username, merchant_path(@product.merchant.id) %></b></h4>
-      <p><%= @product.description %></p>
-      <p><b><%= number_to_currency(@product.price) %></b></p>
-    
-      <% if @product.inventory > 0 %>
-        <p>In Stock</p>
-      <% else %>
-        <p>Out of Stock</p>
-      <% end %>
+    <div class="container row">
+      <div class="col">
+        <%= render partial: "reviews/reviews", locals: { reviews: @reviews }  %>
+
+        <%= button_to "Leave Review", new_product_review_path(@product.id), class: "btn btn-info float-right", method: :get %>
+      </div>
     </div>
   </section>
-
-  <%= render partial: "quantform", locals: { action_name: "Add to cart" } %>
-  
-  <%= render partial: "reviews/reviews", locals: { reviews: @reviews }  %>
-
-  <%= button_to "Leave Review", new_product_review_path(@product.id), class: "btn btn-info", method: :get %>
 </main>
 
 
