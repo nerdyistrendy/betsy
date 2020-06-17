@@ -107,6 +107,7 @@ describe ProductsController do
         expect(@pickles_test.active).must_equal before_state
       end
     end
+    
     describe 'cart' do
       before do
         @product = products(:pickles)
