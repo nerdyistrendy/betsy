@@ -42,7 +42,7 @@ describe Merchant do
       shipped_product = Product.find_by(id: shipped_item.product_id)
       expect(@weavery.total_revenue("shipped")).must_equal (shipped_product.price * shipped_item.quantity)
 
-      expect(@weavery.total_revenue("unshipped")).must_equal 195.0
+      expect(@weavery.total_revenue("pending")).must_equal 195.0
     end
 
     it "will return a message if there is no revenue made yet" do
@@ -60,7 +60,7 @@ describe Merchant do
       shipped_item = order_items(:stabby_smith_knife) # @weavery's only shipped order_item
       expect(@weavery.count_orders("shipped")).must_equal 1
 
-      expect(@weavery.count_orders("unshipped")).must_equal (@weavery.order_items.count - 1)
+      expect(@weavery.count_orders("pending")).must_equal (@weavery.order_items.count - 1)
     end
   end
 end
