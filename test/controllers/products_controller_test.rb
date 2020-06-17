@@ -97,13 +97,13 @@ describe ProductsController do
       end 
 
       it "cannot edit an invalid product" do 
-        get edit_product_path(@product_test)
+        perform_login(@merchant_test)
+        get edit_product_path(9000)
 
         must_respond_with :redirect 
-        must_redirect_to merchant_products_path(@product_test)
+        must_redirect_to merchant_products_path(@merchant_test)
         expect(flash[:error]).wont_be_nil
       end 
-
     end 
 
     describe "update" do 
