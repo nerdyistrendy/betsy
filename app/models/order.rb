@@ -6,7 +6,7 @@ class Order < ApplicationRecord
   validates :cc_number, length: {is: 16}
   validates :cc_cvv, length: {is: 3}
   validates :zipcode, length: {is: 5}
-  validates :status, presence: true, inclusion: { in: %w(pending paid complete cancelled) }
+  validates :status, inclusion: { in: %w(pending paid complete cancelled) }
 
 
   def order_total
