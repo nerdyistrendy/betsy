@@ -124,7 +124,9 @@ CSV.foreach(CATEGORY_FILE, :headers => true) do |row|
   category = Category.new
   category.id = row['id']
   category.name = row['name']
-  category.products = row['products']
+  id_string = row['product_ids']
+  id_array = id_string.to_s.split(' ')
+  category.product_ids = id_array
   successful = category.save
   if !successful
     category_failures << category
@@ -133,6 +135,10 @@ CSV.foreach(CATEGORY_FILE, :headers => true) do |row|
     puts "Created categories: #{category.inspect}"
   end
 end
+
+puts "Added #{Category.count} category records"
+puts "#{category_failures.length} categories failed to save"
+
 
 
 ActiveRecord::Base.connection.tables.each do |t|
