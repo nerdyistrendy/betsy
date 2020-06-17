@@ -1,6 +1,6 @@
 class ProductsController < ApplicationController
 
-  before_action :require_login, only: [:new, :create, :toggle_active]
+  before_action :require_login, only: [:new, :create, :toggle_active, :edit, :update, :destroy]
   before_action :get_product, except: [:index, :new, :create, :cart]
   before_action :get_merchant, only: [:index, :toggle_active, :create]
   before_action :get_category, only: [:index]
@@ -65,39 +65,58 @@ class ProductsController < ApplicationController
 
   def edit
     @product = Product.find_by(id: params[:id])
-
+    
     if @product == nil
       flash[:error] = "Cannot edit a non-existent product."
-      redirect_to merchant_products_path(@product.id)
-    elsif @product.merchant_id != session[:user_id]
+      redirect_back(fallback_location: root_path)
+    elsif @product.merchant_id != @login_merchant.id
       flash[:error] = "You are not authorized to edit that product."
-      redirect_to merchant_products_path(@product.id)
+      redirect_to product_path(@product.id)
     end 
   end 
 
   def update
     @product = Product.find_by(id: params[:id])
 
-    if @product.update(product_params)
-      flash[:success] = "Product successfully updated."
+    if @product.merchant_id == @login_merchant.id
+      if @product.update(product_params)
+        flash[:success] = "Product successfully updated."
+      else
+        flash.now[:error] = "Product could not be updated."
+        render :edit, status: :bad_request
+        return
+      end
+      redirect_back(fallback_location: merchant_path(@login_merchant.id))
+      return
     else
-      flash[:error] = "Product could not be updated."
+      flash[:error] = "You are not authorized to edit that product."
+      redirect_back(fallback_location: root_path)
     end
-
-    redirect_to merchant_path(session[:user_id])
+    return
   end 
 
   def destroy
     @product = Product.find_by(id: params[:id])
-    @merchant = Merchant.find_by(id: @product.merchant_id)
 
-    if @product.destroy
-      flash[:success] = "Product successfully deleted."
+    if @product
+      @merchant = Merchant.find_by(id: @product.merchant_id)
     else
-      flash[:error] = "Product could not be deleted."
+      flash[:error] = "Invalid Product"
+      redirect_to root_path
+    end
+
+    if @merchant.id == @login_merchant.id
+      if @product.destroy
+        flash[:success] = "Product successfully deleted."
+      else
+        flash[:error] = "Product could not be deleted."
+      end 
+      redirect_to merchant_path(@login_merchant.id)
+    else 
+      flash[:error] = "You are not authorized to complete this action"
+      redirect_back(fallback_location: root_path)
     end 
-  
-    redirect_to merchant_path(@merchant.id)
+    return
   end
 
   def cart
