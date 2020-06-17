@@ -7,18 +7,20 @@
 
     <%= stylesheet_link_tag 'application', media: 'all', 'data-turbolinks-track': 'reload' %>
     <%= javascript_pack_tag 'application', 'data-turbolinks-track': 'reload' %>
+    <link href="https://fonts.googleapis.com/css2?family=Staatliches&display=swap" rel="stylesheet">
   </head>
 
   <body>
-    <nav class="navbar navbar-expand-lg navbar-light bg-light">
-      <%= link_to 'CARTMAGEDDON', root_path, class: "navbar-brand" %>
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark d-flex">
+      <a href="/" class="navbar-brand container justify-content-start"><%= image_tag "https://lh3.googleusercontent.com/pw/ACtC-3cWX6I6wtgMZSW0nimu7NbPTQTqxM50i9FWDgLQng1c-CV6-HXop3io_E_C45DbpzgJdx6RO1VN13UzE57z8siVD-21J98Oq7w4mVr065KG4EblMfLVehIhnGTymJrHChpgywM7Hl4HCswtYgIiCvTu=w2560-h550-no?authuser=0", class: "navbar-brand" %></a>
+      
       <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>
       </button>
-
-      <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      
+      <div class="collapse navbar-collapse container" id="navbarSupportedContent">
         <ul class="navbar-nav mr-auto">
-          <li class="nav-item dropdown active">
+          <li class="nav-item dropdown active ">
             <a class="nav-link dropdown-toggle" data-toggle="dropdown"
               href="" role="button" aria-haspopup="true" aria-expanded="false">
               Products</a>
@@ -39,11 +41,9 @@
               <% end %>
             </div>
           </li>
-          
           <li class="nav-item active">
             <%= link_to "Cart", order_cart_path, class: "nav-link" %>
           </li>
-
           <% if @login_merchant %>
             <li class="nav-item active">
               <%= link_to "Dashboard", merchant_path(@login_merchant), class: "nav-link" %>
@@ -52,23 +52,16 @@
               <%= link_to "Log Out", logout_path, method: :post, class: "nav-link" %>
             </li>
           <% else %>
-
+            
             <li class="nav-item active">
               <%= link_to "Log In", github_login_path, class: "nav-link" %>
             </li>
           <% end %>
         </ul>
-        
-
-        <form class="form-inline my-2 my-lg-0">
-          <input class="form-control mr-sm-2" type="text" placeholder="Search" aria-label="Search">
-          <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
-        </form>
       </div>
     </nav>
-
     <% if !flash.empty? %>
-      <section class="alert__container">
+      <section class="alert__container z-index">
         <% flash.each do |name, message| %>
           <div class="alert alert-<%= name %>">
           <span>  <%= message %> </span>
@@ -78,6 +71,5 @@
     <% end %>
 
     <%= yield %>
-
   </body>
 </html>

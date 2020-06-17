@@ -1,3 +1,3 @@
 <main>
-  <%= render partial: "form", locals: { action_name: "Create Product" } %>
+  <%= render partial: "form", locals: { action_name: "Create Product", path: merchant_products_path(@login_merchant.id), method: :post } %>
 </main>

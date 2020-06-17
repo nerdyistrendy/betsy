@@ -3,8 +3,11 @@ require "test_helper"
 describe ProductsController do
   before do
     @blacksmith_test = merchants(:blacksmith)
+    @weavery_test = merchants(:weavery)
     @food_test = categories(:food)
+    @lifestyle_test = categories(:lifestyle)
     @pickles_test = products(:pickles)
+    @tent_test = products(:tent)
     @inactive_pickles_test = products(:inactive_pickles)
     @inactive_tent_test = products(:inactive_tent)
 
@@ -18,7 +21,16 @@ describe ProductsController do
         category_ids: [categories(:food).id, categories(:lifestyle).id]
       }
     }
+
+    @update_hash = {
+      product: {
+        description: "One jar of homegrown, brined pickles.",
+        inventory: 50,
+        price: 6
+      }
+    }
   end
+
   describe "Guest Users" do
     describe "index" do
       it "can get the products path" do
@@ -108,6 +120,26 @@ describe ProductsController do
       end
     end
     
+    describe "edit" do
+      it "will redirect a guest user to root" do 
+        get edit_product_path(@pickles_test.id)
+
+        must_respond_with :redirect
+        must_redirect_to root_path
+      end 
+    end
+
+    describe "update" do
+      it "will redirect a guest user" do 
+        patch product_path(@pickles_test.id), params:@update_hash
+
+        must_respond_with :redirect
+        expect(@pickles_test.description).must_equal "One jar of homegrown pickles."
+        expect(@pickles_test.price).must_equal 2
+        expect(@pickles_test.inventory).must_equal 40
+      end
+    end
+
     describe 'cart' do
       before do
         @product = products(:pickles)
@@ -212,9 +244,13 @@ describe ProductsController do
 
         must_respond_with :success
       end
-    end
 
-    
+      it "will redirect if not authorized user" do
+        get new_merchant_product_path(@weavery_test.id)
+
+        must_respond_with :redirect
+      end
+    end
    
     describe "create" do
       it "will redirect to merchant dashboard after creating a product" do
@@ -241,6 +277,7 @@ describe ProductsController do
         expect(Product.last.categories).wont_be_nil
         expect(Product.last.categories).wont_be_empty
         expect(Product.last.categories).must_include @food_test
+        expect(Product.last.categories).must_include @lifestyle_test
       end
     
       it "can create a product without categories with logged in user" do
@@ -272,7 +309,113 @@ describe ProductsController do
 
         must_respond_with :bad_request
       end
+
+      it "will redirect for unauthorized merchant" do
+        post merchant_products_path(@weavery_test.id), params: @product_hash
+    
+        must_respond_with :redirect
+        must_redirect_to root_path
+      end
     end
+
+    describe "edit" do
+      it "will retrieve the edit page for an authorized user" do
+        get edit_product_path(@pickles_test.id)
+
+        must_respond_with :success
+      end
+
+      it "cannot edit an invalid product" do 
+        get edit_product_path(-5)
+
+        must_respond_with :redirect 
+        must_redirect_to root_path
+        expect(flash[:error]).must_equal "Invalid Product"
+      end 
+
+      it "will redirect for unauthorized user" do
+        get edit_product_path(@tent_test.id)
+
+        must_respond_with :redirect 
+        must_redirect_to product_path(@tent_test.id)
+        expect(flash[:error]).must_equal "You are not authorized to edit that product."
+      end
+    end
+
+    describe "update" do 
+      it "can update a product" do
+        product = @pickles_test
+        patch product_path(product.id), params:@update_hash
+        
+        product.reload
+
+        expect(product.description).must_equal @update_hash[:product][:description]
+        expect(product.price).must_equal @update_hash[:product][:price]
+        expect(product.inventory).must_equal @update_hash[:product][:inventory]
+      end
+
+      it "does not update a product with invalid params" do
+        before_product = 
+        bad_params = @update_hash
+        bad_params[:product][:name] = nil
+        patch product_path(@pickles_test.id), params: bad_params
+
+        must_respond_with :bad_request
+        expect(flash[:error]).must_equal "Product could not be updated."
+      end
+
+      it "does not update another merchant's products" do
+        patch product_path(@tent_test.id), params:@update_hash
+
+        must_respond_with :redirect
+        expect(flash[:error]).must_equal "You are not authorized to edit that product."
+      end
+
+      it "does not update an invalid product" do
+        patch product_path(-5), params:@update_hash
+
+        must_respond_with :redirect
+        expect(flash[:error]).must_equal "Invalid Product"
+      end
+    end 
+
+    describe "destroy" do 
+      it "successfully deletes and redirects to merchant's products path" do
+        expect {
+          delete product_path(@pickles_test.id)
+        }.must_differ "Product.count", -1
+
+        must_respond_with :redirect
+        must_redirect_to merchant_path(@blacksmith_test)
+        expect(flash[:success]).must_equal "Product successfully deleted."
+      end
+
+      # it "redirects for an item that could not be deleted" do 
+      #   expect {
+      #     delete product_path()
+      #   }.wont_differ "Product.count"
+
+      #   must_respond_with :bad_request
+      #   expect(flash[:error]).must_equal "Product could not be deleted."
+      # end 
+
+      it "redirect for invalid product" do
+        delete product_path(-5)
+
+        must_respond_with :redirect
+        must_redirect_to root_path
+        expect(flash[:error]).must_equal "Invalid Product"
+      end
+
+      it "will redirect an unauthorized merchant" do
+        delete product_path(@tent_test.id)
+
+        must_respond_with :redirect
+        must_redirect_to root_path
+        expect(flash[:error]).must_equal "You are not authorized to complete this action"
+      end
+    end
+
 
     describe "toggle_active" do
       it "will redirect to the merchant dashboard" do
