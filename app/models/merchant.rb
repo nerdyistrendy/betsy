@@ -24,7 +24,7 @@ class Merchant < ApplicationRecord
     revenue = 0.00
 
     if status == "all"
-      self.order_items.each do |item|
+      self.order_items.where.not(status: "cancelled").find_each do |item|
         revenue += item.subtotal      #instance method in order_items
       end
     else
