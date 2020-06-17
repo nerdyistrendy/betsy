@@ -39,6 +39,10 @@
               <% end %>
             </div>
           </li>
+          
+          <li class="nav-item active">
+            <%= link_to "Cart", order_cart_path, class: "nav-link" %>
+          </li>
 
           <% if @login_merchant %>
             <li class="nav-item active">
@@ -48,9 +52,7 @@
               <%= link_to "Log Out", logout_path, method: :post, class: "nav-link" %>
             </li>
           <% else %>
-            <li class="nav-item active">
-              <%= link_to "Cart", order_cart_path, class: "nav-link" %>
-            </li>
+
             <li class="nav-item active">
               <%= link_to "Log In", github_login_path, class: "nav-link" %>
             </li>
