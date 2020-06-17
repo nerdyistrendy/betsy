@@ -1,14 +1,15 @@
 <main>
   <h1>All Products</h1>
-  <% @products.each do |product| %>
-    <section class="product-cards">
-      <div class="card">
-        <%= image_tag "#{product.img_url}" %>
-        <div>
-          <h4><b><%= link_to product.name, product_path(product.id) %></b></h4>
-          <p><%=  "$#{'%.2f' % product.price}" %></p>
+  <section class="d-flex justify-content-around flex-wrap container">
+    <% @products.each do |product| %>
+      <div class="card img-thumbnail m-3 justify-content-center shadow-sm w-25 h-25">
+      <a href="/products/<%= product.id %>">
+        <%= image_tag product.img_url, class: "card-img-top img-fluid rounded mx-auto" %></a>
+        <div class="text-center card-body">
+          <h4><b><%= link_to product.name, product_path(product.id), class: "card-title text-decoration-none" %></b></h4>
+          <p class="card-text"><%= number_to_currency(product.price) %></p>
         </div>
       </div>
-    </section>
-  <%end%>
+    <% end %>
+  </section>
 </main>

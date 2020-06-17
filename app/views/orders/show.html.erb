@@ -1,5 +1,4 @@
 <main>
-
   <section class="container text-center">
     <h3>ORDER #<%= @order.id %> </h3>
 
@@ -39,6 +38,8 @@
         </tr>
       </tbody>
     </table>
+
+    <%= link_to "Back to Order Fulfillment", merchant_order_items_path(@login_merchant), class: "btn btn-outline-secondary" %>  
   </section>
 
   <br>
@@ -48,23 +49,24 @@
     <table class="table table-bordered table-striped mb-0 text-center">
       <tr>
         <th scope="col"> Product </th>
-        <th scope="col"> Quantity </th>
         <th scope="col"> Price </th>
+        <th scope="col"> Quantity </th>
+        <th scope="col"> Subtotal </th>
         <th scope="col"> Shipping Status </th>
-        <th scope="col"> Cancel OrderItem </th>
       </tr>
  
       <% @items_from_merchant.each do |item| %>
         <% product = Product.find_by(id: item.product_id) %>
         <tr>
           <th scope="row"> <%= link_to product.name, product_path(product.id) %> </th>
+          <td> <%= number_to_currency(product.price) %> </td>
           <td> <%= item.quantity %> </td>
-          <td> $<%= product.price %> </td>
-          <td> <%= link_to "#{item.status}", ship_item_path(item), class: "btn btn-outline-secondary" %> </td>
-          <td> <%= link_to "Cancel Item", cancel_item_path(item), class: "btn btn-outline-danger" %> </td>
+          <td> <%= number_to_currency(item.subtotal) %> </td>
+          <td> <%= item.status %> </td>
         </tr>
       <% end %>
     </table>
   </section>
   <% end %>
+
 </main>

@@ -1,28 +1,78 @@
-<h2>Order Fulfillment Dashboard</h2>
+<main class="container text-center">
+  <h2>Order Fulfillment Dashboard</h2>
 
-<h4>Order Items to be Fulfilled</h4>
-  <table>
-    <thead>
-      <tr>
-        <th>Order ID</th>
-        <th>Product ID</th>
-        <th>Quantity</th>
-        <th>Price</th>
-        <th>Status</th>
-      </tr>
-    </thead>
+  <section class="container text-center">
+    <div class="card-deck">
+      <div class="card">
+        <div class="card-header font-weight-bolder">
+          TOTAL ORDERS: <%= @login_merchant.count_orders %>
+        </div>
+        <div class="card-body">
+          <p class="card-text"> Total Revenue: <%= number_to_currency(@login_merchant.total_revenue) %> </p>
+          <p class="card-text"> <%= link_to 'View All Orders', merchant_order_items_path(@login_merchant), class: "btn btn-outline-secondary" %> </p>
+        </div>
+      </div>
 
-    <tbody>
-    <% order_item_collection = OrderItem.where(merchant_id: params[:merchant_id]) %>
-    <% order_item_collection.each do |order_item| %>
-      <tr>
-        #TODO: CHANGE THIS TO LINK/ ORDER_ID
-        <td><%= order_item.order_id %></td>
-        <td><%= order_item.product_id %></td>
-        <td><%= order_item.quantity %></td>
-        <td><%= order_item.price %></td>
-        <td><%= order_item.status %></td>
-      </tr>
-    <% end %>
-    </tbody>
-  </table>
+      <div class="card">
+        <div class="card-header font-weight-bolder">
+          PENDING ORDERS: <%= @login_merchant.count_orders("pending") %>
+        </div>
+        <div class="card-body">
+          <p class="card-text"> Revenue--Pending Orders: <%= number_to_currency(@login_merchant.total_revenue("pending")) %> </p>
+          <p class="card-text"> <%= link_to 'View Pending Orders', merchant_order_items_path(@login_merchant, :status => "pending"), class: "btn btn-outline-secondary" %> </p>
+        </div>
+      </div>
+
+      <div class="card">
+        <div class="card-header font-weight-bolder">
+          SHIPPED ORDERS: <%= @login_merchant.count_orders("shipped") %>
+        </div>
+        <div class="card-body">
+          <p class="card-text"> Revenue--Shipped Orders: <%= number_to_currency(@login_merchant.total_revenue("shipped")) %> </p>
+         <p class="card-text"> <%= link_to 'View Shipped Orders', merchant_order_items_path(@login_merchant, :status => "shipped"), class: "btn btn-outline-secondary" %> </p>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <br>
+  <br>
+
+  <h4> <%= @status.capitalize %> Order Items</h4>
+  <section class="table-wrapper-scroll-y my-custom-scrollbar container">
+    <table class="table table-hover mb-0 text-center">
+      <thead>
+        <tr>
+          <th>Order ID</th>
+          <th>Product</th>
+          <th>Price</th>
+          <th>Quantity</th>
+          <th>Subtotal</th>
+          <th>Purchase Date</th>
+          <th>Status</th>
+          <th>Ship</th>
+          <th>Cancel Item</th>
+        </tr>
+      </thead>
+
+      <tbody>
+      <% order_item_collection = OrderItem.where(merchant_id: params[:merchant_id]) %>
+      <% @merchant_order_items.each do |order_item| %>
+        <% product = Product.find_by(id: order_item.product_id) %>
+        <tr>
+          <td> <%= link_to order_item.order_id, order_path(order_item.order_id) %> </td>
+          <td> <%= link_to product.name, product_path(product) %> </td>
+          <td> <%= number_to_currency(product.price) %> </td>
+          <td> <%= order_item.quantity %> </td>
+          <td> <%= number_to_currency(order_item.subtotal) %> </td>
+          <td> <%= order_item.created_at.strftime("%m/%d/%y") %> </td>
+          <td> <%= order_item.status %> </td>
+          <td> <%= link_to "SHIP", ship_item_path(order_item), method: :patch, class: "btn btn-outline-secondary" %> </td>
+          <td> <%= link_to "CANCEL", cancel_item_path(order_item), method: :delete, data: {confirm: "Are you sure?"}, class: "btn btn-outline-danger" %> </td>
+        </tr>
+      <% end %>
+      </tbody>
+    </table>
+  </section>
+</main>

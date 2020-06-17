@@ -18,30 +18,34 @@
 
 <%# Tried Alicia's suggested edit here, but it broke the tests. %>
 <% if @login_merchant && @login_merchant.id == session[:user_id] %>
-    <%= link_to "Order Fulfillment Dashboard", merchant_order_items_path(@merchant, @orders) %>
+    <%= link_to "Order Fulfillment Dashboard", merchant_order_items_path(@merchant) %>
 <% end %>
 
 <h4>Products</h4>
-  <table>
-    <thead>
+  <table class="table">
+    <thead class="thead-light">
       <tr>
         <th>Name</th>
         <th>Inventory</th>
         <th>Price</th>
         <th>Active</th>
-        <th>Action</th>
+        <th>Actions</th>
       </tr>
     </thead>
 
     <tbody>
-    <% product_collection = @merchant.products %>
-    <% product_collection.each do |product| %>
+    <% @products.each do |product| %>
+      <% product_state = (product.active ? "Retire Product" : "Reactivate Product") %>
       <tr>
         <td><%= link_to "#{product.name}", merchant_products_path(@merchant, product.id) %></td>
         <td><%= product.inventory %></td>
-        <td><%= product.price %></td>
+        <td><%= number_to_currency(product.price) %></td>
         <td><%= product.active %></td>
-        <td><%= link_to "Edit", edit_product_path(product)%>
+        <td class="row">
+          <%= link_to "Edit", edit_product_path(product.id), class: "btn btn-info" %>
+          <%= button_to product_state, toggle_active_path(product.id), class: "btn btn-warning", data: { confirm: "Are you sure you'd like to #{product_state.downcase}?"}, method: :patch %>
+          <%= button_to "Delete", product_path(product.id), class: "btn btn-danger", data: { confirm: "Are you sure you'd like to delete this product?"}, method: :delete %>
+        </td>
       </tr>
     <% end %>
     </tbody>

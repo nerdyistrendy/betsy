@@ -3,21 +3,21 @@ pickle_lover_pickles:
   product: pickles
   order: pickle_order
   quantity: 1
-  status: unshipped
+  status: pending
 
 raspy_picklefiend_pickles:
   merchant: blacksmith
   product: pickles
   order: tent_pickle_order
   quantity: 2
-  status: unshipped
+  status: pending
 
 raspy_picklefiend_pickles:
   merchant: weavery
   product: tent
   order: tent_pickle_order
   quantity: 1
-  status: unshipped
+  status: pending
 
 stabby_smith_knife:
   merchant: weavery
@@ -31,11 +31,11 @@ foodie_smith_pickles:
   product: knife
   order: knife_pickle_order
   quantity: 3
-  status: unshipped
+  status: pending
 
 foodie_smith_knife:
   merchant: blacksmith
   product: pickles
   order: knife_pickle_order
   quantity: 1
-  status: unshipped
+  status: pending

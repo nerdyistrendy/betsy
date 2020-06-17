@@ -1,0 +1,27 @@
+<section class="review container">
+  <div class="row">
+    <div class="container col text-left">
+      <h4>Ratings Summary</h4>
+      <h5><%= @average_rating %> out of 5</h5>
+
+    
+    </div>
+  </div>
+  <div class="row">
+    <div class="container list-group col">
+      <h4 class="justify-item-start">Reviews</h4>
+      <% if !reviews.nil? && reviews.length > 0 %>
+        <% reviews.each do |r| %>
+          <div class="list-group-item flex-column align-items-start">
+            <div class="d-flex w-100 justify-content-between">
+              <h6 class="mb-1"><%= r.rating %> stars</h6>
+              <small class="text-muted">Reviewed on: <%= time_tag r.updated_at, r.updated_at.strftime("%B %d, %Y") %></small>
+            </div>
+            <p class="mb-1 float-left"><%= r.text %></p>
+            <small class="text-muted float-right"><%= r.reviewer %></small>
+          </div>
+        <% end %>
+      <% end %>
+    </div>
+  </div>
+</section>
