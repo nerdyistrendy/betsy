@@ -107,21 +107,6 @@ describe ProductsController do
         expect(@pickles_test.active).must_equal before_state
       end
     end
-  end
-  
-  describe "Logged In Merchants" do
-    before do
-      perform_login(@blacksmith_test)
-    end
-    
-    describe "new" do
-      it "can get the new_merchant_product_path" do
-        get new_merchant_product_path(@blacksmith_test.id)
-
-        must_respond_with :success
-      end
-    end
-
     describe 'cart' do
       before do
         @product = products(:pickles)
@@ -213,6 +198,22 @@ describe ProductsController do
         expect(session[:cart]["#{@product2.id}"]).must_equal @quantity2
       end
     end
+  end
+  
+  describe "Logged In Merchants" do
+    before do
+      perform_login(@blacksmith_test)
+    end
+    
+    describe "new" do
+      it "can get the new_merchant_product_path" do
+        get new_merchant_product_path(@blacksmith_test.id)
+
+        must_respond_with :success
+      end
+    end
+
+    
    
     describe "create" do
       it "will redirect to merchant dashboard after creating a product" do
