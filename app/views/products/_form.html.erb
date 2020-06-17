@@ -10,7 +10,7 @@
   </section>
 <%end%>
 
-<%= form_with model: @product, url: path, class: "form-group" do |f| %>
+<%= form_with model: @product, url: path, method: method, class: "form-group" do |f| %>
   <div class="form-group">
     <%= f.label :name %>
     <%= f.text_field(:name, class: "form-control") %>
@@ -38,8 +38,8 @@
 
   <% if @categories %>
     <div class="form-group">
-      <%= f.label :categories, "Category" %>
-      <%= f.select :category, Category.all.map {|c| c.name}, {}, class: "form-control", multiple: true %>
+      <%= f.label :category_ids, "Category" %>
+      <%= f.select :category_ids, options_for_select(Category.all.map {|c| [c.name, c.id] }), {}, class: "form-control", multiple: true %>
     </div>
   <% end %>
 

@@ -5,6 +5,7 @@ describe ProductsController do
     @blacksmith_test = merchants(:blacksmith)
     @weavery_test = merchants(:weavery)
     @food_test = categories(:food)
+    @lifestyle_test = categories(:lifestyle)
     @pickles_test = products(:pickles)
     @tent_test = products(:tent)
     @inactive_pickles_test = products(:inactive_pickles)
@@ -276,6 +277,7 @@ describe ProductsController do
         expect(Product.last.categories).wont_be_nil
         expect(Product.last.categories).wont_be_empty
         expect(Product.last.categories).must_include @food_test
+        expect(Product.last.categories).must_include @lifestyle_test
       end
     
       it "can create a product without categories with logged in user" do

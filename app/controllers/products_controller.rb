@@ -75,6 +75,8 @@ class ProductsController < ApplicationController
   end
 
   def edit
+    @categories = Category.all.order("name DESC")
+    
     if !@product
       flash[:error] = "Invalid Product"
       redirect_back fallback_location: root_path
@@ -90,7 +92,7 @@ class ProductsController < ApplicationController
       if @product.merchant_id == @login_merchant.id
         if @product.update(product_params)
           flash[:success] = "Product successfully updated."
-          redirect_back(fallback_location: merchant_path(@login_merchant.id))
+          redirect_to merchant_path(@login_merchant.id)
         else
           flash.now[:error] = "Product could not be updated."
           render :edit, status: :bad_request
