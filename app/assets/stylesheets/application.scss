@@ -39,26 +39,30 @@ div.not-found {
 }
 
 div.carousel {
-  background-color: white;
+  background-color: gray;
 }
+
+// div.carousel-item {
+//   background-color: gray;
+// }
 
 div.carousel-item img {
-  opacity: 0.75;
+  opacity: 0.60;
 }
 
-div.caption-1{
+div.caption-1 {
   margin: 40vh auto;
-  font-size: 3rem;
+  font-size: 2rem;
 }
 
-div.caption-2{
+div.caption-2 {
   margin: 20vh auto;
   font-size: 3rem;
 }
 
-div.caption-3{
+div.caption-3 {
   margin: 32vh auto;
-  font-size: 3rem;
+  font-size: 2rem;
 }
 
 footer.footer {
