@@ -1,24 +1,25 @@
-<main class="container text-center" >
-<h2>Merchant: <%= @merchant.username %> </h2>
+<main class="container text-center merchant-cont" >
 
-<ul>
-  <li>
-    <strong>Merchant ID:</strong> <%= @merchant.id %>
-  </li>
+  <section class="d-flex justify-content-around flex-wrap container-fluid container">
+    <div class="card bg-dark text-light align-self-center shadow-lg merchant-card">
+      <div class="card-body">
+        <h2> <%= @merchant.username %> </h2>
+        <p> Merchant ID # <%= @merchant.id %> </p>
+        <p> <%= @merchant.email %> </p>
+        <p> Joined since <%= @merchant.created_at.strftime("%m-%d-%y") %> </p>
+      </div>
+    </div>
+  </section>
 
-  <li>
-    <strong>Email:</strong> <%= @merchant.email %>
-  </li>
-</ul>
+  <section class="btn-merchant">
+    <%= link_to "New Category", new_category_path, class: "btn btn-success" %>
+    <%= link_to "New Product", new_merchant_product_path(@login_merchant), class: "btn btn-success" %>
+    <%= link_to "Order Fulfillments", fulfillment_path, class: "btn btn-success" %>
+  </section>
 
 
-<%= link_to "Create new category", new_category_path, class: "btn btn-success" %>
-<%= link_to "Create new product", new_merchant_product_path(@login_merchant), class: "btn btn-success" %>
-<%= link_to "Order Fulfillments", fulfillment_path, class: "btn btn-success" %>
-
-
-<h4>Products</h4>
-  <table class="table table-hover">
+  <h3>Products</h3>
+  <table class="table table-hover bg-lightgray shadow-lg">
     <thead class="thead-dark">
       <tr>
         <th>Name</th>
@@ -26,22 +27,22 @@
         <th>Price</th>
         <th>Active</th>
         <th>Edit Product </th>
-        <th>Retire Product</th>
+        <th>Retire / Reactivate</th>
         <th>Delete Product</th>
       </tr>
     </thead>
 
     <tbody class="">
     <% @products.each do |product| %>
-      <% product_state = (product.active ? "Retire Product" : "Reactivate Product") %>
+      <% product_state = (product.active ? "Retire" : "Reactivate") %>
       <tr>
         <td><%= link_to "#{product.name}", product_path(product.id) %></td>
         <td><%= product.inventory %></td>
         <td><%= number_to_currency(product.price) %></td>
         <td><%= product.active %></td>
-        <td> <%= link_to "Edit", edit_product_path(product.id), class: "btn btn-success" %> </td>
-        <td> <%= button_to product_state, toggle_active_path(product.id), class: "btn btn-warning", data: { confirm: "Are you sure you'd like to #{product_state.downcase}?"}, method: :patch %> </td>
-        <td> <%= button_to "Delete", product_path(product.id), class: "btn btn-danger", data: { confirm: "Are you sure you'd like to delete this product?"}, method: :delete %> </td>
+        <td> <%= link_to "Edit", edit_product_path(product.id), class: "btn btn-secondary bg-dark btn-table" %> </td>
+        <td> <%= button_to product_state, toggle_active_path(product.id), class: "btn btn-secondary bg-dark btn-table", data: { confirm: "Are you sure you'd like to #{product_state.downcase}?"}, method: :patch %> </td>
+        <td> <%= button_to "Delete", product_path(product.id), class: "btn btn-secondary bg-dark btn-table", data: { confirm: "Are you sure you'd like to delete this product?"}, method: :delete %> </td>
       </tr>
     <% end %>
     </tbody>

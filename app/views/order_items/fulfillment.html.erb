@@ -4,7 +4,7 @@
   
   <section class="container text-center">
     <div class="card-deck">
-      <div class="card bg-dark text-light">
+      <div class="card bg-dark text-light shadow-lg">
         <div class="card-header font-weight-bolder">
           TOTAL ORDERS: <%= @login_merchant.count_orders %>
         </div>
@@ -14,7 +14,7 @@
         </div>
       </div>
 
-      <div class="card bg-dark text-light">
+      <div class="card bg-dark text-light shadow-lg">
         <div class="card-header font-weight-bolder">
           PENDING ORDERS: <%= @login_merchant.count_orders("pending") %>
         </div>
@@ -24,7 +24,7 @@
         </div>
       </div>
 
-      <div class="card bg-dark text-light">
+      <div class="card bg-dark text-light shadow-lg">
         <div class="card-header font-weight-bolder">
           SHIPPED ORDERS: <%= @login_merchant.count_orders("shipped") %>
         </div>
@@ -36,12 +36,13 @@
     </div>
   </section>
 
-
-  <%= link_to "Back to Merchant Dashboard", dashboard_path, class: "btn btn-success" %> 
+  <section class="btn-merchant">
+    <%= link_to "Back to Merchant Dashboard", dashboard_path, class: "btn btn-success btn-dashboard" %> 
+  </section>
 
   <h3> <%= @status.capitalize %> Order Items</h3>
   <section class="table-wrapper-scroll-y my-custom-scrollbar container">
-    <table class="table table-hover mb-0 text-center font-weight-bold bg-lightgray">
+    <table class="table table-hover mb-0 text-center font-weight-bold bg-lightgray shadow-lg">
       <thead class="thead-dark">
         <tr>
           <th>Order ID</th>
@@ -68,8 +69,8 @@
           <td> <%= number_to_currency(order_item.subtotal) %> </td>
           <td> <%= order_item.created_at.strftime("%m/%d/%y") %> </td>
           <td> <%= order_item.status %> </td>
-          <td> <%= link_to "SHIP", ship_item_path(order_item), method: :patch, class: "btn btn-success" %> </td>
-          <td> <%= link_to "CANCEL", cancel_item_path(order_item), method: :delete, data: {confirm: "Are you sure?"}, class: "btn btn-secondary bg-dark" %> </td>
+          <td> <%= link_to "SHIP", ship_item_path(order_item), method: :patch, class: "btn btn-success btn-table" %> </td>
+          <td> <%= link_to "CANCEL", cancel_item_path(order_item), method: :delete, data: {confirm: "Are you sure?"}, class: "btn btn-secondary bg-dark btn-table" %> </td>
         </tr>
       <% end %>
       </tbody>

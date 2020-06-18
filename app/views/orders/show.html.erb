@@ -38,8 +38,10 @@
         </tr>
       </tbody>
     </table>
+  </section>
 
-    <%= link_to "Back to Order Fulfillment", fulfillment_path, class: "btn btn-success" %>  
+  <section class="btn-merchant">
+    <%= link_to "Back to Order Fulfillment", fulfillment_path, class: "btn btn-success btn-dashboard" %> 
   </section>
 
   <% if @items_from_merchant.size > 0 %>
