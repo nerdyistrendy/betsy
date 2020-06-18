@@ -1,24 +1,31 @@
 <main>
-  <%# image_tag 'https://lh3.googleusercontent.com/pw/ACtC-3dfIlW4-Sf3JwXae6oI8ILN0xogZMEnl8_dhaigoeyiuQqusT5kA9C40FN12H4xki8YyLzkyD3HE6pAlatb5PyM3_RR7sUg86aEcfZrrWOH6nVi4h4mGHaxfBpsqzbaJI_pAMRAs4bMyc8P4RyPfF8a=w1823-h687-no?authuser=0', class: "w-100" %>
-  <aside class="">
-
-  </aside>
-  <div class="">
-    <p>OUR WEBSITE LOL</p>
-  </div>
   <div id="carouselExampleIndicators" class="carousel slide" data-ride="carousel">
+    <ol class="carousel-indicators">
+      <li data-target="#carouselExampleIndicators" data-slide-to="0" class="active"></li>
+      <li data-target="#carouselExampleIndicators" data-slide-to="1"></li>
+      <li data-target="#carouselExampleIndicators" data-slide-to="2"></li>
+    </ol>
     <div class="carousel-inner" role="listbox">
-      <% if @products && @products.length > 0 %>
-          <div class="carousel-item active">
-            <%= image_tag @products[4].img_url , class: "d-block w-100 h-25
-            " %>
-          </div>
-        <% 3.times do |i| %>
-          <div class="carousel-item">
-            <%= image_tag @products[i+1].img_url , class: "d-block w-100" %>
-          </div>
-        <% end %>
-      <% end %>
+      <div class="carousel-item active">
+        <%= image_tag "https://lh3.googleusercontent.com/pw/ACtC-3eIng2_yyA2_V7cN93HA1uvhLgbiR9iC-fxA5xR6qS8Nvt4-M2n6rb0IRQ4FcCkOEhRqrll45EFofvT28z1bld2e6fZYOxR2NCYYI79E_482-iMkPqrGi9pTf19hB_dJWz1_ElarOWuTjNAX5C_XnSr=w1642-h821-no?authuser=0", class: "d-block w-100" %>
+        <div class="carousel-caption d-none d-md-block caption-1">
+          <h5>The world is ending.</h5>
+          <p>That's why we're here.</p>
+        </div>
+      </div>
+      <div class="carousel-item">
+        <%= image_tag "https://lh3.googleusercontent.com/pw/ACtC-3eBJJKWMMpAlhs_uVyZFyB1tVOj0MDp1gcoyQAHyfUJBEakE_Lk4bKorP-JNr3_cswZMG1zRozQOJWpW1mbVnaE-S1DjsrA12rdsL2MDuDmPWMZLB0EMnVy3uAp-xtZLBPi8MoWVJCPO7CWezyoMb5s=w1791-h896-no?authuser=0", class: "d-block w-100" %>
+        <div class="carousel-caption d-none d-md-block caption-2">
+          <p>Our mission is to bring you quality resources for surviving the end of this world and thriving in the beginning of the new world.</p>
+        </div>
+      </div>
+      <div class="carousel-item">
+        <%= image_tag "https://lh3.googleusercontent.com/pw/ACtC-3dPMGNbHHr31WfHdFnKvoEpxjiOUMkgvs4D7Z1TJ7YLZ8e43VG2_Z_O4GWa69u_W5RGXuQaAoqL_gxSFS6UN_TvANTISmXOumS-nRU0KKAXABBICBkqkjzhjeEB3lLCi0kEkf0NqITn87PaNx3QBNAg=w1644-h822-no?authuser=0", class: "d-block w-100" %>
+        <div class="carousel-caption d-none d-md-block caption-3">
+          <p>From simple essentials to soap and shovels, to books that soothe your sense of isolation and hopelessness</p>
+          <h5>From simple essentials to soap and shovels, to books that soothe your sense of isolation and hopelessness</h5>
+        </div>
+      </div>
       <a class="carousel-control-prev" href="#carouselExampleIndicators" role="button" data-slide="prev">
         <span class="carousel-control-prev-icon" aria-hidden="true"></span>
         <span class="sr-only">Previous</span>
@@ -28,5 +35,9 @@
         <span class="sr-only">Next</span>
       </a>
     </div>
+  </div>
+  <div class="container">
+  </div>
+  <div class="container">
   </div>
 </main>

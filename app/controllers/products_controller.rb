@@ -44,13 +44,11 @@ class ProductsController < ApplicationController
 
   def new
     if @login_merchant.id == @merchant.id
-      default_img = "https://lh3.googleusercontent.com/pw/ACtC-3eMhEM2kaTc-RlRyVudYKP08KOdRO6QbvXTc_PkmzKzXTIkCqRDIa06GMT1FaJr-lDgIcjmnR5hEEFOCYf4YUDKfozbnOhaOw02IpXMOTr2LW4L2S2PXJfedaWYHq6uTewLUuufgMD0VBs_xdtE7FUy=w1350-h900-no?authuser=0"
+      default_img = "https://lh3.googleusercontent.com/pw/ACtC-3fNC54ST39e4Tec1DUtd3utXYqTL_rBf6aMMWm_BsS86OvTd1vftlx-jjRiWT1NxoOknCLOeW4T91_I1a0NH6KJiayfEhfIP75xqeMmkuzeODi4B8jG2Uje3d5BBrhzhVtSZJQTWna_id37x96mteF6=w600-h400-no?authuser=0"
 
       @categories = Category.all.order("name DESC")
       @product = Product.new
       @product.img_url = default_img
-      # @product.price = 0.00
-      # @product.inventory = 0
     else
       flash[:error] = "You are not authorized to complete this action"
       redirect_back fallback_location: root_path
@@ -140,8 +138,8 @@ class ProductsController < ApplicationController
 
     if @product.inventory > 0 && @quantity.to_i <= @product.inventory && @product.active
       session[:cart]["#{@product.id}"] ? session[:cart]["#{@product.id}"]+= @quantity : session[:cart]["#{@product.id}"] = @quantity
-      flash[:success] = "Product successfully added to your cart"
-      redirect_to product_path(@product.id)
+      flash.now[:success] = "Product successfully added to your cart"
+      render :show, status: :ok
       return
     else
       if @product.inventory == 0 
