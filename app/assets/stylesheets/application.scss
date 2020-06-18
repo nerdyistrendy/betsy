@@ -33,6 +33,19 @@ html {
   font-family: 'Staatliches', cursive;
 }
 
+body {
+  background: no-repeat;
+  background-image: url("https://lh3.googleusercontent.com/pw/ACtC-3dhRW2jlmyFwaRsE9n80Bp4qUPx_Gk2WHHGJtRi1_hvH9Y_hTKzwF4hgKC5mSggtlQA-Jfy5ZSTqe19j9fcH8gOjPqFlMuvrLbtUls4_yjZoYGi2u9AGFUgMLlnMXNt7-AV5qPj7zq4SsM4jDeqjSLo=w826-h1096-no?authuser=0");
+  background-size: 100vw auto;
+}
+
 img.navbar-brand {
   width: 20rem;
+}
+
+img.trim {
+  // position: fixed;
+  // clip-path: inset(30rem 30rem);
+  clip-path: border-box;
+  overflow: hidden;
 }

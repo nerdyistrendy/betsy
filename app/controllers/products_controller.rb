@@ -32,12 +32,17 @@ class ProductsController < ApplicationController
       flash[:error] = "Invalid Product"
       redirect_to products_path, status: :not_found
       return
-    end
+    elsif !@product.active
+      flash[:error] = "Product not available"
+      redirect_to products_path, status: :not_found
+      return
+    else
     @reviews = @product.reviews
     @average_rating = @product.average_rating
+    end
   end
 
-  def new #path is merchants/merchant_id/products/new
+  def new
     if @login_merchant.id == @merchant.id
       default_img = "https://lh3.googleusercontent.com/pw/ACtC-3eMhEM2kaTc-RlRyVudYKP08KOdRO6QbvXTc_PkmzKzXTIkCqRDIa06GMT1FaJr-lDgIcjmnR5hEEFOCYf4YUDKfozbnOhaOw02IpXMOTr2LW4L2S2PXJfedaWYHq6uTewLUuufgMD0VBs_xdtE7FUy=w1350-h900-no?authuser=0"
 
