@@ -11,7 +11,7 @@ class ProductsController < ApplicationController
         @products = @merchant.active_products
       else
         flash[:error] = "Invalid Merchant"
-        redirect_to merchants_path
+        redirect_to dashboard_path
         return
       end
     elsif params[:category_id]
@@ -65,7 +65,7 @@ class ProductsController < ApplicationController
 
       if @product.save
         flash[:success] = "Successfully added product: #{@product.name}"
-        redirect_to merchant_path(@login_merchant.id)
+        redirect_to dashboard_path
         return
       else
         flash.now[:error] = "Unable to add product"
@@ -97,7 +97,7 @@ class ProductsController < ApplicationController
       if @product.merchant_id == @login_merchant.id
         if @product.update(product_params)
           flash[:success] = "Product successfully updated."
-          redirect_to merchant_path(@login_merchant.id)
+          redirect_to dashboard_path
         else
           flash.now[:error] = "Product could not be updated."
           render :edit, status: :bad_request
@@ -110,7 +110,7 @@ class ProductsController < ApplicationController
     else
       flash[:error] = "Invalid Product"
     end
-    redirect_back fallback_location: root_path
+    redirect_to dashboard_path
     return
   end 
 
@@ -126,7 +126,7 @@ class ProductsController < ApplicationController
         else
           flash[:error] = "Product could not be deleted."
         end 
-        redirect_to merchant_path(@login_merchant.id)
+        redirect_back fallback_location: root_path
         return
       else 
         flash[:error] = "You are not authorized to complete this action"
@@ -191,7 +191,7 @@ class ProductsController < ApplicationController
       if @login_merchant.id == @product.merchant_id
         @product.update!(active: !current_state)
         flash[:success] = "Product was successfully updated"
-        redirect_to merchant_path(@login_merchant.id)
+        redirect_back fallback_location: root_path
         return
       else
         flash[:error] = "You cannot retire another merchant's product"

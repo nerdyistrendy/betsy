@@ -10,7 +10,7 @@ class CategoriesController < ApplicationController
 
     if @category.save
       flash[:success] = "Successfully created Category ID# #{@category.id} #{@category.name} "
-      redirect_back(fallback_location: root_path)
+      redirect_to dashboard_path
       return
     else
       render :new, status: :bad_request

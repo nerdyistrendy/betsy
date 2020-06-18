@@ -68,6 +68,22 @@ class OrdersController < ApplicationController
       redirect_to root_path, status: :bad_request
     end
   end
+
+
+  def lookup
+  end
+
+  def find
+    @order = Order.find_by(id: params[:order_id])
+    if @order.nil?
+      flash.now[:error] = "There was a problem retrieving your order. Please try again!" 
+      redirect_to root_path, status: :bad_request
+      return
+    else
+      redirect_to order_confirmation_path(@order.id)
+      return
+    end
+  end
     
   private
 
