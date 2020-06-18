@@ -82,6 +82,16 @@ describe ProductsController do
     
         must_respond_with :not_found
       end
+
+      it "will respond with not found if product is not active" do
+        retired_product = products(:tent)
+        retired_product.update!(active: false)
+    
+        get product_path(retired_product)
+    
+        must_respond_with :not_found
+        expect(flash[:error]).must_equal "Product not available"
+      end
     end
   
     describe "new" do
