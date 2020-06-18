@@ -49,7 +49,7 @@ describe ProductsController do
         get merchant_products_path(-5)
         
         must_respond_with :redirect
-        must_redirect_to merchants_path
+        must_redirect_to dashboard_path
       end
 
       it "can get the nested category products path" do
@@ -386,7 +386,6 @@ describe ProductsController do
         }.must_differ "Product.count", -1
 
         must_respond_with :redirect
-        must_redirect_to dashboard_path
         expect(flash[:success]).must_equal "Product successfully deleted."
       end
 
@@ -424,7 +423,6 @@ describe ProductsController do
         patch toggle_active_path(merchant_product.id)
   
         must_respond_with :redirect
-        must_redirect_to dashboard_path
       end
 
       it "will change an active product to inactive" do
