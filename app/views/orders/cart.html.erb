@@ -3,7 +3,7 @@
 <%# <div class="cart-background card bg-light"> %>
   <h1>Your Cart</h1>
   <div>
-    <%= link_to "Continue shopping", root_path, class: 'btn btn-outline-primary' %>
+    <%= link_to "Continue shopping", root_path, class: 'btn btn-success' %>
   </div>
 
   <section>
@@ -21,11 +21,11 @@
               <%= f.select :quantity, [1,2,3,4,5], class:"form-control"  %>
             </div>
             <div class ="form-group">
-              <%= f.submit "Update", class:"btn btn-outline-primary"%> <%# need to fix this button to link to the cart%>
+              <%= f.submit "Update", class:"btn btn-success"%> <%# need to fix this button to link to the cart%>
             </div>  
           <% end %>
 
-          <%= link_to "Delete",  product_remove_cart_path(@product.id), method: 'patch', class: 'btn btn-outline-primary' %>
+          <%= link_to "Delete",  product_remove_cart_path(@product.id), method: 'patch', class: 'btn btn-success' %>
         </div>
         <br>
       <% end %>
@@ -37,7 +37,7 @@
         <p>Shipping: Free</p>
         <p>Tax: <%= "$#{'%.2f' % (subtotal*0.1)}" %></p>
         <p><b>Subtotal (<%= total_items %> <%=total_items > 1 ? "items" : "item" %>): <%= "$#{'%.2f' % (subtotal*1.1)}" %> </b></p>
-        <%= link_to "Proceed to Checkout", new_order_path, class: 'btn btn-outline-primary' %>
+        <%= link_to "Proceed to Checkout", new_order_path, class: 'btn btn-success' %>
       </aside>
     <%else%>
       <h2><b>Your cart is empty!</b></h2>
