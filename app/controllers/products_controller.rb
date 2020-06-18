@@ -11,7 +11,7 @@ class ProductsController < ApplicationController
         @products = @merchant.active_products
       else
         flash[:error] = "Invalid Merchant"
-        redirect_to merchants_path
+        redirect_to dashboard_path
         return
       end
     elsif params[:category_id]

@@ -18,11 +18,6 @@ class MerchantsController < ApplicationController
   # end 
 
   def dashboard
-    # if @merchant == nil
-    #   flash[:error] = "Merchant does not exist in our database." 
-    #   head :not_found
-    #   return
-    # end 
     @merchant = @login_merchant
     @orders = @login_merchant.orders
     @products = @login_merchant.products
