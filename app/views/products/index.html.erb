@@ -5,8 +5,8 @@
         <div class="product-card card img-thumbnail m-3 shadow-sm justify-content">
           <%= image_tag product.img_url, class: "card-img-top img-fluid rounded mx-auto" %>
 
-          <h4 class="card-title text-truncate card-body"><b><%= product.name %></b></h4>
-          <p class="card-text"><%= number_to_currency(product.price) %></p>
+          <h4 class="card-title text-truncate card-body text-center"><b><%= product.name %></b></h4>
+          <p class="card-text text-right"><%= number_to_currency(product.price) %></p>
         </div>
       </a>
     <% end %>
