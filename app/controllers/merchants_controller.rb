@@ -1,5 +1,5 @@
 class MerchantsController < ApplicationController
-  before_action :require_login, only: [:show, :logout, :dashboard]
+  before_action :require_login, only: [:logout, :dashboard]
 
   def dashboard
     @merchant = @login_merchant
