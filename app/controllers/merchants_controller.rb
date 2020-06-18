@@ -5,7 +5,7 @@ class MerchantsController < ApplicationController
     @merchant = @login_merchant
     @orders = @login_merchant.orders
     @products = @login_merchant.products
-  end 
+  end
   
   def create
     auth_hash = request.env["omniauth.auth"]

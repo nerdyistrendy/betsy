@@ -33,6 +33,7 @@
           <div class="col">
             <%= render partial: "reviews/reviews", locals: { reviews: @reviews }  %>
 
+
             <%= button_to "Leave Review", new_product_review_path(@product.id), class: "btn  btn-outline-primary", method: :get %>
           </div>
         </div>
