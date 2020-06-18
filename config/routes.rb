@@ -6,6 +6,8 @@ Rails.application.routes.draw do
   get "/auth/:provider/callback", to: "merchants#create", as: "oauth_callback"
   post "/logout", to: "merchants#logout", as: "logout"
   
+  get "/dashboard", to: "merchants#dashboard", as: "dashboard"
+  get "/order_fulfillments", to: "order_items#fulfillment", as: "fulfillment"
   get "orders/lookup", to: "orders#lookup", as: "order_lookup"
   get "orders/cart", to: "orders#cart", as: "order_cart"
   delete "orders/:id/cancel", to: "orders#cancel", as: "cancel_order"

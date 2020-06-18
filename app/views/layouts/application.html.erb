@@ -49,6 +49,9 @@
               <%= link_to "Dashboard", merchant_path(@login_merchant), class: "nav-link" %>
             </li>
             <li class="nav-item active">
+              <%= link_to "New Dashboard", dashboard_path, class: "nav-link" %>
+            </li>
+            <li class="nav-item active">
               <%= link_to "Log Out", logout_path, method: :post, class: "nav-link" %>
             </li>
           <% else %>
