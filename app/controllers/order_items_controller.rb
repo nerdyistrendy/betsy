@@ -71,10 +71,6 @@ class OrderItemsController < ApplicationController
     end
   end
 
-  #Another bit of code relies on this, so feel free to alter it, but please don't delete it. 
-  def show
-  end
-
   private
 
   def get_orderitem

@@ -16,26 +16,23 @@ Rails.application.routes.draw do
   patch "products/:id/active", to: "products#toggle_active", as: "toggle_active"
   patch "order_items/:id/ship", to: "order_items#ship", as: "ship_item"
 
-  resources :products, except: [:new] do
+  resources :products, only: [:index, :show, :edit, :update, :destroy] do 
     resources :reviews, only: [:new, :create]
     patch "/cart", to: "products#cart", as: "cart"
     patch "cart/update", to: "products#update_quant", as: "update_quant"
     patch "/remove", to: "products#remove_from_cart", as: "remove_cart"
   end
 
-  resources :merchants, only: [:index, :show] do
-    resources :products, except: [:show, :edit]
+  resources :merchants, only: [] do
+    resources :products, only: [:index, :new, :create] 
     resources :order_items, only: [:index]
-    resources :orders, only: [:index, :show]
   end
 
   resources :orders, only: [:show, :new, :create] do
     get "/confirmation", to: "orders#confirmation", as: "confirmation"
   end
 
-  resources :order_items, only: [:edit, :update, :destroy]
-
-  resources :categories, only: [:new, :create, :index] do
+  resources :categories, only: [:new, :create] do
     resources :products, only: [:index]
   end
 end
