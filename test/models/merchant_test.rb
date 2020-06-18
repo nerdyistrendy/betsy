@@ -46,7 +46,7 @@ describe Merchant do
     end
 
     it "will return a message if there is no revenue made yet" do
-      expect(@hopeful.total_revenue).must_equal "No money made yet!"
+      expect(@hopeful.total_revenue).must_equal 0
     end
   end
 
