@@ -4,7 +4,7 @@
   
   <section class="container text-center">
     <div class="card-deck">
-      <div class="card bg-lightgray">
+      <div class="card bg-dark text-light">
         <div class="card-header font-weight-bolder">
           TOTAL ORDERS: <%= @login_merchant.count_orders %>
         </div>
@@ -14,7 +14,7 @@
         </div>
       </div>
 
-      <div class="card bg-lightgray">
+      <div class="card bg-dark text-light">
         <div class="card-header font-weight-bolder">
           PENDING ORDERS: <%= @login_merchant.count_orders("pending") %>
         </div>
@@ -24,7 +24,7 @@
         </div>
       </div>
 
-      <div class="card bg-lightgray">
+      <div class="card bg-dark text-light">
         <div class="card-header font-weight-bolder">
           SHIPPED ORDERS: <%= @login_merchant.count_orders("shipped") %>
         </div>
@@ -37,7 +37,7 @@
   </section>
 
 
-  <%= link_to "Back to Merchant Dashboard", dashboard_path, class: "btn btn-secondary bg-dark" %> 
+  <%= link_to "Back to Merchant Dashboard", dashboard_path, class: "btn btn-success" %> 
 
   <h3> <%= @status.capitalize %> Order Items</h3>
   <section class="table-wrapper-scroll-y my-custom-scrollbar container">
