@@ -140,8 +140,8 @@ class ProductsController < ApplicationController
 
     if @product.inventory > 0 && @quantity.to_i <= @product.inventory && @product.active
       session[:cart]["#{@product.id}"] ? session[:cart]["#{@product.id}"]+= @quantity : session[:cart]["#{@product.id}"] = @quantity
-      flash.now[:success] = "Product successfully added to your cart"
-      render :show, status: :ok
+      flash[:success] = "Product successfully added to your cart"
+      redirect_to product_path(@product.id)
       return
     else
       if @product.inventory == 0 
