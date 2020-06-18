@@ -29,10 +29,13 @@ class Order < ApplicationRecord
     end
   end
 
+
   def mark_order_complete
     return if self.order_items.empty?
 
-    if self.order_items.where.not(status: ["shipped","cancelled"]).count == 0
+    if self.order_items.where(status: "cancelled").count == self.order_items.count
+      self.update(status: "cancelled")
+    elsif self.order_items.where.not(status: ["shipped","cancelled"]).count == 0
       self.update(status: "complete")
     end
     return 
