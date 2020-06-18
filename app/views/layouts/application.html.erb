@@ -7,7 +7,7 @@
 
     <%= stylesheet_link_tag 'application', media: 'all', 'data-turbolinks-track': 'reload' %>
     <%= javascript_pack_tag 'application', 'data-turbolinks-track': 'reload' %>
-    <link href="https://fonts.googleapis.com/css2?family=Staatliches&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Open+Sans&family=Staatliches&display=swap" rel="stylesheet">
   </head>
 
   <body class="d-flex flex-column h-100">
@@ -67,7 +67,7 @@
       <section class="alert__container z-index">
         <% flash.each do |name, message| %>
           <div class="alert alert-<%= name %>">
-          <span>  <%= message %> </span>
+          <span><p><%= message %></p></span>
           </div>
         <% end %>
       </section>
@@ -75,14 +75,15 @@
       <%= yield %>
     <footer class="footer bg-dark text-white mt-auto pt-3">
       <div class="container small">
-        <span class="text-muted row justify-content-end">
+        <span class="row justify-content-center">
           <div class="row">
-            <p><%= link_to "About Us", root_path, class: "text-decoration-none divider-line pr-2" %><p>
-            <%= link_to "Order Status", order_lookup_path, class: "text-decoration-none divider-line" %>
+            <p><%= link_to "About Us", root_path, class: "text-decoration-none pr-2" %><p>
+            <%= link_to "Order Status", order_lookup_path, class: "text-decoration-none" %>
           </div>
            <div class="w-100"></div>
           <div class="row">
-            <p id="copyright">© 2020 Cartmageddon All Rights Reserved</p>
+            <p class="copyright px-2">© 2020 Cartmageddon</p>
+            <p class="copyright px-2">All Rights Reserved</p>
           </div>
         </span>
       </div>
