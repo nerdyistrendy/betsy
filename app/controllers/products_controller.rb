@@ -1,7 +1,9 @@
 class ProductsController < ApplicationController
 
   before_action :require_login, only: [:new, :create, :toggle_active, :edit, :update, :destroy]
-  before_action :get_product, except: [:index, :new, :create, :cart]
+  before_action :get_product, only: [:show, :edit, :update, :destroy, :toggle_active]
+  before_action :get_product_for_cart, only: [:cart, :update_quant, :remove_from_cart]
+  before_action :get_quantity, only: [:cart, :update_quant]
   before_action :get_merchant
   before_action :get_category, only: [:index]
 
@@ -113,8 +115,6 @@ class ProductsController < ApplicationController
   end 
 
   def destroy
-    @product = Product.find_by(id: params[:id])
-
     if !@product
       flash[:error] = "Invalid Product"
     else
@@ -133,11 +133,8 @@ class ProductsController < ApplicationController
   end
 
   def cart
-    @product = Product.find_by(id: params[:product_id])
-    @quantity = params[:quantity].to_i
-
     if @product.inventory > 0 && @quantity.to_i <= @product.inventory && @product.active
-      session[:cart]["#{@product.id}"] ? session[:cart]["#{@product.id}"]+= @quantity : session[:cart]["#{@product.id}"] = @quantity
+      @product.add_to_cart(session, @quantity)
       flash.now[:success] = "Product successfully added to your cart"
       render :show, status: :ok
       return
@@ -159,10 +156,8 @@ class ProductsController < ApplicationController
   end
 
   def update_quant
-    @product = Product.find_by(id: params[:product_id])
-    @quantity = params[:quantity].to_i
     if @product.inventory > 0 && @quantity.to_i <= @product.inventory
-      session[:cart]["#{@product.id}"] = @quantity
+      @product.update_quant(session, @quantity)
       redirect_to order_cart_path
       return
     else
@@ -179,7 +174,7 @@ class ProductsController < ApplicationController
   end
 
   def remove_from_cart
-    session[:cart].delete(params[:product_id])
+    @product.remove_from_cart(session)
     flash.now[:success] = "Product successfully removed from your cart"
     redirect_to order_cart_path
     return
@@ -211,6 +206,14 @@ class ProductsController < ApplicationController
 
   def get_product
     return @product = Product.find_by(id: params[:id])
+  end
+
+  def get_product_for_cart
+    return @product = Product.find_by(id: params[:product_id])
+  end
+
+  def get_quantity
+    return @quantity = params[:quantity].to_i
   end
 
   def get_merchant
