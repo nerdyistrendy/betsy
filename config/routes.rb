@@ -7,6 +7,7 @@ Rails.application.routes.draw do
   post "/logout", to: "merchants#logout", as: "logout"
   
   get "orders/lookup", to: "orders#lookup", as: "order_lookup"
+  get "orders/find", to: "orders#find", as: "find_order"
   get "orders/cart", to: "orders#cart", as: "order_cart"
   delete "orders/:id/cancel", to: "orders#cancel", as: "cancel_order"
   delete "order_items/:id/cancel", to: "order_items#cancel", as: "cancel_item"
