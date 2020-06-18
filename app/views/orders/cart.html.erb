@@ -6,7 +6,7 @@
   </div>
 
   <section>
-    <% if @session[:cart] != {} && @product %>
+    <% if @session[:cart] != {} %>
       <%@session[:cart].each do |product| %>
         <div>
           <% @product = Product.find_by(id: product[0]) %>
