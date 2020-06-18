@@ -7,10 +7,16 @@
     <p>OUR WEBSITE LOL</p>
   </div>
   <div id="carouselExampleIndicators" class="carousel slide" data-ride="carousel">
+    <ol class="carousel-indicators">
+      <li data-target="#carouselExampleIndicators" data-slide-to="0" class="active"></li>
+      <li data-target="#carouselExampleIndicators" data-slide-to="1"></li>
+      <li data-target="#carouselExampleIndicators" data-slide-to="2"></li>
+      <li data-target="#carouselExampleIndicators" data-slide-to="3"></li>
+    </ol>
     <div class="carousel-inner" role="listbox">
       <% if @products && @products.length > 0 %>
           <div class="carousel-item active">
-            <%= image_tag @products[4].img_url , class: "d-block w-100 h-25
+            <%= image_tag @products[4].img_url , class: "d-block w-100
             " %>
           </div>
         <% 3.times do |i| %>
