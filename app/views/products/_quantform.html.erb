@@ -9,7 +9,7 @@
 <% end %>
 
 <section>
-    <%= form_with url: product_cart_path(@product.id), method: "patch container" do |f| %>
+    <%= form_with url: product_cart_path(@product.id), method: "patch", class: "container" do |f| %>
       <div class ="form-group">
         <%= f.label :Quantity %>
         <%= f.select :quantity, [1,2,3,4,5], class:"form-control"  %>
