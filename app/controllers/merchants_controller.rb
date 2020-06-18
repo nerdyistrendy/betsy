@@ -1,18 +1,10 @@
 class MerchantsController < ApplicationController
-  def index
-  end
+  before_action :require_login, only: [:show, :logout, :dashboard]
 
-  def show
-    @merchant = Merchant.find_by(id: params[:id])
-  
-    if @merchant == nil
-      flash[:error] = "Merchant does not exist in our database." 
-      head :not_found
-      return
-    end 
-
-    @orders = @merchant.orders
-    @products = @merchant.products
+  def dashboard
+    @merchant = @login_merchant
+    @orders = @login_merchant.orders
+    @products = @login_merchant.products
   end 
   
   def create

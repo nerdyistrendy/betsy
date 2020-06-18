@@ -1,34 +1,22 @@
 class OrderItemsController < ApplicationController
 
-  before_action :require_login, only: [:index, :ship, :cancel]
+  before_action :require_login, only: [:index, :ship, :cancel, :fulfillment]
   before_action :get_orderitem
 
-  def index
-    if params[:merchant_id].to_i != @login_merchant.id
-      flash[:warning] = "You are not authorized to view this section"
-      redirect_back(fallback_location: root_path)
-      return
-    end
-
+  def fulfillment
     # Adding Query String for filtered views: https://stackoverflow.com/questions/2695538/add-querystring-parameters-to-link-to
     @status = params["status"]
     if @status == "pending"
-      @merchant_order_items = OrderItem.where(merchant_id: params[:merchant_id], status: "pending")
+      @merchant_order_items = OrderItem.where(merchant_id: @login_merchant.id, status: "pending")
       return
     elsif @status == "shipped"
-      @merchant_order_items = OrderItem.where(merchant_id: params[:merchant_id], status: "shipped")
+      @merchant_order_items = OrderItem.where(merchant_id: @login_merchant.id, status: "shipped")
       return
     else
       @status = "all"
-      @merchant_order_items = OrderItem.where(merchant_id: params[:merchant_id])
+      @merchant_order_items = OrderItem.where(merchant_id: @login_merchant.id)
       return
     end
-
-    # I think we can still render this view that shows 0 order items?
-    # if @merchant_order_items == nil
-    #   flash[:error] = "Merchant does not have order items in our database."
-    #   head :not_found
-    # end
   end 
 
   
