@@ -36,7 +36,7 @@ class Merchant < ApplicationRecord
     if revenue > 0
       return revenue
     else
-      return "No money made yet!"
+      return 0
     end
   end
 
