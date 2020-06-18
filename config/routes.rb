@@ -9,6 +9,7 @@ Rails.application.routes.draw do
   get "/dashboard", to: "merchants#dashboard", as: "dashboard"
   get "/order_fulfillments", to: "order_items#fulfillment", as: "fulfillment"
   get "orders/lookup", to: "orders#lookup", as: "order_lookup"
+  get "orders/find", to: "orders#find", as: "find_order"
   get "orders/cart", to: "orders#cart", as: "order_cart"
   delete "orders/:id/cancel", to: "orders#cancel", as: "cancel_order"
   delete "order_items/:id/cancel", to: "order_items#cancel", as: "cancel_item"
