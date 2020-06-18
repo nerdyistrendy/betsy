@@ -1,20 +1,20 @@
 class OrderItemsController < ApplicationController
 
-  before_action :require_login, only: [:index, :ship, :cancel, :fulfillment]
+  before_action :require_login, only: [:ship, :cancel, :fulfillment]
   before_action :get_orderitem
 
   def fulfillment
     # Adding Query String for filtered views: https://stackoverflow.com/questions/2695538/add-querystring-parameters-to-link-to
     @status = params["status"]
     if @status == "pending"
-      @merchant_order_items = OrderItem.where(merchant_id: @login_merchant.id, status: "pending")
+      @merchant_order_items = OrderItem.filter_merchant_status(merchant: @login_merchant, status: "pending")
       return
     elsif @status == "shipped"
-      @merchant_order_items = OrderItem.where(merchant_id: @login_merchant.id, status: "shipped")
+      @merchant_order_items = OrderItem.filter_merchant_status(merchant: @login_merchant, status: "shipped")
       return
     else
       @status = "all"
-      @merchant_order_items = OrderItem.where(merchant_id: @login_merchant.id)
+      @merchant_order_items = OrderItem.filter_merchant_status(merchant: @login_merchant)
       return
     end
   end 

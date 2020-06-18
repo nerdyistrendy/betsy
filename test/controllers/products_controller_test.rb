@@ -82,6 +82,16 @@ describe ProductsController do
     
         must_respond_with :not_found
       end
+
+      it "will respond with not found if product is not active" do
+        retired_product = products(:tent)
+        retired_product.update!(active: false)
+    
+        get product_path(retired_product)
+    
+        must_respond_with :not_found
+        expect(flash[:error]).must_equal "Product not available"
+      end
     end
   
     describe "new" do
@@ -157,8 +167,16 @@ describe ProductsController do
         @product.inventory = 0
         @product.save
         patch product_cart_path(@product.id), params:{"quantity": @quantity}
-    
         
+        must_respond_with :bad_request
+        expect(session[:cart].count).must_equal 0
+      end
+
+      it "will not let you add product if product is retired" do
+        @product.active = false
+        @product.save!
+        patch product_cart_path(@product.id), params:{"quantity": @quantity}
+
         must_respond_with :bad_request
         expect(session[:cart].count).must_equal 0
       end

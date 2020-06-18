@@ -38,6 +38,14 @@ describe Order do
       expect(@single_order.status).must_equal "complete"
     end
 
+    it "will mark an order cancelled if all the order items are cancelled" do
+      expect(@single_order.status).must_equal "pending"
+
+      @single_item.update!(status: "cancelled")
+      @single_order.mark_order_complete
+      expect(@single_order.status).must_equal "cancelled"
+    end
+
     it "will mark an order complete if all order items are either shipped or cancelled" do
       tent_pickle = orders(:knife_pickle_order)
       item1 = tent_pickle.order_items.first
