@@ -6,10 +6,9 @@ describe MerchantsController do
     @merchant_test = merchants(:houstonhatchhouse) 
   end
 
-  describe "show" do 
+  describe "dashboard" do 
     it "successfully renders the show page for a merchant's dashboard" do
-
-      get merchant_path(@merchant_test.id)
+      get dashboard_path
 
       must_respond_with :success
     end

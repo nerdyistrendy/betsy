@@ -6,7 +6,7 @@
       </div>
       <div class="col text-right">
         <h3><b><%= @product.name %></b></h3>
-        <h4><b>Seller: <%= link_to @product.merchant.username, merchant_path(@product.merchant.id) %></b></h4>
+        <h4><b>Seller: <%= link_to @product.merchant.username, dashboard_path %></b></h4>
         <p><%= @product.description %></p>
         <% if !@product.categories.empty? %>
           <% @product.categories.each do |c|%>

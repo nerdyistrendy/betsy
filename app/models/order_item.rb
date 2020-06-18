@@ -9,4 +9,12 @@ class OrderItem < ApplicationRecord
       return (self.quantity * product.price).to_f.round(2)
     end
   end
+
+  def get_order_items(status = nil)
+    if status
+      return OrderItem.where(merchant_id: @login_merchant.id, status: status)
+    else
+      return OrderItem.where(merchant_id: @login_merchant.id)
+    end
+  end
 end

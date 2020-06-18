@@ -1,7 +1,8 @@
 Rails.application.routes.draw do
   # For details on the DSL available within this file, see https://guides.rubyonrails.org/routing.html
   root to: "homepages#index"
-  
+
+  get "/homepages/not_found", to: "homepages#not_found", as: "not_found"
   get "/auth/github", as: "github_login"
   get "/auth/:provider/callback", to: "merchants#create", as: "oauth_callback"
   post "/logout", to: "merchants#logout", as: "logout"
@@ -23,7 +24,7 @@ Rails.application.routes.draw do
     patch "/remove", to: "products#remove_from_cart", as: "remove_cart"
   end
 
-  resources :merchants, only: [:index, :show] do
+  resources :merchants, only: [] do
     resources :products, except: [:show, :edit]
     resources :order_items, only: [:index]
     resources :orders, only: [:index, :show]

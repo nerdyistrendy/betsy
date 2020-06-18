@@ -30,7 +30,7 @@ class ProductsController < ApplicationController
   def show
     if @product.nil?
       flash[:error] = "Invalid Product"
-      redirect_to products_path, status: :not_found
+      redirect_to not_found_path, status: :not_found
       return
     elsif !@product.active
       flash[:error] = "Product not available"

@@ -257,7 +257,7 @@ describe ProductsController do
         post merchant_products_path(@blacksmith_test.id), params: @product_hash
     
         must_respond_with :redirect
-        must_redirect_to merchant_path(@blacksmith_test.id)
+        must_redirect_to dashboard_path
       end
       
       it "can create a product with categories with logged in user" do
@@ -386,7 +386,7 @@ describe ProductsController do
         }.must_differ "Product.count", -1
 
         must_respond_with :redirect
-        must_redirect_to merchant_path(@blacksmith_test)
+        must_redirect_to dashboard_path
         expect(flash[:success]).must_equal "Product successfully deleted."
       end
 
@@ -424,7 +424,7 @@ describe ProductsController do
         patch toggle_active_path(merchant_product.id)
   
         must_respond_with :redirect
-        must_redirect_to merchant_path(@blacksmith_test.id)
+        must_redirect_to dashboard_path
       end
 
       it "will change an active product to inactive" do
