@@ -168,4 +168,20 @@ describe OrdersController do
       expect(flash.now[:error]).must_equal "There was a problem retrieving your order. Please try again!" 
     end
   end
+
+  describe 'find' do
+    it 'can lookup your order confirmation page with a valid order id' do
+      order = orders(:knife_order)
+      get find_order_path, params:{"order_id": order.id}
+      must_respond_with :redirect
+      must_redirect_to order_confirmation_path(order.id)
+    end
+
+    it 'redirects and send an error message when looking up an invalid order' do
+      get find_order_path, params:{"order_id": -1}
+      
+      must_respond_with :redirect
+      expect(flash[:error]).must_equal "There was a problem retrieving your order. Please try again!" 
+    end
+  end
 end
