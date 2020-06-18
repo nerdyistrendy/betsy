@@ -123,8 +123,6 @@ class ProductsController < ApplicationController
       if @product.merchant.id == @login_merchant.id
         if @product.destroy
           flash[:success] = "Product successfully deleted."
-        else
-          flash[:error] = "Product could not be deleted."
         end 
         redirect_back fallback_location: root_path
         return

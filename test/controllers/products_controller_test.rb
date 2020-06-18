@@ -157,8 +157,16 @@ describe ProductsController do
         @product.inventory = 0
         @product.save
         patch product_cart_path(@product.id), params:{"quantity": @quantity}
-    
         
+        must_respond_with :bad_request
+        expect(session[:cart].count).must_equal 0
+      end
+
+      it "will not let you add product if product is retired" do
+        @product.active = false
+        @product.save!
+        patch product_cart_path(@product.id), params:{"quantity": @quantity}
+
         must_respond_with :bad_request
         expect(session[:cart].count).must_equal 0
       end
