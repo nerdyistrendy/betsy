@@ -48,4 +48,20 @@ class Product < ApplicationRecord
     end
     return (average/self.reviews.count)
   end
+
+  def add_to_cart(session, quantity)
+    if session[:cart]["#{self.id}"] 
+      session[:cart]["#{self.id}"] += quantity 
+    else 
+      session[:cart]["#{self.id}"] = quantity
+    end
+  end
+
+  def update_quant(session, quantity)
+    session[:cart]["#{self.id}"] = quantity
+  end
+
+  def remove_from_cart(session)
+    session[:cart].delete("#{self.id}")
+  end
 end
