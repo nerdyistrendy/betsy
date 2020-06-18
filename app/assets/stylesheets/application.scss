@@ -15,15 +15,21 @@
 @import "bootstrap";
 @import "**/*";
 
-html {
+html, body {
+  height: 100%;
+  position: relative;
   font-family: 'Staatliches', cursive;
-}
-
-body {
   background: no-repeat;
   background-image: url("https://lh3.googleusercontent.com/pw/ACtC-3dhRW2jlmyFwaRsE9n80Bp4qUPx_Gk2WHHGJtRi1_hvH9Y_hTKzwF4hgKC5mSggtlQA-Jfy5ZSTqe19j9fcH8gOjPqFlMuvrLbtUls4_yjZoYGi2u9AGFUgMLlnMXNt7-AV5qPj7zq4SsM4jDeqjSLo=w900-h1194-no?authuser=0");
   background-size: cover;
   background-attachment: fixed;
+}
+
+
+footer.footer {
+  bottom: 0;
+  width: 100%;
+  position: sticky;
 }
 
 a {
@@ -47,6 +53,9 @@ footer.a {
   color: rgb(23, 109, 43);
 }
 
-div.carousel .slide {
-  height: 1rem;
+
+footer.divider-line {
+  border-right-style: solid;
+  border-right-width:2px;
+  border-right-width:2px;
 }

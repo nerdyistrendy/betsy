@@ -72,21 +72,19 @@
         <% end %>
       </section>
     <% end %>
-    <%# <div class="container"> %>
       <%= yield %>
-    <%# </div> %>
-    <footer>
-      <div class="footer bg-dark text-white mt-auto py-3">
-        <div class="container small">
-          <span class="text-muted">
-            <p><%= link_to "About Us", root_path, class: "text-decoration-none" %><p>
-            <%= link_to "Order Status", order_lookup_path, class: "text-decoration-none" %>
-          </span>
-          <hr>
-          <span class="text-muted">
+    <footer class="footer bg-dark text-white mt-auto pt-3">
+      <div class="container small">
+        <span class="text-muted row justify-content-end">
+          <div class="row">
+            <p><%= link_to "About Us", root_path, class: "text-decoration-none divider-line pr-2" %><p>
+            <%= link_to "Order Status", order_lookup_path, class: "text-decoration-none divider-line" %>
+          </div>
+           <div class="w-100"></div>
+          <div class="row">
             <p id="copyright">© 2020 Cartmageddon All Rights Reserved</p>
-          </span>
-        </div>
+          </div>
+        </span>
       </div>
     </footer>
   </body>
