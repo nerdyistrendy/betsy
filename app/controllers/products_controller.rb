@@ -49,8 +49,8 @@ class ProductsController < ApplicationController
       @categories = Category.all.order("name DESC")
       @product = Product.new
       @product.img_url = default_img
-      @product.price = 0.00
-      @product.inventory = 0
+      # @product.price = 0.00
+      # @product.inventory = 0
     else
       flash[:error] = "You are not authorized to complete this action"
       redirect_back fallback_location: root_path
@@ -123,8 +123,6 @@ class ProductsController < ApplicationController
       if @product.merchant.id == @login_merchant.id
         if @product.destroy
           flash[:success] = "Product successfully deleted."
-        else
-          flash[:error] = "Product could not be deleted."
         end 
         redirect_back fallback_location: root_path
         return
@@ -142,8 +140,8 @@ class ProductsController < ApplicationController
 
     if @product.inventory > 0 && @quantity.to_i <= @product.inventory && @product.active
       session[:cart]["#{@product.id}"] ? session[:cart]["#{@product.id}"]+= @quantity : session[:cart]["#{@product.id}"] = @quantity
-      flash.now[:success] = "Product successfully added to your cart"
-      render :show, status: :ok
+      flash[:success] = "Product successfully added to your cart"
+      redirect_to product_path(@product.id)
       return
     else
       if @product.inventory == 0 

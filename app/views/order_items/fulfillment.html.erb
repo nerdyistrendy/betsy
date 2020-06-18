@@ -9,7 +9,7 @@
         </div>
         <div class="card-body">
           <p class="card-text"> Total Revenue: <%= number_to_currency(@login_merchant.total_revenue) %> </p>
-          <p class="card-text"> <%= link_to 'View All Orders', fulfillment_path, class: "btn btn-outline-secondary" %> </p>
+          <p class="card-text"> <%= link_to 'View All Orders', fulfillment_path, class: "btn btn-success" %> </p>
         </div>
       </div>
 
@@ -19,7 +19,7 @@
         </div>
         <div class="card-body">
           <p class="card-text"> Revenue--Pending Orders: <%= number_to_currency(@login_merchant.total_revenue("pending")) %> </p>
-          <p class="card-text"> <%= link_to 'View Pending Orders', fulfillment_path(:status => "pending"), class: "btn btn-outline-secondary" %> </p>
+          <p class="card-text"> <%= link_to 'View Pending Orders', fulfillment_path(:status => "pending"), class: "btn btn-success" %> </p>
         </div>
       </div>
 
@@ -29,7 +29,7 @@
         </div>
         <div class="card-body">
           <p class="card-text"> Revenue--Shipped Orders: <%= number_to_currency(@login_merchant.total_revenue("shipped")) %> </p>
-         <p class="card-text"> <%= link_to 'View Shipped Orders', fulfillment_path(:status => "shipped"), class: "btn btn-outline-secondary" %> </p>
+         <p class="card-text"> <%= link_to 'View Shipped Orders', fulfillment_path(:status => "shipped"), class: "btn btn-success" %> </p>
         </div>
       </div>
 
@@ -68,8 +68,8 @@
           <td> <%= number_to_currency(order_item.subtotal) %> </td>
           <td> <%= order_item.created_at.strftime("%m/%d/%y") %> </td>
           <td> <%= order_item.status %> </td>
-          <td> <%= link_to "SHIP", ship_item_path(order_item), method: :patch, class: "btn btn-outline-secondary" %> </td>
-          <td> <%= link_to "CANCEL", cancel_item_path(order_item), method: :delete, data: {confirm: "Are you sure?"}, class: "btn btn-outline-danger" %> </td>
+          <td> <%= link_to "SHIP", ship_item_path(order_item), method: :patch, class: "btn btn-success" %> </td>
+          <td> <%= link_to "CANCEL", cancel_item_path(order_item), method: :delete, data: {confirm: "Are you sure?"}, class: "btn btn-danger" %> </td>
         </tr>
       <% end %>
       </tbody>

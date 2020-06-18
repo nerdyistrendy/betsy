@@ -14,20 +14,6 @@
 /* Custom bootstrap variables must be set or imported *before* bootstrap. */
 @import "bootstrap";
 @import "**/*";
-// .product-cards {
-//   padding: 10px;
-//   margin: 20px;
-// }
-// .card {
-//   box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2);
-//   transition: 0.3s;
-//   border-radius: 5px; /* 5px rounded corners */
-// }
-
-// /* Add rounded corners to the top left and the top right corner of the image */
-// img {
-//   border-radius: 5px 5px 0 0;
-// }
 
 html {
   font-family: 'Staatliches', cursive;
@@ -35,9 +21,18 @@ html {
 
 body {
   background: no-repeat;
-  background-image: url("https://lh3.googleusercontent.com/pw/ACtC-3dhSuUHun70PCy3SS099Mm3I0PMDf7AeQTPYXSHt8umdXm2BQCUlHFfYDlG9nHU1Pu7RGYlDCVD7TZdkOD7GtJUX6EZh4n6aMvC2awnyShE7iuMdnmqX3o6kTZdj_RupSDwJSBkZ023gG4AslxIn11W=w1792-h1194-no?authuser=0");
-  background-size: 100vw auto;
+  background-image: url("https://lh3.googleusercontent.com/pw/ACtC-3dhRW2jlmyFwaRsE9n80Bp4qUPx_Gk2WHHGJtRi1_hvH9Y_hTKzwF4hgKC5mSggtlQA-Jfy5ZSTqe19j9fcH8gOjPqFlMuvrLbtUls4_yjZoYGi2u9AGFUgMLlnMXNt7-AV5qPj7zq4SsM4jDeqjSLo=w900-h1194-no?authuser=0");
+  background-size: cover;
   background-attachment: fixed;
+}
+
+a {
+  color: rgb(23, 109, 43);
+}
+
+a:hover {
+  color: #155c25;
+  text-decoration: none;
 }
 
 img.navbar-brand {
@@ -48,3 +43,6 @@ div.product-card {
   width: 20rem;
 }
 
+footer.a {
+  color: rgb(23, 109, 43);
+}

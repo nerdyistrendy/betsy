@@ -10,11 +10,12 @@ class OrderItem < ApplicationRecord
     end
   end
 
-  def get_order_items(status = nil)
+  def self.filter_merchant_status(merchant: nil, status: nil)
+    return [] if merchant.nil?
     if status
-      return OrderItem.where(merchant_id: @login_merchant.id, status: status)
+      return OrderItem.where(merchant_id: merchant.id, status: status)
     else
-      return OrderItem.where(merchant_id: @login_merchant.id)
+      return OrderItem.where(merchant_id: merchant.id)
     end
   end
 end
