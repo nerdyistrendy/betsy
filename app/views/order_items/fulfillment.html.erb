@@ -70,7 +70,7 @@
           <td> <%= order_item.created_at.strftime("%m/%d/%y") %> </td>
           <td> <%= order_item.status %> </td>
           <td> <%= link_to "SHIP", ship_item_path(order_item), method: :patch, class: "btn btn-success btn-table" %> </td>
-          <td> <%= link_to "CANCEL", cancel_item_path(order_item), method: :delete, data: {confirm: "Are you sure?"}, class: "btn btn-secondary bg-dark btn-table" %> </td>
+          <td> <%= link_to "CANCEL", cancel_item_path(order_item), method: :delete, data: {confirm: "Are you sure to cancel this order item?"}, class: "btn btn-secondary bg-dark btn-table" %> </td>
         </tr>
       <% end %>
       </tbody>
