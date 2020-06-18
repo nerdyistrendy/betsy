@@ -10,15 +10,15 @@
     <link href="https://fonts.googleapis.com/css2?family=Staatliches&display=swap" rel="stylesheet">
   </head>
 
-  <body>
-    <nav class="navbar navbar-expand-lg navbar-dark bg-dark d-flex">
-      <a href="/" class="navbar-brand container justify-content-start"><%= image_tag "https://lh3.googleusercontent.com/pw/ACtC-3cWX6I6wtgMZSW0nimu7NbPTQTqxM50i9FWDgLQng1c-CV6-HXop3io_E_C45DbpzgJdx6RO1VN13UzE57z8siVD-21J98Oq7w4mVr065KG4EblMfLVehIhnGTymJrHChpgywM7Hl4HCswtYgIiCvTu=w2560-h550-no?authuser=0", class: "navbar-brand" %></a>
+  <body class="d-flex flex-column h-100">
+    <nav class="navbar navbar-expand-mg navbar-dark bg-dark d-flex fixed-top">
+      <a href="/" class="navbar-brand container justify-content-start float-left"><%= image_tag "https://lh3.googleusercontent.com/pw/ACtC-3cWX6I6wtgMZSW0nimu7NbPTQTqxM50i9FWDgLQng1c-CV6-HXop3io_E_C45DbpzgJdx6RO1VN13UzE57z8siVD-21J98Oq7w4mVr065KG4EblMfLVehIhnGTymJrHChpgywM7Hl4HCswtYgIiCvTu=w2560-h550-no?authuser=0", class: "navbar-brand" %></a>
       
-      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>
       </button>
       
-      <div class="collapse navbar-collapse container" id="navbarSupportedContent">
+      <div class="collapse navbar-collapse" id="navbarCollapse">
         <ul class="navbar-nav mr-auto">
           <li class="nav-item dropdown active ">
             <a class="nav-link dropdown-toggle" data-toggle="dropdown"
@@ -72,11 +72,18 @@
         <% end %>
       </section>
     <% end %>
-    
-    <%= yield %>
+    <div class="container">
+      <%= yield %>
+    </div>
     <footer>
-      <div class="container">
-        <p>STUFF</p>
+      <div class="footer bg-dark text-white mt-auto py-3">
+        <div class="container">
+          <span class="text-muted">
+            <p>stuff</p>
+            <p><%= link_to "About Us", root_path, class: "text-decoration-none" %><p>
+            <p>lots of it</p>
+          </span>
+        </div>
       </div>
     </footer>
   </body>
