@@ -6,21 +6,6 @@ describe MerchantsController do
     @merchant_test = merchants(:houstonhatchhouse) 
   end
 
-  # describe "show" do 
-  #   it "successfully renders the show page for a merchant's dashboard" do
-
-  #     get merchant_path(@merchant_test.id)
-
-  #     must_respond_with :success
-  #   end
-
-  #   it "successfully returns a 404 error for merchants not present in the database" do
-
-  #     get "/merchants/necrotoes"
-
-  #     must_respond_with :not_found
-  #   end 
-  # end 
   describe "Logged-in Merchants" do
     before do
       perform_login(@merchant_test)
@@ -42,7 +27,6 @@ describe MerchantsController do
         expect(flash[:warning]).must_equal "You must be logged in to view this section"
       end
     end 
-
   end
 
   describe "login merchants#create" do

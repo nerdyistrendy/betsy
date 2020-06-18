@@ -135,18 +135,22 @@ class ProductsController < ApplicationController
     @product = Product.find_by(id: params[:product_id])
     @quantity = params[:quantity].to_i
 
-    if @product.inventory > 0 && @quantity.to_i <= @product.inventory
-      session[:cart]["#{@product.id}"] = @quantity
+    if @product.inventory > 0 && @quantity.to_i <= @product.inventory && @product.active
+      session[:cart]["#{@product.id}"] ? session[:cart]["#{@product.id}"]+= @quantity : session[:cart]["#{@product.id}"] = @quantity
       flash.now[:success] = "Product successfully added to your cart"
       render :show, status: :ok
       return
     else
-      if @product.inventory == 0
+      if @product.inventory == 0 
         flash.now[:error] = "Sorry, this product is currently out of stock!"
         render :show, status: :bad_request
         return
       elsif @quantity >= @product.inventory
         flash.now[:error] = "Quantity requested is larger that product inventory"
+        render :show, status: :bad_request
+        return
+      elsif @product.active == false
+        flash.now[:error] = "This product is not for sale"
         render :show, status: :bad_request
         return
       end
@@ -162,11 +166,11 @@ class ProductsController < ApplicationController
       return
     else
       if @product.inventory == 0
-        flash.now[:error] = "Sorry, this product is currently out of stock!"
+        flash[:error] = "Sorry, this product is currently out of stock!"
         redirect_to order_cart_path #if someone bought the last of that product before you could check out.
         return
       elsif @quantity >= @product.inventory
-        flash.now[:error] = "Quantity requested is larger than product inventory"
+        flash[:error] = "Quantity requested is larger than product inventory"
         redirect_to order_cart_path
         return
       end

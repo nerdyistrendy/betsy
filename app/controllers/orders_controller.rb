@@ -65,7 +65,7 @@ class OrdersController < ApplicationController
     @order = Order.find_by(id: params[:order_id])
     if @order.nil?
       flash.now[:error] = "There was a problem retrieving your order. Please try again!" 
-      redirect_to root_path, status: :bad_request
+      redirect_to root_path
     end
   end
 
@@ -76,8 +76,8 @@ class OrdersController < ApplicationController
   def find
     @order = Order.find_by(id: params[:order_id])
     if @order.nil?
-      flash.now[:error] = "There was a problem retrieving your order. Please try again!" 
-      redirect_to root_path, status: :bad_request
+      flash[:error] = "There was a problem retrieving your order. Please try again!" 
+      redirect_to root_path
       return
     else
       redirect_to order_confirmation_path(@order.id)
