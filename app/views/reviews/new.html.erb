@@ -17,7 +17,7 @@
   <%= form_with model: @review, url: product_reviews_path, class: "form-group container" do |f| %>
     <div class="form-group">
       <%= f.label :reviewer, "Nickname" %>
-      <%= f.text_field :reviewer, class: "form-control" %>
+      <%= f.text_field :reviewer, placeholder: "What's your nickname?", class: "form-control" %>
     </div>
     
     <div class="form-group">
@@ -27,7 +27,7 @@
 
     <div class="form-group">
       <%= f.label :text %>
-      <%= f.text_area :text, class: "form-control" %>
+      <%= f.text_area :text, placeholder: "How did you like the product?", class: "form-control" %>
     </div>
 
     <div class="form-group">

@@ -26,6 +26,15 @@ body {
   background-attachment: fixed;
 }
 
+a {
+  color: rgb(23, 109, 43);
+}
+
+a:hover {
+  color: #155c25;
+  text-decoration: none;
+}
+
 img.navbar-brand {
   width: 20rem;
 }

@@ -10,7 +10,7 @@
     <div class="carousel-inner" role="listbox">
       <% if @products && @products.length > 0 %>
           <div class="carousel-item active">
-            <%= image_tag @products.last.img_url , class: "d-block w-100 h-25
+            <%= image_tag @products[4].img_url , class: "d-block w-100 h-25
             " %>
           </div>
         <% 3.times do |i| %>
