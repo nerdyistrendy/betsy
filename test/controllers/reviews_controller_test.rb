@@ -52,6 +52,22 @@ describe ReviewsController do
         expect(Review.last.product).wont_be_nil
         expect(Review.last.product.name).must_equal @pickles_test.name
       end
+
+      it "will respond with bad request and send error message if review failed to save" do
+        @review_hash[:review][:rating] = nil
+        
+        post product_reviews_path(@pickles_test.id), params: @review_hash
+        
+        must_respond_with :bad_request
+        expect(flash.now[:error]).must_equal "Unable to add review"
+      end
+
+      it "will redirect and send error message if product is invalid" do
+        post product_reviews_path(-1), params: @review_hash
+        
+        must_respond_with :redirect
+        expect(flash[:error]).must_equal "Invalid Product"
+      end
     end
   end
 

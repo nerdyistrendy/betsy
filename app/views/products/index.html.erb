@@ -2,16 +2,17 @@
   <h1>All Products</h1>
   <section class="d-flex justify-content-around flex-wrap container-fluid">
     <% @products.each do |product| %>
-      <div class="card img-thumbnail m-3 justify-content-center shadow-sm w-25 h-25">
-      
-        <a href="/products/<%= product.id %>">
+      <a href="/products/<%= product.id %>">
+        <div class="card img-thumbnail m-3 justify-content-center shadow-sm w-25 h-25">
+        <p></p>
           <%= image_tag product.img_url, class: "card-img-top img-fluid rounded mx-auto trim" %>
-        </a>
-        <div class="text-center card-body text-wrap">
-          <h4><b><%= link_to product.name, product_path(product.id), class: "card-title text-decoration-none" %></b></h4>
-          <p class="card-text"><%= number_to_currency(product.price) %></p>
+
+          <div class="card-body text-truncate">
+            <h4><b><%= link_to product.name, product_path(product.id), class: "card-title text-decoration-none" %></b></h4>
+            <p class="card-text"><%= number_to_currency(product.price) %></p>
+          </div>
         </div>
-      </div>
+      </a>
     <% end %>
   </section>
 </main>
