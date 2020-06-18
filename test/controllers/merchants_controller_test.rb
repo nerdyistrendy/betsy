@@ -6,21 +6,44 @@ describe MerchantsController do
     @merchant_test = merchants(:houstonhatchhouse) 
   end
 
-  describe "show" do 
-    it "successfully renders the show page for a merchant's dashboard" do
+  # describe "show" do 
+  #   it "successfully renders the show page for a merchant's dashboard" do
 
-      get merchant_path(@merchant_test.id)
+  #     get merchant_path(@merchant_test.id)
 
-      must_respond_with :success
+  #     must_respond_with :success
+  #   end
+
+  #   it "successfully returns a 404 error for merchants not present in the database" do
+
+  #     get "/merchants/necrotoes"
+
+  #     must_respond_with :not_found
+  #   end 
+  # end 
+  describe "Logged-in Merchants" do
+    before do
+      perform_login(@merchant_test)
     end
 
-    it "successfully returns a 404 error for merchants not present in the database" do
-
-      get "/merchants/necrotoes"
-
-      must_respond_with :not_found
+    describe "dashboard" do 
+      it "successfully renders the show page for a merchant's dashboard" do
+        get dashboard_path
+        must_respond_with :success
+      end
     end 
-  end 
+  end
+
+  describe "Guest Users" do
+    describe "dashboard" do 
+      it "will redirect when you are not logged in" do
+        get dashboard_path
+        must_respond_with :redirect
+        expect(flash[:warning]).must_equal "You must be logged in to view this section"
+      end
+    end 
+
+  end
 
   describe "login merchants#create" do
     it "can log in a new merchant through OAuth and increase Merchant count" do
