@@ -1,10 +1,10 @@
 <main>
-  <section class="d-flex text-center pt-4">
+  <section class="d-flex text-center p-4">
     <div class="row">
-      <div class="container col">
+      <div class="col">
         <%= image_tag "#{@product.img_url}", class: "img-thumbnail shadow-sm w-50" %>
       </div>
-      <div class="container col text-right">
+      <div class="col text-right">
         <h3><b><%= @product.name %></b></h3>
         <h4><b>Seller: <%= link_to @product.merchant.username, dashboard_path %></b></h4>
         <p><%= @product.description %></p>
@@ -22,12 +22,13 @@
         <% end %>
         <%= render partial: "quantform", locals: { action_name: "Add to cart" } %>
       </div>
-    </div>
-    <div class="container row">
+      <div class="w-100"></div>
+    <%# </div>
+    <div class="container row"> %>
       <div class="col">
         <%= render partial: "reviews/reviews", locals: { reviews: @reviews }  %>
 
-        <%= button_to "Leave Review", new_product_review_path(@product.id), class: "btn outline-info float-right", method: :get %>
+        <%= button_to "Leave Review", new_product_review_path(@product.id), class: "btn   btn-outline-primary float-right", method: :get %>
       </div>
     </div>
   </section>
