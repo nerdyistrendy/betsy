@@ -49,8 +49,8 @@ class ProductsController < ApplicationController
       @categories = Category.all.order("name DESC")
       @product = Product.new
       @product.img_url = default_img
-      @product.price = 0.00
-      @product.inventory = 0
+      # @product.price = 0.00
+      # @product.inventory = 0
     else
       flash[:error] = "You are not authorized to complete this action"
       redirect_back fallback_location: root_path

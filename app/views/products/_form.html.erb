@@ -10,25 +10,25 @@
   </section>
 <%end%>
 
-<%= form_with model: @product, url: path, method: method, class: "form-group" do |f| %>
+<%= form_with model: @product, url: path, method: method, class: "form-group container" do |f| %>
   <div class="form-group">
     <%= f.label :name %>
-    <%= f.text_field(:name, class: "form-control") %>
+    <%= f.text_field(:name, placeholder: "Product Name", class: "form-control") %>
   </div>
 
   <div class="form-group">
     <%= f.label :description %>
-    <%= f.text_area(:description, class: "form-control") %>
+    <%= f.text_area(:description, placeholder: "What does this product do? Does it smell? Does it nourish?", class: "form-control") %>
   </div>
 
   <div class="form-group">
     <%= f.label :price %>
-    <%= f.text_field(:price, class: "form-control") %>
+    <%= f.text_field(:price, placeholder: "99.99", class: "form-control") %>
   </div>
 
   <div class="form-group">
     <%= f.label :inventory %>
-    <%= f.number_field(:inventory, in: 0..500, class: "form-control") %>
+    <%= f.number_field(:inventory, placeholder: "A number between 1 to 500", in: 0..500, class: "form-control") %>
   </div>
 
   <div class="form-group">

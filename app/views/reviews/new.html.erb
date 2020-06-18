@@ -14,7 +14,7 @@
 <section>
   <%= image_tag @product.img_url %>
   <h4>Leave a review for: <%= @product.name %><h4>
-  <%= form_with model: @review, url: product_reviews_path, class: "form-group" do |f| %>
+  <%= form_with model: @review, url: product_reviews_path, class: "form-group container" do |f| %>
     <div class="form-group">
       <%= f.label :reviewer, "Nickname" %>
       <%= f.text_field :reviewer, class: "form-control" %>
@@ -31,7 +31,7 @@
     </div>
 
     <div class="form-group">
-      <%= f.submit "Submit Review", class: "btn btn-outline-primary" %>
+      <%= f.submit "Submit Review", class: "btn btn-success" %>
     </div>
   <% end %>
 </section>
