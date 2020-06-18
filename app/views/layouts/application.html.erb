@@ -11,15 +11,15 @@
   </head>
 
   <body class="d-flex flex-column h-100">
-    <nav class="navbar navbar-expand-mg navbar-dark bg-dark d-flex fixed-top">
-      <a href="/" class="navbar-brand container justify-content-start float-left"><%= image_tag "https://lh3.googleusercontent.com/pw/ACtC-3cWX6I6wtgMZSW0nimu7NbPTQTqxM50i9FWDgLQng1c-CV6-HXop3io_E_C45DbpzgJdx6RO1VN13UzE57z8siVD-21J98Oq7w4mVr065KG4EblMfLVehIhnGTymJrHChpgywM7Hl4HCswtYgIiCvTu=w2560-h550-no?authuser=0", class: "navbar-brand" %></a>
+    <nav class="navbar navbar-expand-mg navbar-dark bg-dark d-flex">
+      <a href="/" class="navbar-brand"><%= image_tag "https://lh3.googleusercontent.com/pw/ACtC-3cWX6I6wtgMZSW0nimu7NbPTQTqxM50i9FWDgLQng1c-CV6-HXop3io_E_C45DbpzgJdx6RO1VN13UzE57z8siVD-21J98Oq7w4mVr065KG4EblMfLVehIhnGTymJrHChpgywM7Hl4HCswtYgIiCvTu=w2560-h550-no?authuser=0", class: "navbar-brand" %></a>
       
       <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>
       </button>
       
       <div class="collapse navbar-collapse" id="navbarCollapse">
-        <ul class="navbar-nav mr-auto">
+        <ul class="navbar-nav mr-auto text-right">
           <li class="nav-item dropdown active ">
             <a class="nav-link dropdown-toggle" data-toggle="dropdown"
               href="" role="button" aria-haspopup="true" aria-expanded="false">
@@ -41,9 +41,9 @@
               <% end %>
             </div>
           </li>
-          <li class="nav-item active">
-              <%= link_to "Lookup Order", order_lookup_path, class: "nav-link" %>
-            </li>
+          <%# <li class="nav-item active"> %>
+              <%# <%= link_to "Lookup Order", order_lookup_path, class: "nav-link" %> 
+            <%# </li> %>
           <li class="nav-item active">
             <%= link_to "Cart", order_cart_path, class: "nav-link" %>
           </li>
@@ -72,16 +72,19 @@
         <% end %>
       </section>
     <% end %>
-    <div class="container">
+    <%# <div class="container"> %>
       <%= yield %>
-    </div>
+    <%# </div> %>
     <footer>
       <div class="footer bg-dark text-white mt-auto py-3">
-        <div class="container">
+        <div class="container small">
           <span class="text-muted">
-            <p>stuff</p>
             <p><%= link_to "About Us", root_path, class: "text-decoration-none" %><p>
-            <p>lots of it</p>
+            <%= link_to "Order Status", order_lookup_path, class: "text-decoration-none" %>
+          </span>
+          <hr>
+          <span class="text-muted">
+            <p id="copyright">© 2020 Cartmageddon All Rights Reserved</p>
           </span>
         </div>
       </div>
