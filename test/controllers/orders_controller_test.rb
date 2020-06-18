@@ -162,8 +162,10 @@ describe OrdersController do
     end
 
     it 'responds with bad request of page not found' do
-      get order_confirmation_path(1232133)
-      must_respond_with :bad_request
+      get order_confirmation_path(-1)
+      
+      must_respond_with :redirect
+      expect(flash.now[:error]).must_equal "There was a problem retrieving your order. Please try again!" 
     end
   end
 end
