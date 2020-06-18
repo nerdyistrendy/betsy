@@ -16,7 +16,7 @@ describe OrderItemsController do
       end
 
       it "cannot access the order_items#index with string query and will be redirected" do
-        get fulfillment_path(f:status => "pending")
+        get fulfillment_path(:status => "pending")
         must_respond_with :redirect
         expect(flash[:warning]).must_equal "You must be logged in to view this section"
       end
