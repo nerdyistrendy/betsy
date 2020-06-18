@@ -25,7 +25,7 @@ class ReviewsController < ApplicationController
 
       if @login_merchant && (@product.merchant_id == @login_merchant.id)
         flash[:error] = "You cannot review your own product"
-      elsif @review.save!
+      elsif @review.save
         flash[:success] = "Successfully added review"
       else
         flash.now[:error] = "Unable to add review"
