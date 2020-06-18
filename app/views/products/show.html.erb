@@ -4,6 +4,7 @@
       <div class="col">
         <%= image_tag "#{@product.img_url}", class: "img-thumbnail shadow-sm w-50" %>
       </div>
+      
       <div class="col text-right">
         <h3><b><%= @product.name %></b></h3>
         <h4><b>Seller: <%= link_to @product.merchant.username, dashboard_path %></b></h4>
