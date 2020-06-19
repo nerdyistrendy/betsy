@@ -1,24 +1,51 @@
 <main>
-  <h1>Your Orders</h1>
-  <div>
-    <%= link_to "Continue shopping", products_path, class: 'btn outline-primary' %>
-  </div>
-
-  <section>
-    <h4>Order Placed <%= @order.created_at %></h4>
-    <h4>Total <%= number_to_currency(@order.order_total) %></h4>
-    <h4>Order Status: <%= @order.status %></h4>
+  
+  <div class="container text-center"> 
+    <h1>Your Order</h1>
     <br>
+    <h3>Order Placed:  <%= @order.created_at.to_formatted_s(:long)    %></h3>
+    <h3>Total:   <%= number_to_currency(@order.order_total) %></h3>
+    <h3>Order Status:   <%= @order.status %></h3>
+    <br>
+    <div>
+      <%= link_to "Continue shopping", products_path, class: 'btn btn-success' %>
+    </div>
+  </div>
+  <br>
+  <table class="table table-hover">
+    <thead>
+      <tr>
+        <th> </th>
+        <th> </th>
+        <th> </th>
+        <th>Price</th>
+        <th> </th>
+        <th>Quantity</th>
+        <th>Status</th>
+      </tr>
+    </thead>
     <%@order.order_items.each do |order_item| %>
-      <div>
-        <%= image_tag "#{order_item.product.img_url}" %>
-        <h4> <%= link_to order_item.product.name, product_path(order_item.product.id) %></h4>
-        <p>Price: <%= number_to_currency(order_item.product.price)  %></b></p>
-        <p><b>Quantity: <%= order_item.quantity%></b></p>
-        <p> Order Item Status: <%= order_item.status %></p>
-      </div>
+      <tr class= "cart-table">
+        <td>
+          <%= image_tag "#{order_item.product.img_url}" %>
+        <td>
+        <td>
+          <h4> <%= link_to order_item.product.name, product_path(order_item.product.id) %></h4>
+          <br>
+          <p><%= order_item.product.description %></p>
+        </td>
+        <td>
+          <h4><%= number_to_currency(order_item.product.price)  %></h4>
+        <td>
+        <td>
+          <h4><%= order_item.quantity%></h4>
+        </td>
+        <td>
+          <h4><%= order_item.status.upcase %></h4>
+        </td>
+      </tr>
       <br>
     <% end %>
-  </section>
+  </table
 </main>
 

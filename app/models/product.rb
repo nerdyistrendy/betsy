@@ -64,4 +64,8 @@ class Product < ApplicationRecord
   def remove_from_cart(session)
     session[:cart].delete("#{self.id}")
   end
+
+  def total(quantity)
+    return total = self.price * quantity
+  end
 end
