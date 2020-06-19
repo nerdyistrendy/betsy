@@ -74,6 +74,13 @@ div.caption-5 > * {
   margin: 1rem 0;
 }
 
+div.caption-6 {
+  margin: 70vh auto;
+  font-size: 2rem;
+  color: white;
+}
+
+
 footer.footer {
   bottom: 0;
   width: 100%;
@@ -150,6 +157,10 @@ div.navbar-cart{
   top: 7px;
 }
 
+h1.about-card {
+  margin-top: 9rem;
+}
+
 .hp-block {
   padding: 2rem 4rem;
 }
@@ -168,4 +179,12 @@ p.shop-now {
 .cart-table img {
   width: 200px;
   height: 133px;
+}
+
+.learn-img {
+  border: none;
+}
+
+.learn-card {
+  border: none;
 }
