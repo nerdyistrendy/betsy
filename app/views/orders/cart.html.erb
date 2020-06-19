@@ -21,8 +21,7 @@
             </td>
             <td>
               <h4><%= link_to @product.name, product_path(@product.id) %></h4>
-              <br>
-              <p><%= @product.description %></p>
+              <p><b><%= @product.description %></b></p>
             </td>
             <td>
               <h5><%= number_to_currency(@product.price) %></h5>
@@ -38,7 +37,7 @@
               <% end %>
             </td>
             <td>
-              <%= link_to "Delete",  product_remove_cart_path(@product.id), method: 'patch', class: 'btn btn-success' %>
+              <%= link_to "Delete",  product_remove_cart_path(@product.id), method: 'patch', class: "btn btn-secondary bg-cancel btn-table" %>
             </td>
             <td>
               <h5><%= number_to_currency(@product.total(product[1])) %></h5>
