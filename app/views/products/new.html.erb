@@ -1,4 +1,4 @@
-<main>
+<main class="container">
   <h2 class="pt-3 text-center">Create a Product</h2>
   <%= render partial: "form", locals: { action_name: "Create Product", path: merchant_products_path(@login_merchant.id), method: :post } %>
 </main>

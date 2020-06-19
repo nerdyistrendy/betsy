@@ -1,10 +1,7 @@
 
-<main>
+<main class="container text-center">
 <%# <div class="cart-background card bg-light"> %>
   <h1>Your Cart</h1>
-  <div>
-    <%= link_to "Continue shopping", products_path, class: 'btn btn-success' %>
-  </div>
 
   <section>
     <% if @session[:cart] != {} %>
@@ -40,11 +37,16 @@
         <%= link_to "Proceed to Checkout", new_order_path, class: 'btn btn-success' %>
       </aside>
     <%else%>
-      <h2><b>Your cart is empty!</b></h2>
+      <div class='empty-cart'>
+        <%= image_tag "https://lh3.googleusercontent.com/pw/ACtC-3e03vkTI-6MF1447d8TuXQj4Rvr2u8TjSneFZbv3h7cXP7yVWlMq7rEfdPSleMtt_g46KaTUMgVLdhU8jYw-gE_vXlM_tD3l4v2IuooZyrP7HfwemQllR0J7eKAkrmjdJiZuhp8ABaobquMEG8gDVbCRA=w1236-h1544-no?authuser=0" %>
+        <h2><b>Oh-Oh your cart is empty!</b></h2>
+      </div>
     <% end %>
   </section>
 
-  
+  <div>
+    <%= link_to "Continue shopping", products_path, class: 'btn btn-success' %>
+  </div>
   <%# </div> %>
 </main>
 

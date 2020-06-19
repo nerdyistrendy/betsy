@@ -104,3 +104,38 @@ form.container {
   padding-left: 0;
   padding-right: 0;
 }
+
+.empty-cart img{
+  height: 400px;
+}
+
+div.navbar-cart{
+  position: relative;
+}
+
+.navbar-cart img{
+  position: relative;
+  width: 60px;
+  height: 60px;
+  left: 470px;
+  top: 11px;
+}
+
+.numberCircle {
+  position: relative;
+  width: 30px;
+  line-height: 15px;
+  border-radius: 50%;
+  text-align: center;
+  font-size: 15px;
+  background-color: green;
+  color: white;
+  border: 2px solid white;
+  left: 510px;
+  top: -65px;
+}
+
+.numberCircle p{
+  position: relative;
+  top: 7px;
+}
