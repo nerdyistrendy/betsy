@@ -2,11 +2,11 @@
   <section class="d-flex justify-content-around flex-wrap container-fluid container">
     <% @products.each do |product| %>
       <a href="/products/<%= product.id %>" class="text-decoration-none">
-        <div class="product-card card bg-dark text-white img-thumbnail m-3 shadow-sm justify-content">
+        <div class="product-card card bg-dark text-white m-3 shadow-sm justify-content">
           <%= image_tag product.img_url, class: "card-img-top img-fluid rounded mx-auto" %>
 
           <h4 class="card-title text-truncate card-body text-center"><b><%= product.name %></b></h4>
-          <p class="card-text text-right"><%= number_to_currency(product.price) %></p>
+          <p class="card-text text-right"><%# number_to_currency(product.price) %></p>
         </div>
       </a>
     <% end %>
