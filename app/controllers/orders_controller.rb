@@ -20,8 +20,7 @@ class OrdersController < ApplicationController
       end
     else
       flash[:warning] = "Invalid Order"
-      redirect_back(fallback_location: root_path)
-
+      redirect_to not_found_path
       return
     end
   end
@@ -77,7 +76,7 @@ class OrdersController < ApplicationController
     @order = Order.find_by(id: params[:order_id])
     if @order.nil?
       flash[:warning] = "There was a problem retrieving your order. Please try again!" 
-      redirect_to root_path
+      redirect_to not_found_path
       return
     else
       redirect_to order_confirmation_path(@order.id)
