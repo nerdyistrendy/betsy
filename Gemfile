@@ -87,5 +87,3 @@ end
 gem "omniauth"
 gem "omniauth-github"
 
-# For emojis
-gem "twemoji"
