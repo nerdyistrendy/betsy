@@ -50,22 +50,31 @@ class Product < ApplicationRecord
   end
 
   def add_to_cart(session, quantity)
-    if session[:cart]["#{self.id}"] 
-      session[:cart]["#{self.id}"] += quantity 
+    if session[:cart][self.id.to_s] 
+      session[:cart][self.id.to_s] += quantity 
     else 
-      session[:cart]["#{self.id}"] = quantity
+      session[:cart][self.id.to_s] = quantity
     end
   end
 
   def update_quant(session, quantity)
-    session[:cart]["#{self.id}"] = quantity
+    session[:cart][self.id.to_s] = quantity
   end
 
   def remove_from_cart(session)
-    session[:cart].delete("#{self.id}")
+    session[:cart].delete(self.id.to_s)
   end
 
   def total(quantity)
     return total = self.price * quantity
+  end
+
+  def quant_in_cart(session, quantity)
+    cart_quant = session[:cart][self.id.to_s]
+    if session[:cart][self.id.to_s]
+      return cart_quant + quantity <= self.inventory
+    else
+      return true
+    end
   end
 end
