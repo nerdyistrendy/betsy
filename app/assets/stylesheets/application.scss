@@ -112,9 +112,11 @@ form.container {
   padding-left: 0;
   padding-right: 0;
 }
-
+.empty-cart {
+  padding: 50px;
+}
 .empty-cart img{
-  height: 400px;
+  height: 300px;
 }
 
 div.navbar-cart{
@@ -161,4 +163,9 @@ div.navbar-cart{
 p.shop-now {
   font-size: 1.3rem;
   color: rgb(224, 221, 221);
+}
+
+.cart-table img {
+  width: 200px;
+  height: 133px;
 }
