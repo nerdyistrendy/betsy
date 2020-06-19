@@ -112,9 +112,11 @@ form.container {
   padding-left: 0;
   padding-right: 0;
 }
-
+.empty-cart {
+  padding: 50px;
+}
 .empty-cart img{
-  height: 400px;
+  height: 300px;
 }
 
 #cart-icon {
