@@ -3,7 +3,7 @@
 // You can use Sass (SCSS) here: https://sass-lang.com/
 .merchant-card {
   width: 40vw;
-  // padding: 1rem;
+  border: none;
 }
 
 .btn-merchant > * {
@@ -18,4 +18,9 @@
 
 .btn-table {
   width: 7rem;
+}
+
+.bg-cancel {
+  background-color: rgba(119, 9, 9, 0.8);
+  border-color: rgba(119, 9, 9, 0.8);
 }

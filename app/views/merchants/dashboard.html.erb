@@ -1,22 +1,22 @@
 <main class="container text-center merchant-cont" >
-
-  <section class="d-flex justify-content-around flex-wrap container-fluid container">
-    <div class="card bg-dark text-light align-self-center shadow-lg merchant-card">
-      <div class="card-body">
-        <h2> <%= @merchant.username %> </h2>
-        <p> Merchant ID # <%= @merchant.id %> </p>
-        <p> <%= @merchant.email %> </p>
-        <p> Joined since <%= @merchant.created_at.strftime("%m-%d-%y") %> </p>
+  <section class="container bg-dark text-light shadow-lg">
+    <section class="d-flex justify-content-around flex-wrap container-fluid container">
+      <div class="card bg-dark text-light align-self-center merchant-card">
+        <div class="card-body">
+          <h1> <%= @merchant.username %> </h1>
+          <h5> Merchant ID # <%= @merchant.id %> </h5>
+          <h5> <%= @merchant.email %> </h5>
+          <h5> Joined since <%= @merchant.created_at.strftime("%m-%d-%y") %> </h5>
+        </div>
       </div>
-    </div>
-  </section>
+    </section>
 
-  <section class="btn-merchant">
-    <%= link_to "New Category", new_category_path, class: "btn btn-success" %>
-    <%= link_to "New Product", new_merchant_product_path(@login_merchant), class: "btn btn-success" %>
-    <%= link_to "Order Fulfillments", fulfillment_path, class: "btn btn-success" %>
+    <section class="container btn-merchant">
+      <%= link_to "New Category", new_category_path, class: "btn btn-success" %>
+      <%= link_to "New Product", new_merchant_product_path(@login_merchant), class: "btn btn-success" %>
+      <%= link_to "Order Fulfillments", fulfillment_path, class: "btn btn-success" %>
+    </section>
   </section>
-
 
   <h3>Products</h3>
   <table class="table table-hover bg-lightgray shadow-lg">
@@ -42,7 +42,7 @@
         <td><%= product.active %></td>
         <td> <%= link_to "Edit", edit_product_path(product.id), class: "btn btn-secondary bg-dark btn-table" %> </td>
         <td> <%= button_to product_state, toggle_active_path(product.id), class: "btn btn-secondary bg-dark btn-table", data: { confirm: "Are you sure you'd like to #{product_state.downcase}?"}, method: :patch %> </td>
-        <td> <%= button_to "Delete", product_path(product.id), class: "btn btn-secondary bg-dark btn-table", data: { confirm: "Are you sure you'd like to delete this product?"}, method: :delete %> </td>
+        <td> <%= button_to "Delete", product_path(product.id), class: "btn btn-secondary bg-cancel btn-table", data: { confirm: "Are you sure you'd like to delete this product?"}, method: :delete %> </td>
       </tr>
     <% end %>
     </tbody>

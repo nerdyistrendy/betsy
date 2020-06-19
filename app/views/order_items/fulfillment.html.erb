@@ -6,7 +6,7 @@
     <div class="card-deck">
       <div class="card bg-dark text-light shadow-lg">
         <div class="card-header font-weight-bolder">
-          TOTAL ORDERS: <%= @login_merchant.count_orders %>
+          <h4> TOTAL ORDERS: <%= @login_merchant.count_orders %> </h4>
         </div>
         <div class="card-body">
           <p class="card-text"> Total Revenue: <%= number_to_currency(@login_merchant.total_revenue) %> </p>
@@ -16,27 +16,27 @@
 
       <div class="card bg-dark text-light shadow-lg">
         <div class="card-header font-weight-bolder">
-          PENDING ORDERS: <%= @login_merchant.count_orders("pending") %>
+          <h4> PENDING ORDERS: <%= @login_merchant.count_orders("pending") %> </h4>
         </div>
         <div class="card-body">
-          <p class="card-text"> Revenue--Pending Orders: <%= number_to_currency(@login_merchant.total_revenue("pending")) %> </p>
+          <p class="card-text"> Revenue - Pending Orders: <%= number_to_currency(@login_merchant.total_revenue("pending")) %> </p>
           <p class="card-text"> <%= link_to 'View Pending Orders', fulfillment_path(:status => "pending"), class: "btn btn-success" %> </p>
         </div>
       </div>
 
       <div class="card bg-dark text-light shadow-lg">
         <div class="card-header font-weight-bolder">
-          SHIPPED ORDERS: <%= @login_merchant.count_orders("shipped") %>
+          <h4> SHIPPED ORDERS: <%= @login_merchant.count_orders("shipped") %> </h4>
         </div>
         <div class="card-body">
-          <p class="card-text"> Revenue--Shipped Orders: <%= number_to_currency(@login_merchant.total_revenue("shipped")) %> </p>
+          <p class="card-text"> Revenue - Shipped Orders: <%= number_to_currency(@login_merchant.total_revenue("shipped")) %> </p>
          <p class="card-text"> <%= link_to 'View Shipped Orders', fulfillment_path(:status => "shipped"), class: "btn btn-success" %> </p>
         </div>
       </div>
     </div>
   </section>
 
-  <section class="btn-merchant">
+  <section class="container btn-merchant">
     <%= link_to "Back to Merchant Dashboard", dashboard_path, class: "btn btn-success btn-dashboard" %> 
   </section>
 
@@ -69,8 +69,8 @@
           <td> <%= number_to_currency(order_item.subtotal) %> </td>
           <td> <%= order_item.created_at.strftime("%m/%d/%y") %> </td>
           <td> <%= order_item.status %> </td>
-          <td> <%= link_to "SHIP", ship_item_path(order_item), method: :patch, class: "btn btn-success btn-table" %> </td>
-          <td> <%= link_to "CANCEL", cancel_item_path(order_item), method: :delete, data: {confirm: "Are you sure to cancel this order item?"}, class: "btn btn-secondary bg-dark btn-table" %> </td>
+          <td> <%= link_to "SHIP", ship_item_path(order_item), method: :patch, class: "btn btn-secondary btn-table bg-dark" %> </td>
+          <td> <%= link_to "CANCEL", cancel_item_path(order_item), method: :delete, data: {confirm: "Are you sure to cancel this order item?"}, class: "btn btn-secondary bg-cancel btn-table" %> </td>
         </tr>
       <% end %>
       </tbody>
