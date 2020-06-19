@@ -46,7 +46,7 @@ class Product < ApplicationRecord
     self.reviews.each do |r|
       average += r.rating
     end
-    return (average/self.reviews.count)
+    return (average/self.reviews.count).round(2)
   end
 
   def add_to_cart(session, quantity)

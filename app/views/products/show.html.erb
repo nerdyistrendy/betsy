@@ -33,9 +33,9 @@
         <div class="col ml-0 mr-0 mb-5">
           <%= render partial: "reviews/reviews", locals: { reviews: @reviews }  %>
           <div class="col mr--100">
-            <%= button_to "Leave Review", new_product_review_path(@product.id), class: "btn btn-success float-left mt-5", method: :get %>
+            <%= button_to "Leave Review", new_product_review_path(@product.id), class: "btn btn-success float-left mt-5 ml-4", method: :get %>
           </div>
         </div>
-    </div>
+    
   </section>
 </main>
