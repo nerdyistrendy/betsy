@@ -103,16 +103,20 @@ footer p.copyright {
   height: 400px;
 }
 
+div.navbar-cart{
+  position: relative;
+}
+
 .navbar-cart img{
-  position: fixed;
+  position: relative;
   width: 60px;
   height: 60px;
-  right: 90px;
-  top: 20px;
+  left: 470px;
+  top: 11px;
 }
 
 .numberCircle {
-  position: fixed;
+  position: relative;
   width: 30px;
   line-height: 15px;
   border-radius: 50%;
@@ -121,8 +125,8 @@ footer p.copyright {
   background-color: green;
   color: white;
   border: 2px solid white;
-  right: 78px;
-  top: 10px;
+  left: 510px;
+  top: -65px;
 }
 
 .numberCircle p{
