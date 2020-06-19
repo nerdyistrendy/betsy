@@ -46,7 +46,7 @@ class ProductsController < ApplicationController
 
   def new
     if @login_merchant.id == @merchant.id
-      default_img = "https://lh3.googleusercontent.com/pw/ACtC-3fNC54ST39e4Tec1DUtd3utXYqTL_rBf6aMMWm_BsS86OvTd1vftlx-jjRiWT1NxoOknCLOeW4T91_I1a0NH6KJiayfEhfIP75xqeMmkuzeODi4B8jG2Uje3d5BBrhzhVtSZJQTWna_id37x96mteF6=w600-h400-no?authuser=0"
+      default_img = "https://tinyurl.com/y8ssqfz5"
 
       @categories = Category.all.order("name DESC")
       @product = Product.new
