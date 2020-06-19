@@ -13,13 +13,18 @@
 
   <body class="d-flex flex-column h-100">
     <nav class="navbar navbar-expand-mg navbar-dark bg-dark d-flex">
-      <a href="/" class="navbar-brand"><%= image_tag "https://lh3.googleusercontent.com/pw/ACtC-3cWX6I6wtgMZSW0nimu7NbPTQTqxM50i9FWDgLQng1c-CV6-HXop3io_E_C45DbpzgJdx6RO1VN13UzE57z8siVD-21J98Oq7w4mVr065KG4EblMfLVehIhnGTymJrHChpgywM7Hl4HCswtYgIiCvTu=w2560-h550-no?authuser=0", class: "navbar-brand" %></a>
-      <div class= "navbar-cart" >
+      <div class="navbar-brand float-left">
+        <a href="/" class="navbar-brand"><%= image_tag "https://lh3.googleusercontent.com/pw/ACtC-3dWHRmvxT71BzJRzLzmTJDGVV7eq98JsTDyYq26-OLw6_IEP9yXN5OMzSbZ8F83rNXBWXjGPmPChVkqi_m0Rg4JgjsZzcbu5RuZXwCK9eoVfSB9I0u1G-sTrYbydYdvze1Et5QqEqOSTegt5SfoZsD2=w2560-h616-no?authuser=0", class: "navbar-brand" %></a>
+        <p class="small subtle-text">Supplies for the end so you can begin again</p>
+      </div>
+
+      <div class= "navbar-cart" id="cart-icon">
         <a href="/orders/cart" class="navbar-brand"><%= image_tag "https://lh3.googleusercontent.com/pw/ACtC-3e6c97-140vufJRCZKfhKGY56rWnVecPnmDsY34XbKqfZymvlzwvZ1_JMVumox6lSl2nChctbz6tyfZ1CVdlNeytoWhsu0zaRZp0cjFQXkUgyTorUyzF-gBnLRFE0EmMnJzSvm2fhJjfPNpxC9H2Zi75w=s512-no?authuser=0"%></a>
         <div class= "numberCircle">
           <p><%= Product.cart_total_items(session) %></p>
         </div>
       </div>
+
       <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>
       </button>
@@ -82,8 +87,8 @@
           </div>
            <div class="w-100"></div>
           <div class="row">
-            <p class="copyright px-2">© 2020 Cartmageddon</p>
-            <p class="copyright px-2">All Rights Reserved</p>
+            <p class="subtle-text px-2">© 2020 Cartmageddon</p>
+            <p class="subtle-text px-2">All Rights Reserved</p>
           </div>
         </span>
       </div>
