@@ -1,3 +1,10 @@
 // Place all the styles related to the OrderItems controller here.
 // They will automatically be included in application.css.
 // You can use Sass (SCSS) here: https://sass-lang.com/
+.bg-lightgray {
+  background-color: rgba(196, 208, 212, 0.8);
+}
+
+.merchant-cont > * {
+  margin: 1.2rem;
+}

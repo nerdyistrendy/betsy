@@ -1,8 +1,8 @@
-<main>
-  <section class="container text-center">
+<main class="container text-center merchant-cont">
+  <section class="merchant-cont">
     <h3>ORDER #<%= @order.id %> </h3>
 
-    <table class="table table-sm">
+    <table class="table table-sm bg-dark text-light">
       <tbody>
         <tr>
           <th scope="row">Name</th>
@@ -38,15 +38,16 @@
         </tr>
       </tbody>
     </table>
-
-    <%= link_to "Back to Order Fulfillment", fulfillment_path, class: "btn btn-success" %>  
   </section>
 
-  <br>
+  <section class="btn-merchant">
+    <%= link_to "Back to Order Fulfillment", fulfillment_path, class: "btn btn-success btn-dashboard" %> 
+  </section>
 
   <% if @items_from_merchant.size > 0 %>
   <section class="table-wrapper-scroll-y my-custom-scrollbar container">
-    <table class="table table-bordered table-striped mb-0 text-center">
+    <table class="table table-bordered table-striped mb-0 text-center bg-lightgray">
+      <thead class="thead-dark">
       <tr>
         <th scope="col"> Product </th>
         <th scope="col"> Price </th>
@@ -54,7 +55,9 @@
         <th scope="col"> Subtotal </th>
         <th scope="col"> Shipping Status </th>
       </tr>
+      </thead>
  
+      <tbody>
       <% @items_from_merchant.each do |item| %>
         <% product = Product.find_by(id: item.product_id) %>
         <tr>
@@ -65,6 +68,7 @@
           <td> <%= item.status %> </td>
         </tr>
       <% end %>
+      </tbody>
     </table>
   </section>
   <% end %>
