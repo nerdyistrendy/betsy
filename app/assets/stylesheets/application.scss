@@ -98,3 +98,34 @@ footer a:hover {
 footer p.copyright {
   color: rgb(154, 154, 154);
 }
+
+.empty-cart img{
+  height: 400px;
+}
+
+.navbar-cart img{
+  position: fixed;
+  width: 60px;
+  height: 60px;
+  right: 90px;
+  top: 20px;
+}
+
+.numberCircle {
+  position: fixed;
+  width: 30px;
+  line-height: 15px;
+  border-radius: 50%;
+  text-align: center;
+  font-size: 15px;
+  background-color: green;
+  color: white;
+  border: 2px solid white;
+  right: 78px;
+  top: 10px;
+}
+
+.numberCircle p{
+  position: relative;
+  top: 7px;
+}
