@@ -86,3 +86,6 @@ end
 # Using OmniAuth for OAuth
 gem "omniauth"
 gem "omniauth-github"
+
+# For emojis
+gem "twemoji"
