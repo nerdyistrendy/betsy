@@ -16,13 +16,13 @@
   <div class="row">
     <div class="col">
       <div class="container text-center mt-5">
-        <%= image_tag @product.img_url, class: "w-50" %>
+        <%= image_tag @product.img_url, class: "w-50 rounded" %>
       </div>
       <h2 class="pt-3 text-center">Leave a review for: </h2>
       <h2 class="text-center open-sans"><%= @product.name %></h2>
     </div>
     <div class="col">
-      <%= form_with model: @review, url: product_reviews_path, class: "form-group container pt-5 open-sans" do |f| %>
+      <%= form_with model: @review, url: product_reviews_path, class: "form-group container pt-5 open-sans font-weight-bold" do |f| %>
         <div class="form-group">
           <%= f.label :reviewer, "Nickname" %>
           <%= f.text_field :reviewer, placeholder: "What would you like to be known as?", class: "form-control" %>
