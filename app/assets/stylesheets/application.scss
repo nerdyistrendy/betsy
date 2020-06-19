@@ -70,6 +70,14 @@ div.caption-3 {
   font-size: 2rem;
 }
 
+div.caption-5 {
+  margin: 32vh auto;
+}
+
+div.caption-5 > * {
+  margin: 1rem 0;
+}
+
 footer.footer {
   bottom: 0;
   width: 100%;
@@ -154,6 +162,22 @@ h1.about-card {
   margin-top: 9rem;
 }
 .cart-table img{
+.hp-block {
+  padding: 2rem 4rem;
+}
+
+.hp-button {
+  width: 10rem;
+  padding: 0.8rem;
+  font-size: 1.2rem;
+}
+
+p.shop-now {
+  font-size: 1.3rem;
+  color: rgb(224, 221, 221);
+}
+
+.cart-table img {
   width: 200px;
   height: 133px;
 }
