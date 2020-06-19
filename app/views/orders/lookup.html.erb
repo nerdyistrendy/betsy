@@ -1,14 +1,14 @@
-<main>
-  <h1>Find your order</h1>
+<main class="container">
+  <h1 class="text-center pt-3">Find your order</h1>
   <p>Please enter in the information below to find your order</p>
   <div>
-    <%= link_to "Continue shopping", products_path, class: 'btn btn-primary' %>
+    <%= link_to "Continue shopping", products_path, class: 'btn btn-success' %>
   </div>
-  <%= form_with url: find_order_path, method: 'get', class: "form-group" do |f| %>
+  <%= form_with url: find_order_path, method: 'get', class: "form-group container pt-5 open-sans" do |f| %>
     <div class="form-group">
       <%= f.label :order_id %>
-      <%= f.text_field(:order_id, class: "form-control") %>
+      <%= f.text_field(:order_id, placeholder: "Put your order ID here!", class: "form-control") %>
     </div>
-  <%= f.submit "Lookup", class: "button btn btn-primary form-group" %>
+  <%= f.submit "Lookup", class: "button btn btn-success form-group" %>
   <% end %>
 </main>
