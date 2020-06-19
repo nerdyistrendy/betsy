@@ -165,7 +165,7 @@ describe OrdersController do
       get order_confirmation_path(-1)
       
       must_respond_with :redirect
-      expect(flash.now[:error]).must_equal "There was a problem retrieving your order. Please try again!" 
+      expect(flash.now[:warning]).must_equal "There was a problem retrieving your order. Please try again!" 
     end
   end
 
@@ -181,7 +181,7 @@ describe OrdersController do
       get find_order_path, params:{"order_id": -1}
       
       must_respond_with :redirect
-      expect(flash[:error]).must_equal "There was a problem retrieving your order. Please try again!" 
+      expect(flash[:warning]).must_equal "There was a problem retrieving your order. Please try again!" 
     end
   end
 end

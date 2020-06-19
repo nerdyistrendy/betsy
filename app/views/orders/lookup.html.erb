@@ -2,7 +2,7 @@
   <h1>Find your order</h1>
   <p>Please enter in the information below to find your order</p>
   <div>
-    <%= link_to "Continue shopping", root_path, class: 'btn btn-primary' %>
+    <%= link_to "Continue shopping", products_path, class: 'btn btn-primary' %>
   </div>
   <%= form_with url: find_order_path, method: 'get', class: "form-group" do |f| %>
     <div class="form-group">

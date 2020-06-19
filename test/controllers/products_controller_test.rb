@@ -49,7 +49,7 @@ describe ProductsController do
         get merchant_products_path(-5)
         
         must_respond_with :redirect
-        must_redirect_to dashboard_path
+        must_redirect_to not_found_path
       end
 
       it "can get the nested category products path" do
@@ -62,7 +62,7 @@ describe ProductsController do
         get category_products_path(-5)
         
         must_respond_with :redirect
-        must_redirect_to categories_path
+        must_redirect_to not_found_path
       end
     end
 
@@ -75,22 +75,24 @@ describe ProductsController do
         must_respond_with :success
       end
     
-      it "will respond with not_found for invalid ids" do
+      it "will redirect to not_found for invalid ids" do
         invalid_product_id = -5
     
         get "/products/#{invalid_product_id}"
     
-        must_respond_with :not_found
+        must_respond_with :redirect
+        must_redirect_to not_found_path
       end
 
-      it "will respond with not found if product is not active" do
+      it "will redirect to not found if product is not active" do
         retired_product = products(:tent)
         retired_product.update!(active: false)
     
         get product_path(retired_product)
     
-        must_respond_with :not_found
-        expect(flash[:error]).must_equal "Product not available"
+        must_respond_with :redirect
+        must_redirect_to not_found_path
+        expect(flash[:warning]).must_equal "Product not available"
       end
     end
   
@@ -347,8 +349,8 @@ describe ProductsController do
         get edit_product_path(-5)
 
         must_respond_with :redirect 
-        must_redirect_to root_path
-        expect(flash[:error]).must_equal "Invalid Product"
+        must_redirect_to not_found_path
+        expect(flash[:warning]).must_equal "Invalid Product"
       end 
 
       it "will redirect for unauthorized user" do
@@ -356,7 +358,7 @@ describe ProductsController do
 
         must_respond_with :redirect 
         must_redirect_to product_path(@tent_test.id)
-        expect(flash[:error]).must_equal "You are not authorized to edit that product."
+        expect(flash[:warning]).must_equal "You are not authorized to edit that product."
       end
     end
 
@@ -379,21 +381,21 @@ describe ProductsController do
         patch product_path(@pickles_test.id), params: bad_params
 
         must_respond_with :bad_request
-        expect(flash[:error]).must_equal "Product could not be updated."
+        expect(flash[:warning]).must_equal "Product could not be updated."
       end
 
       it "does not update another merchant's products" do
         patch product_path(@tent_test.id), params:@update_hash
 
         must_respond_with :redirect
-        expect(flash[:error]).must_equal "You are not authorized to edit that product."
+        expect(flash[:warning]).must_equal "You are not authorized to edit that product."
       end
 
       it "does not update an invalid product" do
         patch product_path(-5), params:@update_hash
 
         must_respond_with :redirect
-        expect(flash[:error]).must_equal "Invalid Product"
+        expect(flash[:warning]).must_equal "Invalid Product"
       end
     end 
 
@@ -407,21 +409,12 @@ describe ProductsController do
         expect(flash[:success]).must_equal "Product successfully deleted."
       end
 
-      # it "redirects for an item that could not be deleted" do 
-      #   expect {
-      #     delete product_path()
-      #   }.wont_differ "Product.count"
-
-      #   must_respond_with :bad_request
-      #   expect(flash[:error]).must_equal "Product could not be deleted."
-      # end 
-
       it "redirect for invalid product" do
         delete product_path(-5)
 
         must_respond_with :redirect
-        must_redirect_to root_path
-        expect(flash[:error]).must_equal "Invalid Product"
+        must_redirect_to not_found_path
+        expect(flash[:warning]).must_equal "Invalid Product"
       end
 
       it "will redirect an unauthorized merchant" do
@@ -429,7 +422,7 @@ describe ProductsController do
 
         must_respond_with :redirect
         must_redirect_to root_path
-        expect(flash[:error]).must_equal "You are not authorized to complete this action"
+        expect(flash[:warning]).must_equal "You are not authorized to complete this action"
       end
     end
 
@@ -468,10 +461,10 @@ describe ProductsController do
         must_redirect_to root_path
       end
 
-      it "will redirect to root path if product is invalid" do
+      it "will redirect to not found path if product is invalid" do
         patch toggle_active_path(-5)
   
-        must_redirect_to root_path
+        must_redirect_to not_found_path
       end
 
       it "will not toggle active if logged in merchant doesn't own said product" do

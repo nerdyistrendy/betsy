@@ -20,8 +20,7 @@ class OrdersController < ApplicationController
       end
     else
       flash[:warning] = "Invalid Order"
-      redirect_back(fallback_location: root_path)
-
+      redirect_to not_found_path
       return
     end
   end
@@ -55,7 +54,7 @@ class OrdersController < ApplicationController
       redirect_to order_confirmation_path(@order.id)
       return
     else
-      flash.now[:error] = "A problem while checking out. Please try again!" 
+      flash.now[:warning] = "A problem while checking out. Please try again!" 
       render :new, status: :bad_request
       return
     end
@@ -64,8 +63,8 @@ class OrdersController < ApplicationController
   def confirmation
     @order = Order.find_by(id: params[:order_id])
     if @order.nil?
-      flash.now[:error] = "There was a problem retrieving your order. Please try again!" 
-      redirect_to root_path
+      flash.now[:warning] = "There was a problem retrieving your order. Please try again!" 
+      redirect_to not_found_path
     end
   end
 
@@ -76,8 +75,8 @@ class OrdersController < ApplicationController
   def find
     @order = Order.find_by(id: params[:order_id])
     if @order.nil?
-      flash[:error] = "There was a problem retrieving your order. Please try again!" 
-      redirect_to root_path
+      flash[:warning] = "There was a problem retrieving your order. Please try again!" 
+      redirect_to not_found_path
       return
     else
       redirect_to order_confirmation_path(@order.id)

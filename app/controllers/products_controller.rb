@@ -1,7 +1,9 @@
 class ProductsController < ApplicationController
 
   before_action :require_login, only: [:new, :create, :toggle_active, :edit, :update, :destroy]
-  before_action :get_product, except: [:index, :new, :create, :cart]
+  before_action :get_product, only: [:show, :edit, :update, :destroy, :toggle_active]
+  before_action :get_product_for_cart, only: [:cart, :update_quant, :remove_from_cart]
+  before_action :get_quantity, only: [:cart, :update_quant]
   before_action :get_merchant
   before_action :get_category, only: [:index]
 
@@ -10,16 +12,16 @@ class ProductsController < ApplicationController
       if @merchant
         @products = @merchant.active_products
       else
-        flash[:error] = "Invalid Merchant"
-        redirect_to dashboard_path
+        flash[:warning] = "Invalid Merchant"
+        redirect_to not_found_path
         return
       end
     elsif params[:category_id]
       if @category
         @products = @category.active_products.uniq
       else
-        flash[:error] = "Invalid Category"
-        redirect_to categories_path
+        flash[:warning] = "Invalid Category"
+        redirect_to not_found_path
         return
       end
     else
@@ -29,12 +31,12 @@ class ProductsController < ApplicationController
 
   def show
     if @product.nil?
-      flash[:error] = "Invalid Product"
-      redirect_to not_found_path, status: :not_found
+      flash[:warning] = "Invalid Product"
+      redirect_to not_found_path
       return
     elsif !@product.active
-      flash[:error] = "Product not available"
-      redirect_to products_path, status: :not_found
+      flash[:warning] = "Product not available"
+      redirect_to not_found_path
       return
     else
     @reviews = @product.reviews
@@ -50,7 +52,7 @@ class ProductsController < ApplicationController
       @product = Product.new
       @product.img_url = default_img
     else
-      flash[:error] = "You are not authorized to complete this action"
+      flash[:warning] = "You are not authorized to complete this action"
       redirect_back fallback_location: root_path
     end
   end
@@ -66,12 +68,12 @@ class ProductsController < ApplicationController
         redirect_to dashboard_path
         return
       else
-        flash.now[:error] = "Unable to add product"
+        flash.now[:warning] = "Unable to add product"
         render :new, status: :bad_request
         return
       end
     else
-      flash[:error] = "You are not authorized to complete this action"
+      flash[:warning] = "You are not authorized to complete this action"
       redirect_back fallback_location: root_path
       return
     end
@@ -81,10 +83,10 @@ class ProductsController < ApplicationController
     @categories = Category.all.order("name DESC")
     
     if !@product
-      flash[:error] = "Invalid Product"
-      redirect_back fallback_location: root_path
+      flash[:warning] = "Invalid Product"
+      redirect_to not_found_path
     elsif @product.merchant_id != @login_merchant.id
-      flash[:error] = "You are not authorized to edit that product."
+      flash[:warning] = "You are not authorized to edit that product."
       redirect_to product_path(@product.id)
     end
     return
@@ -97,26 +99,26 @@ class ProductsController < ApplicationController
           flash[:success] = "Product successfully updated."
           redirect_to dashboard_path
         else
-          flash.now[:error] = "Product could not be updated."
+          flash.now[:warning] = "Product could not be updated."
           render :edit, status: :bad_request
           return
         end
         return
       else
-        flash[:error] = "You are not authorized to edit that product."
+        flash[:warning] = "You are not authorized to edit that product."
       end
     else
-      flash[:error] = "Invalid Product"
+      flash[:warning] = "Invalid Product"
     end
     redirect_to dashboard_path
     return
   end 
 
   def destroy
-    @product = Product.find_by(id: params[:id])
-
     if !@product
-      flash[:error] = "Invalid Product"
+      flash[:warning] = "Invalid Product"
+      redirect_to not_found_path
+      return
     else
       if @product.merchant.id == @login_merchant.id
         if @product.destroy
@@ -125,7 +127,7 @@ class ProductsController < ApplicationController
         redirect_back fallback_location: root_path
         return
       else 
-        flash[:error] = "You are not authorized to complete this action"
+        flash[:warning] = "You are not authorized to complete this action"
       end 
     end
     redirect_back(fallback_location: root_path)
@@ -133,25 +135,22 @@ class ProductsController < ApplicationController
   end
 
   def cart
-    @product = Product.find_by(id: params[:product_id])
-    @quantity = params[:quantity].to_i
-
     if @product.inventory > 0 && @quantity.to_i <= @product.inventory && @product.active
-      session[:cart]["#{@product.id}"] ? session[:cart]["#{@product.id}"]+= @quantity : session[:cart]["#{@product.id}"] = @quantity
+      @product.add_to_cart(session, @quantity)
       flash.now[:success] = "Product successfully added to your cart"
       render :show, status: :ok
       return
     else
       if @product.inventory == 0 
-        flash.now[:error] = "Sorry, this product is currently out of stock!"
+        flash.now[:warning] = "Sorry, this product is currently out of stock!"
         render :show, status: :bad_request
         return
       elsif @quantity >= @product.inventory
-        flash.now[:error] = "Quantity requested is larger that product inventory"
+        flash.now[:warning] = "Quantity requested is larger that product inventory"
         render :show, status: :bad_request
         return
       elsif @product.active == false
-        flash.now[:error] = "This product is not for sale"
+        flash.now[:warning] = "This product is not for sale"
         render :show, status: :bad_request
         return
       end
@@ -159,19 +158,17 @@ class ProductsController < ApplicationController
   end
 
   def update_quant
-    @product = Product.find_by(id: params[:product_id])
-    @quantity = params[:quantity].to_i
     if @product.inventory > 0 && @quantity.to_i <= @product.inventory
-      session[:cart]["#{@product.id}"] = @quantity
+      @product.update_quant(session, @quantity)
       redirect_to order_cart_path
       return
     else
       if @product.inventory == 0
-        flash[:error] = "Sorry, this product is currently out of stock!"
+        flash[:warning] = "Sorry, this product is currently out of stock!"
         redirect_to order_cart_path #if someone bought the last of that product before you could check out.
         return
       elsif @quantity >= @product.inventory
-        flash[:error] = "Quantity requested is larger than product inventory"
+        flash[:warning] = "Quantity requested is larger than product inventory"
         redirect_to order_cart_path
         return
       end
@@ -179,7 +176,7 @@ class ProductsController < ApplicationController
   end
 
   def remove_from_cart
-    session[:cart].delete(params[:product_id])
+    @product.remove_from_cart(session)
     flash.now[:success] = "Product successfully removed from your cart"
     redirect_to order_cart_path
     return
@@ -194,10 +191,12 @@ class ProductsController < ApplicationController
         redirect_back fallback_location: root_path
         return
       else
-        flash[:error] = "You cannot retire another merchant's product"
+        flash[:warning] = "You cannot retire another merchant's product"
       end
     else
-      flash[:error] = "Invalid Product"
+      flash[:warning] = "Invalid Product"
+      redirect_to not_found_path
+      return
     end
     redirect_to root_path
     return
@@ -211,6 +210,14 @@ class ProductsController < ApplicationController
 
   def get_product
     return @product = Product.find_by(id: params[:id])
+  end
+
+  def get_product_for_cart
+    return @product = Product.find_by(id: params[:product_id])
+  end
+
+  def get_quantity
+    return @quantity = params[:quantity].to_i
   end
 
   def get_merchant
