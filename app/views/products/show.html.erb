@@ -19,7 +19,7 @@
       
       <div class="col text-left mt-5 ml-5">
         <h3><b><%= @product.name %></b></h3>
-        <h4><b>Seller: <%= link_to @product.merchant.username, dashboard_path %></b></h4>
+        <h4><b>Seller: <%= link_to @product.merchant.username, merchant_products_path(@product.merchant_id) %></b></h4>
         <p><%= @product.description %></p>
         <% if !@product.categories.empty? %>
           <strong>Categories:</strong>
