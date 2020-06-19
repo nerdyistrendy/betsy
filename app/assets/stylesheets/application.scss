@@ -67,18 +67,14 @@ div.caption-3 {
   font-size: 2rem;
 }
 
-div.caption-5 {
-  margin: 32vh auto;
-}
-
 div.caption-5 > * {
   margin: 1rem 0;
 }
 
 div.caption-6 {
-  margin: 70vh auto;
   font-size: 2rem;
   color: white;
+  padding-bottom: 5rem;
 }
 
 
@@ -192,24 +188,14 @@ ul.about-list {
 }
 
 .middle-card{
-  height: 100vh;
+  height: 120vh;
 }
 .learn-img {
   border: none;
+  height: 100%;
 }
 
 .learn-card {
   border: none;
-  height: 130vh;
-
-}
-
-.footer-logo {
-  position: relative;
-  left: 33vw;
-  font-size: 1.2em;
-  color: white;
-}
-.footer-logo img {
-  width: 500px;
+  height: 100vh;
 }
