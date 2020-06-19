@@ -33,6 +33,10 @@ p {
   font-family: 'Open Sans', sans-serif;
 }
 
+nav p.subtle-text {
+  color: rgb(154, 154, 154);
+}
+
 img.not-found {
   opacity: 0.5;
 }
@@ -97,7 +101,11 @@ a:hover {
 }
 
 img.navbar-brand {
-  width: 20rem;
+  width: 15rem;
+}
+
+div.navbar-brand p {
+  font-size: 0.75rem;
 }
 
 div.product-card {
@@ -111,7 +119,7 @@ footer a {
 footer a:hover {
   color: rgb(24, 130, 49);
 }
-footer p.copyright {
+footer p.subtle-text {
   color: rgb(154, 154, 154);
 }
 
@@ -126,8 +134,8 @@ form.container {
   height: 300px;
 }
 
-div.navbar-cart{
-  position: relative;
+#cart-icon {
+  margin: 1rem 12rem 0 0;
 }
 
 .navbar-cart img{
@@ -155,6 +163,11 @@ div.navbar-cart{
 .numberCircle p{
   position: relative;
   top: 7px;
+}
+
+
+h1.about-card {
+  margin-top: 9rem;
 }
 
 .hp-block {

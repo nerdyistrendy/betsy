@@ -11,7 +11,7 @@
 <main class="container">
   <h2 class="pt-3 text-center">Enter Shipping and Credit Card Information</h2>
   <section>
-    <%= form_with model: @order, url: orders_path, method: "post", class: "form-group container pt-5 open-sans" do |f| %>
+    <%= form_with model: @order, url: orders_path, method: "post", class: "form-group container pt-5 open-sans font-weight-bold" do |f| %>
       <div class ="form-group">
         <%= f.label :Name %>
         <%= f.text_field :name, class:"form-control", placeholder: "Freddi Barks", required: true  %>
