@@ -140,6 +140,28 @@ puts "Added #{Category.count} category records"
 puts "#{category_failures.length} categories failed to save"
 
 
+REVIEW_FILE = Rails.root.join('db', 'reviews.csv')
+puts "Loading raw review item data from #{REVIEW_FILE}"
+
+review_failures = []
+CSV.foreach(REVIEW_FILE, :headers => true) do |row|
+  review = Review.new
+  review.id = row['id']
+  review.reviewer = row['reviewer']
+  review.rating = row['rating']
+  review.text = row['text']
+  successful = review.save
+  if !successful
+    review_failures << review
+    puts "Failed to save reviews: #{review.inspect}"
+  else
+    puts "Created reviews: #{review.inspect}"
+  end
+end
+
+puts "Added #{review.count} review records"
+puts "#{review_failures.length} reviews failed to save"
+
 
 ActiveRecord::Base.connection.tables.each do |t|
   ActiveRecord::Base.connection.reset_pk_sequence!(t)
