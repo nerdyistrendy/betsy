@@ -135,11 +135,18 @@ class ProductsController < ApplicationController
   end
 
   def cart
+    
     if @product.inventory > 0 && @quantity.to_i <= @product.inventory && @product.active
-      @product.add_to_cart(session, @quantity)
-      flash.now[:success] = "Product successfully added to your cart"
-      render :show, status: :ok
-      return
+      if @product.quant_in_cart(session, @quantity)
+        @product.add_to_cart(session, @quantity)
+        flash.now[:success] = "Product successfully added to your cart"
+        render :show, status: :ok
+        return
+      else
+        flash.now[:warning] = "Quantity requested is larger than product inventory"
+        render :show, status: :bad_request
+        return
+      end
     else
       if @product.inventory == 0 
         flash.now[:warning] = "Sorry, this product is currently out of stock!"
