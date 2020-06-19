@@ -4,7 +4,7 @@
   <div>
     <%= link_to "Continue shopping", products_path, class: 'btn btn-success' %>
   </div>
-  <%= form_with url: find_order_path, method: 'get', class: "form-group container pt-5 open-sans" do |f| %>
+  <%= form_with url: find_order_path, method: 'get', class: "form-group container pt-5 open-sans font-weight-bold" do |f| %>
     <div class="form-group">
       <%= f.label :order_id %>
       <%= f.text_field(:order_id, placeholder: "Put your order ID here!", class: "form-control") %>

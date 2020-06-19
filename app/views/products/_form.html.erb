@@ -10,7 +10,7 @@
   </section>
 <%end%>
 
-<%= form_with model: @product, url: path, method: method, class: "form-group container pt-5 open-sans" do |f| %>
+<%= form_with model: @product, url: path, method: method, class: "form-group container pt-5 open-sans font-weight-bold" do |f| %>
   <div class="form-group">
     <%= f.label :name %>
     <%= f.text_field(:name, placeholder: "What will your product be called?", class: "form-control") %>
