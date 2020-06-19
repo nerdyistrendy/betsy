@@ -12,26 +12,36 @@
 <% end %>
 
 <section>
-  <%= image_tag @product.img_url %>
-  <h4>Leave a review for: <%= @product.name %><h4>
-  <%= form_with model: @review, url: product_reviews_path, class: "form-group container" do |f| %>
-    <div class="form-group">
-      <%= f.label :reviewer, "Nickname" %>
-      <%= f.text_field :reviewer, placeholder: "What's your nickname?", class: "form-control" %>
+<div class="container">
+  <div class="row">
+    <div class="col">
+      <div class="container text-center mt-5">
+        <%= image_tag @product.img_url, class: "w-50" %>
+      </div>
+      <h2 class="pt-3 text-center">Leave a review for: </h2>
+      <h2 class="text-center open-sans"><%= @product.name %></h2>
     </div>
-    
-    <div class="form-group">
-      <%= f.label :rating %>
-      <%= f.select :rating, [1, 2, 3, 4, 5], {}, class: "form-control" %>
-    </div>
+    <div class="col">
+      <%= form_with model: @review, url: product_reviews_path, class: "form-group container pt-5 open-sans" do |f| %>
+        <div class="form-group">
+          <%= f.label :reviewer, "Nickname" %>
+          <%= f.text_field :reviewer, placeholder: "What would you like to be known as?", class: "form-control" %>
+        </div>
+        
+        <div class="form-group">
+          <%= f.label :rating %>
+          <%= f.select :rating, [1, 2, 3, 4, 5], {}, class: "form-control" %>
+        </div>
 
-    <div class="form-group">
-      <%= f.label :text %>
-      <%= f.text_area :text, placeholder: "How did you like the product?", class: "form-control" %>
-    </div>
+        <div class="form-group">
+          <%= f.label :text %>
+          <%= f.text_area :text, placeholder: "How did you like this product?", class: "form-control" %>
+        </div>
 
-    <div class="form-group">
-      <%= f.submit "Submit Review", class: "btn btn-success" %>
+        <div class="form-group">
+          <%= f.submit "Submit Review", class: "btn btn-success" %>
+        </div>
+      <% end %>
     </div>
-  <% end %>
+  </div>
 </section>

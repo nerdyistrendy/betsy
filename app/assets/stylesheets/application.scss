@@ -29,6 +29,10 @@ p {
   font-family: 'Open Sans', sans-serif;
 }
 
+.open-sans {
+  font-family: 'Open Sans', sans-serif;
+}
+
 img.not-found {
   opacity: 0.5;
 }
@@ -94,4 +98,9 @@ footer a:hover {
 }
 footer p.copyright {
   color: rgb(154, 154, 154);
+}
+
+form.container {
+  padding-left: 0;
+  padding-right: 0;
 }

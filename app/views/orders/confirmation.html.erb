@@ -5,7 +5,7 @@
   </div>
 
   <section>
-    <h4>Order Placed <%= @order.created_at %></h4>
+    <h4>Order Placed <%= time_tag @order.created_at, @order.created_at.strftime("%B %d, %Y") %></h4>
     <h4>Total <%= number_to_currency(@order.order_total) %></h4>
     <h4>Order Status: <%= @order.status %></h4>
     <br>

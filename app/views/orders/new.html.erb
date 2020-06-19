@@ -9,40 +9,41 @@
 <% end %>
 
 <main>
-  <h2>Enter Shipping and Credit Card Information</h2>
+  <h2 class="pt-3 text-center">Enter Shipping and Credit Card Information</h2>
   <section>
-    <%= form_with model: @order, url: orders_path, method: "post" do |f| %>
+    <%= form_with model: @order, url: orders_path, method: "post", class: "form-group container pt-5 open-sans" do |f| %>
       <div class ="form-group">
         <%= f.label :Name %>
-        <%= f.text_field :name, class:"form-control", required: true  %>
+        <%= f.text_field :name, class:"form-control", placeholder: "Freddi Barks", required: true  %>
       </div>
       <div class ="form-group">
         <%= f.label :Email %>
-        <%= f.text_field :email, class: "form-control", required: true%>
+        <%= f.text_field :email, class: "form-control", placeholder: "freddi_barks@email.com", required: true%>
       </div>
       <div class ="form-group">
         <%= f.label :Mailing_Address %>
-        <%= f.text_field :mailing_address, class: "form-control", required: true %>
+        <%= f.text_field :mailing_address, class: "form-control", placeholder: "1234 Bark St", required: true %>
       </div>
       <div class ="form-group">
         <%= f.label :Zipcode %>
-        <%= f.text_field :zipcode, class: "form-control", required: true %>
+        <%= f.text_field :zipcode, class: "form-control", placeholder: "12345", required: true %>
       </div>
       <div class ="form-group">
         <%= f.label :Name_on_Credit_Card %>
-        <%= f.text_field :cc_name, class: "form-control", required: true %>
+        <%= f.text_field :cc_name, class: "form-control", placeholder: "Freddi Barks", required: true %>
       </div>
       <div class ="form-group">
         <%= f.label :Credit_Card_Number %>
-        <%= f.text_field :cc_number, class: "form-control", required: true %>
+        <%= f.text_field :cc_number, class: "form-control", placeholder: "1234567812345678", required: true %>
       </div>
       <div class ="form-group">
         <%= f.label :CVV%>
-        <%= f.text_field :cc_cvv, class: "form-control", required: true %>
+        <%= f.text_field :cc_cvv, class: "form-control", placeholder: "123", required: true %>
       </div>
       <div class ="form-group">
-        <%= f.label "Credit Card Expiration Date YYYY-MM-DD" %>
-        <%= f.text_field :cc_exp, required: true %>
+        <%= f.label :cc_exp, "Credit Card Expiration Date YYYY-MM-DD" %>
+        <%# f.text_field :cc_exp, class: "", required: true %>
+        <%= f.date_select :cc_exp, class: "form_control", required: true %>
       </div>
       <div class ="form-group">
         <%= f.submit "Complete Order", class:"btn btn-success"%>

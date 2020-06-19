@@ -3,14 +3,14 @@
     <div class="alert alert-warning">
       <ul>
         <%@product.errors.each do |column, message|%>
-          <li> <%=column%>: <%=message%> </li>
+          <li><p><%=column%>: <%=message%></p></li>
         <%end%>
       </ul>
     </div>
   </section>
 <%end%>
 
-<%= form_with model: @product, url: path, method: method, class: "form-group container" do |f| %>
+<%= form_with model: @product, url: path, method: method, class: "form-group container pt-5 open-sans" do |f| %>
   <div class="form-group">
     <%= f.label :name %>
     <%= f.text_field(:name, placeholder: "Product Name", class: "form-control") %>
