@@ -66,6 +66,14 @@ div.caption-3 {
   font-size: 2rem;
 }
 
+div.caption-5 {
+  margin: 32vh auto;
+}
+
+div.caption-5 > * {
+  margin: 1rem 0;
+}
+
 footer.footer {
   bottom: 0;
   width: 100%;
@@ -151,6 +159,6 @@ div.navbar-cart{
 }
 
 p.shop-now {
-  font-size: 1.5rem;
+  font-size: 1.3rem;
   color: rgb(224, 221, 221);
 }
