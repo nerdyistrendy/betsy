@@ -349,7 +349,7 @@ describe ProductsController do
         get edit_product_path(-5)
 
         must_respond_with :redirect 
-        must_redirect_to root_path
+        must_redirect_to not_found_path
         expect(flash[:warning]).must_equal "Invalid Product"
       end 
 
@@ -413,7 +413,7 @@ describe ProductsController do
         delete product_path(-5)
 
         must_respond_with :redirect
-        must_redirect_to root_path
+        must_redirect_to not_found_path
         expect(flash[:warning]).must_equal "Invalid Product"
       end
 
@@ -461,10 +461,10 @@ describe ProductsController do
         must_redirect_to root_path
       end
 
-      it "will redirect to root path if product is invalid" do
+      it "will redirect to not found path if product is invalid" do
         patch toggle_active_path(-5)
   
-        must_redirect_to root_path
+        must_redirect_to not_found_path
       end
 
       it "will not toggle active if logged in merchant doesn't own said product" do

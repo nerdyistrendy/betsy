@@ -84,7 +84,7 @@ class ProductsController < ApplicationController
     
     if !@product
       flash[:warning] = "Invalid Product"
-      redirect_back fallback_location: root_path
+      redirect_to not_found_path
     elsif @product.merchant_id != @login_merchant.id
       flash[:warning] = "You are not authorized to edit that product."
       redirect_to product_path(@product.id)
@@ -117,6 +117,8 @@ class ProductsController < ApplicationController
   def destroy
     if !@product
       flash[:warning] = "Invalid Product"
+      redirect_to not_found_path
+      return
     else
       if @product.merchant.id == @login_merchant.id
         if @product.destroy
@@ -193,6 +195,8 @@ class ProductsController < ApplicationController
       end
     else
       flash[:warning] = "Invalid Product"
+      redirect_to not_found_path
+      return
     end
     redirect_to root_path
     return
