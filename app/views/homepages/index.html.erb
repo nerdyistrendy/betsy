@@ -1,4 +1,4 @@
-<main>
+<main class="bg-dark">
   <div id="carouselExampleIndicators" class="carousel slide" data-ride="carousel">
     <ol class="carousel-indicators">
       <li data-target="#carouselExampleIndicators" data-slide-to="0" class="active"></li>
@@ -22,7 +22,7 @@
       <div class="carousel-item">
         <%= image_tag "https://lh3.googleusercontent.com/pw/ACtC-3dPMGNbHHr31WfHdFnKvoEpxjiOUMkgvs4D7Z1TJ7YLZ8e43VG2_Z_O4GWa69u_W5RGXuQaAoqL_gxSFS6UN_TvANTISmXOumS-nRU0KKAXABBICBkqkjzhjeEB3lLCi0kEkf0NqITn87PaNx3QBNAg=w1644-h822-no?authuser=0", class: "d-block w-100" %>
         <div class="carousel-caption d-none d-md-block caption-3">
-          <p>From simple essentials to soap and shovels, to books that soothe your sense of isolation and hopelessness...</p>
+          <p>From simple essentials from soap and shovels, to books that soothe your sense of isolation and hopelessness...</p>
           <h1>We've got you covered.</h1>
         </div>
       </div>
@@ -36,8 +36,13 @@
       </a>
     </div>
   </div>
-  <div class="container">
-  </div>
-  <div class="container">
-  </div>
+
+  <section class="d-flex justify-content-around align-items-center flex-wrap container-fluid">
+    <%= image_tag "https://lh3.googleusercontent.com/pw/ACtC-3fBYUGxjDL_DIr85dlIcRzrqxsWv1Icp2SwuL_xgjV51iNhBknXfg2oo4hC2pdgYFG6ZhFqq34vJNpHI7pqxTRFhe0W32_0VBbojN6EDVX2-HY2_32C7AyQYvA0U0epuLD24cQT3vE7A6NdL68CbcmWbA=s1098-no?authuser=0", class: "d-block w-50 hp-block" %>
+    
+    <div class="d-block w-50 hp-block align-self-center caption-1">
+      <p class="shop-now">From simple essentials from soap and shovels, to books that soothe your sense of isolation and hopelessness...</p>
+      <%= link_to "Shop Now", products_path, class: "btn btn-success hp-button" %> 
+    </div>
+  </section>
 </main>
