@@ -1,14 +1,9 @@
 <main class="container text-center merchant-cont" >
-
-  <section class="d-flex justify-content-around flex-wrap container-fluid container">
-    <div class="card bg-dark text-light align-self-center shadow-lg merchant-card">
-      <div class="card-body">
-        <h1> <%= @merchant.username %> </h1>
-        <h5> Merchant ID # <%= @merchant.id %> </h5>
-        <h5> <%= @merchant.email %> </h5>
-        <h5> Joined since <%= @merchant.created_at.strftime("%m-%d-%y") %> </h5>
-      </div>
-    </div>
+  <section class="card-body">
+    <h2 class="merchant-profile"> <%= @merchant.username %> </h1>
+    <h3> Merchant ID # <%= @merchant.id %> </h3>
+    <h3> <%= @merchant.email %> </h3>
+    <h3> Joined since <%= @merchant.created_at.strftime("%m-%d-%y") %> </h3>
   </section>
 
   <section class="container btn-merchant">
@@ -17,12 +12,11 @@
     <%= link_to "Order Fulfillments", fulfillment_path, class: "btn btn-success" %>
   </section>
 
-
   <h3>Products</h3>
   <table class="table table-hover bg-lightgray shadow-lg">
     <thead class="thead-dark">
       <tr>
-        <th>Name</th>
+        <th>Product Name</th>
         <th>Inventory</th>
         <th>Price</th>
         <th>Active</th>
