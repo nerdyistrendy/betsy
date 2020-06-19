@@ -82,6 +82,7 @@ div.caption-6 {
 
 
 footer.footer {
+  position: relative;
   bottom: 0;
   width: 100%;
   // position: sticky;
@@ -189,12 +190,25 @@ ul.about-list {
   list-style-image: url('https://lh3.googleusercontent.com/pw/ACtC-3cJN7v5gwxl2qpVumTV96PXJ40Ksl_MEUdf3ymj9kyi3y3ZdUiQXwqv917uZiGmOeFrIyOkHviaigt3bRdDbkdNrnfBZMzDAes_Pm5OGs5w3dgpMbGtndO6iUmTxtTELz1PklzYpovHONdZjh2I12dm=s30-no?authuser=0');
 }
 
+.middle-card{
+  height: 100vh;
+}
 .learn-img {
   border: none;
 }
 
 .learn-card {
   border: none;
-  margin-bottom: 5rem;
+  height: 130vh;
+
 }
 
+.footer-logo{
+  position: relative;
+  left: 33vw;
+  font-size: 1.2em;
+  color: white;
+}
+.footer-logo img{
+  width: 500px;
+}
