@@ -40,7 +40,7 @@ class OrderItemsController < ApplicationController
       end
     else
       flash[:warning] = "Invalid Order Item"
-      redirect_back(fallback_location: root_path)
+      redirect_to not_found_path
       return
     end
   end
@@ -66,7 +66,7 @@ class OrderItemsController < ApplicationController
       end
     else
       flash[:warning] = "Invalid Order Item"
-      redirect_back(fallback_location: root_path)
+      redirect_to not_found_path
       return
     end
   end

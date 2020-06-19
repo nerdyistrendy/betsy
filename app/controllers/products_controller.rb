@@ -39,8 +39,8 @@ class ProductsController < ApplicationController
       redirect_to not_found_path
       return
     else
-    @reviews = @product.reviews
-    @average_rating = @product.average_rating
+      @reviews = @product.reviews
+      @average_rating = @product.average_rating
     end
   end
 
@@ -146,7 +146,7 @@ class ProductsController < ApplicationController
         render :show, status: :bad_request
         return
       elsif @quantity >= @product.inventory
-        flash.now[:warning] = "Quantity requested is larger that product inventory"
+        flash.now[:warning] = "Quantity requested is larger than product inventory"
         render :show, status: :bad_request
         return
       elsif @product.active == false
