@@ -1,14 +1,28 @@
 <main>
+  <style>
+    form.container {
+      padding-left: 0;
+      padding-right: 0;
+    }
+
+    #leave_review {
+      margin-left: -25vw;
+      margin-right: 7vw;
+    }
+  </style>
+
   <section class="d-flex text-center p-4">
     <div class="row">
       <div class="col">
-        <%= image_tag "#{@product.img_url}", class: "img-thumbnail shadow-sm w-50" %>
+        <%= image_tag "#{@product.img_url}", class: "img-thumbnail shadow-sm w-60 card bg-dark mt-5 mb-5  ml-5" %>
       </div>
-      <div class="col text-right">
+      
+      <div class="col text-left mt-5 ml-5">
         <h3><b><%= @product.name %></b></h3>
-        <h4><b>Seller: <%= link_to @product.merchant.username, dashboard_path %></b></h4>
+        <h4><b>Seller: <%= link_to @product.merchant.username, merchant_products_path(@product.merchant_id) %></b></h4>
         <p><%= @product.description %></p>
         <% if !@product.categories.empty? %>
+          <strong>Categories:</strong>
           <% @product.categories.each do |c|%>
             <p><%= c.name %></p>
           <% end %>
@@ -20,24 +34,18 @@
         <% else %>
           <p>Out of Stock</p>
         <% end %>
+    
         <%= render partial: "quantform", locals: { action_name: "Add to cart" } %>
+        
       </div>
-      <div class="w-100"></div>
-    <%# </div>
-    <div class="container row"> %>
-      <div class="col">
-        <%= render partial: "reviews/reviews", locals: { reviews: @reviews }  %>
 
-        <%= button_to "Leave Review", new_product_review_path(@product.id), class: "btn   btn-success float-right", method: :get %>
-      </div>
+      <div class="w-100 mb-0"></div>
+        <div class="col ml-0 mr-0 mb-5">
+          <div class="col mr--100">
+            <%= button_to "Leave Review", new_product_review_path(@product.id), id: "leave_review", class: "btn   btn-success float-right", method: :get %>
+          </div>
+          <%= render partial: "reviews/reviews", locals: { reviews: @reviews }  %>
+        </div>
     </div>
   </section>
 </main>
-
-
-  
-
-
-
-
-  
