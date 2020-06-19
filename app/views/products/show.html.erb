@@ -39,13 +39,9 @@
         
       </div>
 
-      <div class="w-100 mb-0"></div>
-        <div class="col ml-0 mr-0 mb-5">
-          <div class="col mr--100">
-            <%= button_to "Leave Review", new_product_review_path(@product.id), id: "leave_review", class: "btn   btn-success float-right", method: :get %>
-          </div>
-          <%= render partial: "reviews/reviews", locals: { reviews: @reviews }  %>
-        </div>
+      <div class="w-100 ml-0 mr-0 mb-0"></div>
+        <%= button_to "Leave Review", new_product_review_path(@product.id), id: "leave_review", class: "btn   btn-success float-right", method: :get %>
+        <%= render partial: "reviews/reviews", locals: { reviews: @reviews }  %>
     </div>
   </section>
 </main>
