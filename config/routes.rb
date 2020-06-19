@@ -3,6 +3,7 @@ Rails.application.routes.draw do
   root to: "homepages#index"
 
   get "/homepages/not_found", to: "homepages#not_found", as: "not_found"
+  get "/homepages/about", to: "homepages#about", as: "about"
   get "/auth/github", as: "github_login"
   get "/auth/:provider/callback", to: "merchants#create", as: "oauth_callback"
   post "/logout", to: "merchants#logout", as: "logout"

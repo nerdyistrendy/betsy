@@ -4,4 +4,9 @@ class HomepagesController < ApplicationController
     @merchants = Merchant.all
     @categories = Category.all
   end
+
+  def about
+
+
+  end
 end
