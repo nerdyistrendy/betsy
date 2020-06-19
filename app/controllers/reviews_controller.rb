@@ -4,7 +4,7 @@ class ReviewsController < ApplicationController
   def new
     if @product
       if @login_merchant && (@product.merchant_id == @login_merchant.id)
-        flash[:error] = "You can't review your own product"
+        flash[:warning] = "You can't review your own product"
         redirect_to product_path(@product.id)
         return
       else
@@ -12,7 +12,7 @@ class ReviewsController < ApplicationController
         @review.rating = 5
       end
     else
-      flash[:error] = "Invalid Product"
+      flash[:warning] = "Invalid Product"
       redirect_to root_path
     end
     return
@@ -24,17 +24,17 @@ class ReviewsController < ApplicationController
       @review.product_id = @product.id
 
       if @login_merchant && (@product.merchant_id == @login_merchant.id)
-        flash[:error] = "You cannot review your own product"
+        flash[:warning] = "You cannot review your own product"
       elsif @review.save
         flash[:success] = "Successfully added review"
       else
-        flash.now[:error] = "Unable to add review"
+        flash.now[:warning] = "Unable to add review"
         render :new, status: :bad_request
         return
       end
       redirect_to product_path(@product.id)
     else
-      flash[:error] = "Invalid Product"
+      flash[:warning] = "Invalid Product"
       redirect_to root_path
     end
     return
