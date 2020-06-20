@@ -53,22 +53,18 @@ div.carousel-item img {
 }
 
 div.caption-1 {
-  margin: 40vh auto;
   font-size: 2rem;
+  height: 100%;
 }
 
 div.caption-2 {
-  margin: 20vh auto;
   font-size: 3rem;
+  height: 100%;
 }
 
 div.caption-3 {
-  margin: 32vh auto;
   font-size: 2rem;
-}
-
-div.caption-5 {
-  margin: 32vh auto;
+  height: 100%;
 }
 
 div.caption-5 > * {
@@ -76,9 +72,10 @@ div.caption-5 > * {
 }
 
 div.caption-6 {
-  margin: 70vh auto;
   font-size: 2rem;
+  height: 100%;
   color: white;
+  padding-bottom: 5rem;
 }
 
 
@@ -102,9 +99,20 @@ img.navbar-brand {
   width: 20rem;
 }
 
+div.navbar-brand {
+  font-size: .75rem;
+}
+
+div.navbar-brand p {
+  font-size: .77rem;
+  margin-left: 0.4rem;
+}
+
 div.product-card {
   width: 20rem;
 }
+
+
 
 footer a {
   color: rgb(30, 159, 60);
@@ -129,14 +137,19 @@ form.container {
 }
 
 div.navbar-cart{
-  position: relative;
+  // position: relative;
+  
+  // border:red solid 5px;
+  margin: 2rem 1rem 0 1rem;
+
+
 }
 
 .navbar-cart img{
   position: relative;
   width: 60px;
-  height: 60px;
-  left: 470px;
+  // height: 60px;
+  // left: 470px;
   top: 11px;
 }
 
@@ -150,7 +163,7 @@ div.navbar-cart{
   background-color: green;
   color: white;
   border: 2px solid white;
-  left: 510px;
+  left: 40px;
   top: -65px;
 }
 
@@ -192,24 +205,19 @@ ul.about-list {
 }
 
 .middle-card{
-  height: 100vh;
+  height: 120vh;
 }
 .learn-img {
   border: none;
+  height: 100%;
 }
 
 .learn-card {
   border: none;
-  height: 130vh;
-
+  height: 100vh;
 }
 
-.footer-logo {
-  position: relative;
-  left: 33vw;
-  font-size: 1.2em;
-  color: white;
-}
-.footer-logo img {
-  width: 500px;
+p.footer-logo {
+  font-size: 0.67rem;
+  margin-right: 0.5rem;
 }
