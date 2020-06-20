@@ -99,9 +99,20 @@ img.navbar-brand {
   width: 20rem;
 }
 
+div.navbar-brand {
+  font-size: .75rem;
+}
+
+div.navbar-brand p {
+  font-size: .77rem;
+  margin-left: 0.4rem;
+}
+
 div.product-card {
   width: 20rem;
 }
+
+
 
 footer a {
   color: rgb(30, 159, 60);
@@ -126,13 +137,18 @@ form.container {
 }
 
 div.navbar-cart{
-  position: relative;
+  // position: relative;
+  
+  // border:red solid 5px;
+  margin: 2rem 1rem 0 1rem;
+
+
 }
 
 .navbar-cart img{
   position: relative;
   width: 60px;
-  height: 60px;
+  // height: 60px;
   // left: 470px;
   top: 11px;
 }
